@@ -5,8 +5,8 @@
 ### Stages
 
 #### WebAuthn Authenticator Setup Stage
-- Authenticator type name: WebAuthn
-- Name -> metropolis-webauthn-setup
+- Authenticator type name -> WebAuthn device
+- Name -> metropolis-authenticator-webauthn-setup
 - User verification -> Required: User verification must occur
 - Resident Key Requirement -> Required: The authenticator MUST create a dedicated credential
 - Authenticator attachment -> A "roaming" authenticator
