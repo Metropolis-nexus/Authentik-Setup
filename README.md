@@ -11,6 +11,13 @@
 - Resident Key Requirement -> Required: The authenticator MUST create a dedicated credential
 - Authenticator attachment -> A "roaming" authenticator
 
+#### Authenticator Validation Stage
+- Name -> metropolis-authentication-mfa-validation
+- Device classes -> WebAuthn Authenticators
+- Not configured action -> Force the user to configure an authenticator
+- WebAuthn User verification -> User verification must occur
+- Configuration stages -> metropolis-authenticator-webauthn-setup
+
 ## System
 
 ### Settings
