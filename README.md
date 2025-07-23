@@ -47,6 +47,7 @@ Download and import "Enrollment with email verification".
 - Slug -> metropolis-authentication-flow
 - Designation -> Authentication
 - Authentication -> No requirement
+- Enable compatibility mode
 - Denied action -> MESSAGE_CONTINUE
 - Policy engine mode -> any
 
