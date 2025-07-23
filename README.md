@@ -31,6 +31,13 @@ Download and import "Enrollment with email verification".
 - default-enrollment-field-password-reset
 - default-enrollment-field-username
 
+### User Write Stage
+- Name -> metropolis-enrollment-user-write
+- Awaits create new users
+- Create user as inactive
+- User type -> Internal
+- Group -> metropolis-default
+
 #### WebAuthn Authenticator Setup Stage
 - Name -> metropolis-authenticator-webauthn-setup
 - Authenticator type name -> WebAuthn device
