@@ -56,6 +56,10 @@ Stage bindings:
 - metropolis-authentication-mfa-validation -> 30
 - default-authentication-login -> 100
 
+### Cleanup
+- Delete initial-setup flow
+- Delete stage-default-oobe-password
+
 ## System
 
 ### Brands
