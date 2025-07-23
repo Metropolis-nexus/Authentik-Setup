@@ -38,7 +38,7 @@ Stage bindings:
 
 ## System
 
-### Brand
+### Brands
 
 #### authentik-default
 - Disable "Default"
