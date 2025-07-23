@@ -38,6 +38,20 @@ Stage bindings:
 
 ## System
 
+### Brand
+
+#### authentik-default
+- Disable "Default"
+
+#### metropolis.nexus
+- Domain: metropolis.nexus
+- Enable "Default" -> Make this the default brand
+- Title -> Metropolis Nexus
+- Default flows
+  - Authentication flow -> metropolis-authentication-flow
+  - Invalidation flow -> default-invalidation-flow
+  - User settings flow -> default-user-settings-flow
+
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
 - Disable "Require reason for impersonation"
