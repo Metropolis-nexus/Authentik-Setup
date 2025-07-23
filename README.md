@@ -3,11 +3,16 @@
 ## Directory
 
 ### Groups
-- Create metropolis-nexus-default
+- Create metropolis-default
 
 ## Flow and Stages
 
 ### Stages
+
+### Email Stage
+- Name -> metropolis-email-confirmation
+- Subject -> Metropolis account confirmation
+- Template -> Account confirmation
 
 #### WebAuthn Authenticator Setup Stage
 - Name -> metropolis-authenticator-webauthn-setup
