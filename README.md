@@ -23,6 +23,14 @@ Download and import "Enrollment with email verification".
 - Enable "Remember me on this device"
 - Enrollment flow -> default-enrollment-flow
 
+### Prompt Stage
+- Name -> metropolis-enrollment-prompt
+- default-enrollment-field-email
+- default-enrollment-field-name
+- default-enrollment-field-password
+- default-enrollment-field-password-reset
+- default-enrollment-field-username
+
 #### WebAuthn Authenticator Setup Stage
 - Name -> metropolis-authenticator-webauthn-setup
 - Authenticator type name -> WebAuthn device
@@ -80,6 +88,8 @@ Stage bindings:
 - Delete initial-setup flow
 - Delete default-enrollment-flow
 - Delete stage-default-oobe-password stage
+- Delete default-enrollment-prompt-first
+- Delete default-enrollment-prompt-second
 
 ## System
 
