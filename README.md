@@ -7,12 +7,20 @@
 
 ## Flow and Stages
 
+### Importing stuff
+Download link: https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
+Download and import "Enrollment with email verification".
+
 ### Stages
 
-### Email Stage
-- Name -> metropolis-email-confirmation
-- Subject -> Metropolis account confirmation
-- Template -> Account confirmation
+#### Identification Stage
+- Name -> metropolis-authentication-identification
+- User fields -> Username, email
+- Enable Case insensitive matching
+- Enable Pretend user exists
+- Enable Show matched user
+- Enable "Remember me on this device"
+- Enrollment flow -> default-enrollment-flow
 
 #### WebAuthn Authenticator Setup Stage
 - Name -> metropolis-authenticator-webauthn-setup
