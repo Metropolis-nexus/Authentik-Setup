@@ -39,6 +39,5 @@ Stage bindings:
 ## System
 
 ### Settings
-- Avatar -> Change to 'initials' only - we do not want Gravatar.
-- Enable "Allow users to change email"
+- **DO NOT** enable "Allow users to change email" (See [ this discussion ](https://github.com/goauthentik/authentik/issues/4097))
 - Disable "Require reason for impersonation"
