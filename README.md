@@ -58,7 +58,7 @@ Stage bindings:
 
 ### Cleanup
 - Delete initial-setup flow
-- Delete stage-default-oobe-password
+- Delete stage-default-oobe-password stage
 
 ## System
 
