@@ -50,7 +50,7 @@ Download and import "Enrollment with email verification".
 - Policy engine mode -> any
 
 Stage bindings:
-- default-authentication-identification -> 10
+- metropolis-authentication-identification -> 10
 - default-authentication-password -> 20
 - metropolis-authentication-mfa-validation -> 30
 - default-authentication-login -> 100
