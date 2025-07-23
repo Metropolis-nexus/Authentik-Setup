@@ -1,5 +1,10 @@
 # Authentik-Setup
 
+## Directory
+
+### Groups
+- Create metropolis-nexus-default
+
 ## Flow and Stages
 
 ### Stages
