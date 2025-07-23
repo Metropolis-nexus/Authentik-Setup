@@ -16,6 +16,7 @@ Download and import "Enrollment with email verification".
 #### Identification Stage
 - Name -> metropolis-authentication-identification
 - User fields -> Username, email
+- Password stage -> default-authentication-password
 - Enable Case insensitive matching
 - Enable Pretend user exists
 - Enable Show matched user
@@ -51,7 +52,6 @@ Download and import "Enrollment with email verification".
 
 Stage bindings:
 - metropolis-authentication-identification -> 10
-- default-authentication-password -> 20
 - metropolis-authentication-mfa-validation -> 30
 - default-authentication-login -> 100
 
