@@ -10,6 +10,7 @@
 - User verification -> Required: User verification must occur
 - Resident Key Requirement -> Discouraged: The authenticator should not create a dedicated credential
 - Authenticator attachment -> A "roaming" authenticator
+- Configuration flow -> default-authenticator-webauthn-setup
 
 #### Authenticator Validation Stage
 - Name -> metropolis-authentication-mfa-validation
