@@ -70,7 +70,7 @@ Stage bindings:
 - default-enrollment-prompt-first -> 10
 - default-enrollment-prompt-second -> 11
 - default-enrollment-user-write -> 20
-- default-enrollment-email-vverification -> 30
+- default-enrollment-email-verification -> 30
 - default-enrollment-user-login -> 100
 
 ### Update
