@@ -40,7 +40,7 @@ Download and import "Enrollment with email verification".
 
 ### Flows
 
-#### Create a new authentication flow
+#### metropolis-authentication-flow
 
 - Name -> Welcome to Metropolis Nexus!
 - Tite -> Welcome to Metropolis Nexus!
@@ -55,6 +55,26 @@ Stage bindings:
 - metropolis-authentication-identification -> 10
 - metropolis-authentication-mfa-validation -> 30
 - default-authentication-login -> 100
+
+#### metropolis-enrollment-flow
+- Name -> Metropolis enrollment Flow
+- Title -> Welcome to Metropolis Nexus!
+- Slug -> metropolis-enrollment-flow
+- Designation -> Enrollment
+- Authentication -> Require no authentication
+- Enable compatibility mode
+- Denied action -> MESSAGE_CONTINUE
+- Policy engine mode -> any
+
+Stage bindings:
+- default-enrollment-prompt-first -> 10
+- default-enrollment-prompt-second -> 11
+- default-enrollment-user-write -> 20
+- default-enrollment-email-vverification -> 30
+- default-enrollment-user-login -> 100
+
+### Update
+- Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
 
 ### Cleanup
 - Delete initial-setup flow
