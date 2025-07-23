@@ -75,21 +75,13 @@ Stage bindings:
 - Policy engine mode -> any
 
 Stage bindings:
-- default-enrollment-prompt-first -> 10
-- default-enrollment-prompt-second -> 11
+- metropolis-enrollment-prompt -> 10
 - default-enrollment-user-write -> 20
 - default-enrollment-email-verification -> 30
 - default-enrollment-user-login -> 100
 
 ### Update
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
-
-### Cleanup
-- Delete initial-setup flow
-- Delete default-enrollment-flow
-- Delete stage-default-oobe-password stage
-- Delete default-enrollment-prompt-first
-- Delete default-enrollment-prompt-second
 
 ## System
 
@@ -106,9 +98,6 @@ Stage bindings:
   - Authentication flow -> metropolis-authentication-flow
   - Invalidation flow -> default-invalidation-flow
   - User settings flow -> default-user-settings-flow
-
-#### Cleanup
-- Delete authentik-default
 
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
