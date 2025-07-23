@@ -78,6 +78,7 @@ Stage bindings:
 
 ### Cleanup
 - Delete initial-setup flow
+- Delete default-enrollment-flow
 - Delete stage-default-oobe-password stage
 
 ## System
