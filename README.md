@@ -72,6 +72,9 @@ Stage bindings:
   - Invalidation flow -> default-invalidation-flow
   - User settings flow -> default-user-settings-flow
 
+#### Cleanup
+- Delete authentik-default
+
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
 - Disable "Require reason for impersonation"
