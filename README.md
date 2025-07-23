@@ -55,7 +55,7 @@ Stage bindings:
 - Disable "Default"
 
 #### metropolis.nexus
-- Domain: metropolis.nexus
+- Domain: auth.metropolis.nexus
 - Enable "Default" -> Make this the default brand
 - Title -> Metropolis Nexus
 - Default flows
