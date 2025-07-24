@@ -25,8 +25,8 @@ Download and import "Enrollment with email verification".
 
 ### User Write Stage
 - Name -> metropolis-enrollment-user-write
-- Awaits create new users
-- Create user as inactive
+- Always create new users
+- Disable Create user as inactive
 - User type -> Internal
 - Group -> metropolis-default
 
@@ -75,7 +75,7 @@ Stage bindings:
 
 Stage bindings:
 - default-enrollment-prompt-first -> 10
-- default-enrollment-user-write -> 20
+- metropolis-enrollment-user-write -> 20
 - default-enrollment-user-login -> 100
 
 ### Update
