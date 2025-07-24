@@ -60,7 +60,6 @@ Download and import "Enrollment with email verification".
 
 Stage bindings:
 - metropolis-authentication-identification -> 10
-  - default-authentication-flow-password-stage -> 10
 - metropolis-authentication-mfa-validation -> 30
 - default-authentication-login -> 100
 
