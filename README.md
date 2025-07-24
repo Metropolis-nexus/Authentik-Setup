@@ -23,14 +23,6 @@ Download and import "Enrollment with email verification".
 - Enable "Remember me on this device"
 - Enrollment flow -> default-enrollment-flow
 
-### Prompt Stage
-- Name -> metropolis-enrollment-prompt
-- default-enrollment-field-email
-- default-enrollment-field-name
-- default-enrollment-field-password
-- default-enrollment-field-password-reset
-- default-enrollment-field-username
-
 ### User Write Stage
 - Name -> metropolis-enrollment-user-write
 - Awaits create new users
@@ -82,9 +74,8 @@ Stage bindings:
 - Policy engine mode -> any
 
 Stage bindings:
-- metropolis-enrollment-prompt -> 10
+- default-enrollment-prompt-first -> 10
 - default-enrollment-user-write -> 20
-- default-enrollment-email-verification -> 30
 - default-enrollment-user-login -> 100
 
 ### Update
