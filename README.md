@@ -11,6 +11,12 @@
 Download link: https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
 Download and import "Enrollment with email verification".
 
+### Policies
+
+#### Expression Policy
+- Name -> metropolis-geoip
+- Expression -> `return not context["geoip"]["country"] == "GB"`
+
 ### Stages
 
 #### Identification Stage
@@ -63,6 +69,9 @@ Stage bindings:
 - metropolis-authentication-mfa-validation -> 30
 - default-authentication-login -> 100
 
+Policy bindings:
+- metropolis-geoip -> 10 -> Don't pass
+
 #### metropolis-enrollment-flow
 - Name -> Metropolis enrollment Flow
 - Title -> Welcome to Metropolis Nexus!
@@ -77,6 +86,9 @@ Stage bindings:
 - default-enrollment-prompt-first -> 10
 - metropolis-enrollment-user-write -> 20
 - default-enrollment-user-login -> 100
+
+Policy bindings:
+- metropolis-geoip -> 10 -> Don't pass
 
 ### Update
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
