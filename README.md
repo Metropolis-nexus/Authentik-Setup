@@ -21,6 +21,14 @@ Download and import "Enrollment with email verification".
 
 ### Prompts
 
+#### metropolis-enrollment-field-name
+- Name -> metropolis-enrollment-field-name
+- Field Key -> name
+- Label -> Name
+- Type -> Text: Simple Text input
+- Not Required
+- Order -> 2
+
 #### metropolis-enrollment-checkbox-age
 - Name -> metropolis-enrollment-checkbox-age
 - Field Key -> age
@@ -28,7 +36,6 @@ Download and import "Enrollment with email verification".
 - Type -> Checkbox
 - Required
 - Order -> 999
-
 
 ### Stages
 
@@ -43,11 +50,11 @@ Download and import "Enrollment with email verification".
 ### Prompt Stage
 - Name -> metropolis-enrollment-prompt
 - Fields:
-  - default-enrollment-field-name
   - default-enrollment-field-password
   - default-enrollment-field-password-repeat
   - default-enrollment-field-username
   - metropolis-enrollment-checkbox-age
+  - metropolis-enrollment-field-name
 
 #### Identification Stage
 - Name -> metropolis-authentication-identification
