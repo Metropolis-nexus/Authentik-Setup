@@ -186,3 +186,16 @@ Stage bindings:
 - Delete initial-setup
 - Delete default-authenticator-totp-setup
 - Delete default-user-settings-flow
+- Delete default-enrollment-flow
+
+## Customization
+
+### Policies
+- Delete default-oobe-flow-set-authentication
+- Delete default-oobe-password-usable
+- Delete default-oobe-prefill-user
+
+## System
+
+### Brands
+- Delete authentik-default
