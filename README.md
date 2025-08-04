@@ -29,13 +29,21 @@ Download and import "Enrollment with email verification".
 - Not Required
 - Order -> 2
 
+#### metropolis-enrollment-checkbox-fido2
+- Name -> metropolis-enrollment-checkbox-age
+- Field Key -> fido2
+- Label -> I have a FIDO2 token.
+- Type -> Checkbox
+- Required
+- Order -> 400
+
 #### metropolis-enrollment-checkbox-age
 - Name -> metropolis-enrollment-checkbox-age
 - Field Key -> age
-- Label -> I am above the age of 18.
+- Label -> I am above 18 years of age.
 - Type -> Checkbox
 - Required
-- Order -> 999
+- Order -> 401
 
 ### Stages
 
@@ -54,6 +62,7 @@ Download and import "Enrollment with email verification".
   - default-enrollment-field-password-repeat
   - default-enrollment-field-username
   - metropolis-enrollment-checkbox-age
+  - metropolis-enrollment-checkbox-fido2
   - metropolis-enrollment-field-name
 
 #### Identification Stage
@@ -168,3 +177,12 @@ Stage bindings:
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
 - Disable "Require reason for impersonation"
+
+# Cleanup
+
+## Flow and Stages
+
+### Flows
+- Delete initial-setup
+- Delete default-authenticator-totp-setup
+- Delete default-user-settings-flow
