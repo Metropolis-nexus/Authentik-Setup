@@ -36,6 +36,12 @@ Download and import "Enrollment with email verification".
 - User type -> Internal
 - Group -> metropolis-default
 
+### User Write Stage
+- Name -> metropolis-user-settings-write
+- Never create users
+- Uncheck create user as inactive
+- User type -> Internal
+
 #### WebAuthn Authenticator Setup Stage
 - Name -> metropolis-authenticator-webauthn-setup
 - Authenticator type name -> WebAuthn device
@@ -50,6 +56,14 @@ Download and import "Enrollment with email verification".
 - Not configured action -> Force the user to configure an authenticator
 - WebAuthn User verification -> User verification must occur
 - Configuration stages -> metropolis-authenticator-webauthn-setup
+
+### Prompt Stage
+- Fields:
+  - default-user-settings-field-locale
+  - default-user-settings-field-name
+    
+- Validation policies
+  - default-user-settings-authorization
 
 ### Flows
 
@@ -90,6 +104,19 @@ Stage bindings:
 Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
+#### metropolis-user-settings-flow
+- Name -> Metropolis user settings
+- Title -> Update your info
+- slug -> metropolis-user-settings-flow
+- Designation -> Stage Configuration
+- Authentication -> Require authentication
+- Enable compatibility mode
+- Policy engine mode -> any
+
+Stage bindings:
+- metropolis-user-settings -> 20
+- metropolis-user-settings-write -> 100
+
 ### Update
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
 
@@ -107,7 +134,7 @@ Policy bindings:
 - Default flows
   - Authentication flow -> metropolis-authentication-flow
   - Invalidation flow -> default-invalidation-flow
-  - User settings flow -> default-user-settings-flow
+  - User settings flow -> metropolis-user-settings-flow
 
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
