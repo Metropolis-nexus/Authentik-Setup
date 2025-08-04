@@ -5,11 +5,7 @@
 ### Groups
 - Create metropolis-default
 
-## Flow and Stages
-
-### Importing stuff
-Download link: https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
-Download and import "Enrollment with email verification".
+## Customization
 
 ### Policies
 
@@ -17,7 +13,41 @@ Download and import "Enrollment with email verification".
 - Name -> metropolis-geoip
 - Expression -> `return not context["geoip"]["country"] == "GB"`
 
+## Flow and Stages
+
+### Importing stuff
+Download link: https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
+Download and import "Enrollment with email verification".
+
+### Prompts
+
+#### metropolis-enrollment-checkbox-age
+- Name -> metropolis-enrollment-checkbox-age
+- Field Key -> age
+- Label -> I am above the age of 18.
+- Type -> Checkbox
+- Required
+- Order -> 999
+
+
 ### Stages
+
+### Prompt Stage
+- Name -> metropolis-user-settings
+- Fields:
+  - default-user-settings-field-locale
+  - default-user-settings-field-name
+- Validation policies
+  - default-user-settings-authorization
+ 
+### Prompt Stage
+- Name -> metropolis-enrollment-prompt
+- Fields:
+  - default-enrollment-field-name
+  - default-enrollment-field-password
+  - default-enrollment-field-password-repeat
+  - default-enrollment-field-username
+  - metropolis-enrollment-checkbox-age
 
 #### Identification Stage
 - Name -> metropolis-authentication-identification
@@ -57,14 +87,6 @@ Download and import "Enrollment with email verification".
 - WebAuthn User verification -> User verification must occur
 - Configuration stages -> metropolis-authenticator-webauthn-setup
 
-### Prompt Stage
-- Fields:
-  - default-user-settings-field-locale
-  - default-user-settings-field-name
-    
-- Validation policies
-  - default-user-settings-authorization
-
 ### Flows
 
 #### metropolis-authentication-flow
@@ -97,7 +119,7 @@ Policy bindings:
 - Policy engine mode -> any
 
 Stage bindings:
-- default-enrollment-prompt-first -> 10
+- metropolis-enrollment-prompt -> 10
 - metropolis-enrollment-user-write -> 20
 - default-enrollment-user-login -> 100
 
