@@ -118,7 +118,7 @@ Download and import "Enrollment with email verification".
 
 #### Authenticator Validation Stage
 - Name: metropolis-authentication-mfa-validation
-- Device classes: Static Tokens, TOTP Authenticators, WebAuthn Authenticators
+- Device classes: Static Tokens, WebAuthn Authenticators
 - Not configured action: Force the user to configure an authenticator
 - WebAuthn User verification: User verification must occur
 - Configuration stages: metropolis-authenticator-webauthn-setup
