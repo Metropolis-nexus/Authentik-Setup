@@ -5,7 +5,7 @@
 ```
 PermitRootLogin yes
 ```
-
+- Restart sshd
 - Add NGINX's ssh key to `/root/.ssh/authorized_keys`
 - rsync TLS certificates to `/srv/authentik/authentik/certs/auth.metropolis.nexus`
 
