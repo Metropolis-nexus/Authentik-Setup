@@ -3,7 +3,7 @@
 - Create `/etc/ssh/sshd_config.d/10-certs.conf`:
 
 ```
-PermitRootLogin yes
+PermitRootLogin prohibit-password
 ```
 - Restart sshd
 - Add NGINX's ssh key to `/root/.ssh/authorized_keys`
