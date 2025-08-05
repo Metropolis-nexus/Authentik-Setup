@@ -196,6 +196,7 @@ Stage bindings:
   - Authentication flow: metropolis-authentication-flow
   - Invalidation flow: default-invalidation-flow
   - User settings flow: metropolis-user-settings-flow
+- Web Certificate: auth.metropolis.nexus
 
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
