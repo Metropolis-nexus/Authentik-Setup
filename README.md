@@ -1,5 +1,7 @@
 # Authentik-Setup
 
+Enter the admin section and configure the following:
+
 ## Directory
 
 ### Groups
@@ -9,54 +11,59 @@
 
 ### Policies
 
-#### Expression Policy
-- Name -> metropolis-geoip
-- Expression -> `return not context["geoip"]["country"] == "GB"`
+#### metropolis-geoip
+- Type: Expression Policy
+- Name: metropolis-geoip
+- Expression: `return not context["geoip"]["country"] == "GB"`
 
 ## Flow and Stages
 
-### Importing stuff
-Download link: https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
+### Example configuration:
+
+https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
+
 Download and import "Enrollment with email verification".
 
 ### Prompts
 
 #### metropolis-enrollment-field-name
-- Name -> metropolis-enrollment-field-name
-- Field Key -> name
-- Label -> Name
-- Type -> Text: Simple Text input
+- Name: metropolis-enrollment-field-name
+- Field Key: name
+- Label: Name
+- Type: Text: Simple Text input
 - Not Required
-- Order -> 2
+- Order: 2
 
 #### metropolis-enrollment-checkbox-age
-- Name -> metropolis-enrollment-checkbox-age
-- Field Key -> age
-- Label -> I am above 18 years of age.
-- Type -> Checkbox
+- Name: metropolis-enrollment-checkbox-age
+- Field Key: age
+- Label: I am above 18 years of age.
+- Type: Checkbox
 - Required
-- Order -> 401
+- Order: 401
 
 #### metropolis-enrollment-checkbox-residency
-- Name -> metropolis-enrollment-checkbox-residency
-- Field Key -> residency
-- Label -> I am not a residence of Wyoming, Ohio, South Dakota, or the United Kingdom.
-- Type -> Checkbox
+- Name: metropolis-enrollment-checkbox-residency
+- Field Key: residency
+- Label: I am not a residence of Wyoming, Ohio, South Dakota, or the United Kingdom.
+- Type: Checkbox
 - Required
-- Order -> 402
+- Order: 402
 
 ### Stages
 
-### Prompt Stage
-- Name -> metropolis-user-settings
+### metropolis-user-settings
+- Type: Prompt Stage
+- Name: metropolis-user-settings
 - Fields:
   - default-user-settings-field-locale
   - default-user-settings-field-name
 - Validation policies
   - default-user-settings-authorization
  
-### Prompt Stage
-- Name -> metropolis-enrollment-prompt-first
+### metropolis-enrollment-prompt-first
+- Type: Prompt Stage
+- Name: metropolis-enrollment-prompt-first
 - Fields:
   - default-enrollment-field-password
   - default-enrollment-field-password-repeat
@@ -64,57 +71,60 @@ Download and import "Enrollment with email verification".
   - metropolis-enrollment-checkbox-age
   - metropolis-enrollment-checkbox-residency
 
-#### Identification Stage
-- Name -> metropolis-authentication-identification
-- User fields -> Username, email
-- Password stage -> default-authentication-password
+#### metropolis-authentication-identification
+- Type: Identification Stage
+- Name: metropolis-authentication-identification
+- User fields: Username, email
+- Password stage: default-authentication-password
 - Enable Case insensitive matching
 - Enable Pretend user exists
 - Enable Show matched user
 - Enable "Remember me on this device"
-- Enrollment flow -> default-enrollment-flow
+- Enrollment flow: default-enrollment-flow
 
-### User Write Stage
-- Name -> metropolis-enrollment-user-write
+### metropolis-enrollment-user-write
+- Type: User Write Stage
+- Name: metropolis-enrollment-user-write
 - Always create new users
 - Disable Create user as inactive
-- User type -> Internal
-- Group -> metropolis-default
+- User type: Internal
+- Group: metropolis-default
 
-### User Write Stage
-- Name -> metropolis-user-settings-write
+### metropolis-user-settings-write
+- Type: User Write Stage
+- Name: metropolis-user-settings-write
 - Never create users
 - Uncheck create user as inactive
-- User type -> Internal
+- User type: Internal
 
 #### WebAuthn Authenticator Setup Stage
-- Name -> metropolis-authenticator-webauthn-setup
-- Authenticator type name -> WebAuthn device
-- User verification -> Required: User verification must occur
-- Resident Key Requirement -> Discouraged: The authenticator should not create a dedicated credential
-- Authenticator attachment -> A "roaming" authenticator
-- Configuration flow -> default-authenticator-webauthn-setup
+- Name: metropolis-authenticator-webauthn-setup
+- Authenticator type name: WebAuthn device
+- User verification: Required: User verification must occur
+- Resident Key Requirement: Discouraged: The authenticator should not create a dedicated credential
+- Authenticator attachment: A "roaming" authenticator
+- Configuration flow: default-authenticator-webauthn-setup
 
 #### Authenticator Validation Stage
-- Name -> metropolis-authentication-mfa-validation
-- Device classes -> Static Tokens, TOTP Authenticators, WebAuthn Authenticators
-- Not configured action -> Force the user to configure an authenticator
-- WebAuthn User verification -> User verification must occur
-- Configuration stages -> metropolis-authenticator-webauthn-setup
+- Name: metropolis-authentication-mfa-validation
+- Device classes: Static Tokens, TOTP Authenticators, WebAuthn Authenticators
+- Not configured action: Force the user to configure an authenticator
+- WebAuthn User verification: User verification must occur
+- Configuration stages: metropolis-authenticator-webauthn-setup
 
 ### Flows
 
 #### metropolis-authentication-flow
 
-- Name -> Welcome to Metropolis Nexus!
-- Tite -> Welcome to Metropolis Nexus!
-- Slug -> metropolis-authentication-flow
-- Designation -> Authentication
-- Authentication -> No requirement
+- Name: Welcome to Metropolis Nexus!
+- Title: Welcome to Metropolis Nexus!
+- Slug: metropolis-authentication-flow
+- Designation: Authentication
+- Authentication: No requirement
 - Enable compatibility mode
-- Denied action -> MESSAGE_CONTINUE
-- Policy engine mode -> any
-- Layout -> Sidebar left
+- Denied action: MESSAGE_CONTINUE
+- Policy engine mode: any
+- Layout: Sidebar left
 
 Stage bindings:
 - metropolis-authentication-identification -> 10
@@ -125,15 +135,15 @@ Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
 #### metropolis-enrollment-flow
-- Name -> Metropolis enrollment flow
-- Title -> FIDO2 token required!
-- Slug -> metropolis-enrollment-flow
-- Designation -> Enrollment
-- Authentication -> Require no authentication
+- Name: Metropolis enrollment flow
+- Title: FIDO2 token required!
+- Slug: metropolis-enrollment-flow
+- Designation: Enrollment
+- Authentication: Require no authentication
 - Enable compatibility mode
-- Denied action -> MESSAGE_CONTINUE
-- Policy engine mode -> any
-- Layout -> Sidebar left
+- Denied action: MESSAGE_CONTINUE
+- Policy engine mode: any
+- Layout: Sidebar left
 
 Stage bindings:
 - metropolis-enrollment-prompt-first -> 10
@@ -144,13 +154,13 @@ Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
 #### metropolis-user-settings-flow
-- Name -> Metropolis user settings
-- Title -> Update your info
-- slug -> metropolis-user-settings-flow
-- Designation -> Stage Configuration
-- Authentication -> Require authentication
+- Name: Metropolis user settings
+- Title: Update your info
+- Slug: metropolis-user-settings-flow
+- Designation: Stage Configuration
+- Authentication: Require authentication
 - Enable compatibility mode
-- Policy engine mode -> any
+- Policy engine mode: any
 
 Stage bindings:
 - metropolis-user-settings -> 20
@@ -168,13 +178,13 @@ Stage bindings:
 
 #### metropolis.nexus
 - Domain: auth.metropolis.nexus
-- Enable "Default" -> Make this the default brand
-- Title -> Metropolis Nexus
-- Default flow background -> /media/public/flow-backgrounds/chicago.jpg
+- Enable "Default": Make this the default brand
+- Title: Metropolis Nexus
+- Default flow background: /media/public/flow-backgrounds/chicago.jpg
 - Default flows
-  - Authentication flow -> metropolis-authentication-flow
-  - Invalidation flow -> default-invalidation-flow
-  - User settings flow -> metropolis-user-settings-flow
+  - Authentication flow: metropolis-authentication-flow
+  - Invalidation flow: default-invalidation-flow
+  - User settings flow: metropolis-user-settings-flow
 
 ### Settings
 - **DO NOT** enable "Allow users to change email" (See [this discussion](https://github.com/goauthentik/authentik/issues/4097))
