@@ -56,7 +56,7 @@ Download and import "Enrollment with email verification".
   - default-user-settings-authorization
  
 ### Prompt Stage
-- Name -> metropolis-enrollment-prompt
+- Name -> metropolis-enrollment-prompt-first
 - Fields:
   - default-enrollment-field-password
   - default-enrollment-field-password-repeat
@@ -136,7 +136,7 @@ Policy bindings:
 - Layout -> Sidebar left
 
 Stage bindings:
-- metropolis-enrollment-prompt -> 10
+- metropolis-enrollment-prompt-first -> 10
 - metropolis-enrollment-user-write -> 20
 - default-enrollment-user-login -> 100
 
