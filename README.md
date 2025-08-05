@@ -115,7 +115,6 @@ Download and import "Enrollment with email verification".
 - Denied action -> MESSAGE_CONTINUE
 - Policy engine mode -> any
 - Layout -> Sidebar left
-- Upload background
 
 Stage bindings:
 - metropolis-authentication-identification -> 10
@@ -135,7 +134,6 @@ Policy bindings:
 - Denied action -> MESSAGE_CONTINUE
 - Policy engine mode -> any
 - Layout -> Sidebar left
-- Upload background
 
 Stage bindings:
 - metropolis-enrollment-prompt -> 10
@@ -172,6 +170,7 @@ Stage bindings:
 - Domain: auth.metropolis.nexus
 - Enable "Default" -> Make this the default brand
 - Title -> Metropolis Nexus
+- Default flow background -> /media/public/flow-backgrounds/chicago.jpg
 - Default flows
   - Authentication flow -> metropolis-authentication-flow
   - Invalidation flow -> default-invalidation-flow
