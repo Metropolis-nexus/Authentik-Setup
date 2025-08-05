@@ -29,14 +29,6 @@ Download and import "Enrollment with email verification".
 - Not Required
 - Order -> 2
 
-#### metropolis-enrollment-checkbox-fido2
-- Name -> metropolis-enrollment-checkbox-age
-- Field Key -> fido2
-- Label -> I have a FIDO2 token.
-- Type -> Checkbox
-- Required
-- Order -> 400
-
 #### metropolis-enrollment-checkbox-age
 - Name -> metropolis-enrollment-checkbox-age
 - Field Key -> age
@@ -44,6 +36,14 @@ Download and import "Enrollment with email verification".
 - Type -> Checkbox
 - Required
 - Order -> 401
+
+#### metropolis-enrollment-checkbox-residency
+- Name -> metropolis-enrollment-checkbox-residency
+- Field Key -> residency
+- Label -> I am not a residence of Wyoming, Ohio, South Dakota, or the United Kingdom.
+- Type -> Checkbox
+- Required
+- Order -> 402
 
 ### Stages
 
@@ -62,8 +62,7 @@ Download and import "Enrollment with email verification".
   - default-enrollment-field-password-repeat
   - default-enrollment-field-username
   - metropolis-enrollment-checkbox-age
-  - metropolis-enrollment-checkbox-fido2
-  - metropolis-enrollment-field-name
+  - metropolis-enrollment-checkbox-residency
 
 #### Identification Stage
 - Name -> metropolis-authentication-identification
@@ -115,6 +114,8 @@ Download and import "Enrollment with email verification".
 - Enable compatibility mode
 - Denied action -> MESSAGE_CONTINUE
 - Policy engine mode -> any
+- Layout -> Sidebar left
+- Upload background
 
 Stage bindings:
 - metropolis-authentication-identification -> 10
@@ -125,14 +126,16 @@ Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
 #### metropolis-enrollment-flow
-- Name -> Metropolis enrollment Flow
-- Title -> Welcome to Metropolis Nexus!
+- Name -> Metropolis enrollment flow
+- Title -> FIDO2 token required!
 - Slug -> metropolis-enrollment-flow
 - Designation -> Enrollment
 - Authentication -> Require no authentication
 - Enable compatibility mode
 - Denied action -> MESSAGE_CONTINUE
 - Policy engine mode -> any
+- Layout -> Sidebar left
+- Upload background
 
 Stage bindings:
 - metropolis-enrollment-prompt -> 10
@@ -184,6 +187,7 @@ Stage bindings:
 
 ### Flows
 - Delete initial-setup
+- Delete default-authentication-flow
 - Delete default-authenticator-totp-setup
 - Delete default-user-settings-flow
 - Delete default-enrollment-flow
@@ -194,6 +198,7 @@ Stage bindings:
 - Delete default-oobe-flow-set-authentication
 - Delete default-oobe-password-usable
 - Delete default-oobe-prefill-user
+- Delete default-authentication-flow-password-stage
 
 ## System
 
