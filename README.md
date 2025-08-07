@@ -32,10 +32,32 @@ if request.context["prompt_data"]["email"] == "":
 return True
 ```
 
+#### metropolis-unique-email
+- Type: Expression Policy
+- Name: metropolis-unique-email
+- Expression:
+
+```
+from authentik.core.models import User
+
+email = request.context["prompt_data"]["email"]
+if email != "" and User.objects.filter(email=email).exists():
+  ak_message("Email address already in use")
+  return False
+return True
+```
+
 #### metropolis-geoip
 - Type: Expression Policy
 - Name: metropolis-geoip
-- Expression: `return not context["geoip"]["country"] == "GB"`
+- Expression:
+
+```
+if (context["geoip"]["country"] == "GB"):
+  ak_message("United Kingdom IP addresses are not allowed.")
+  return False
+return True
+```
 
 ## Flow and Stages
 
@@ -164,6 +186,8 @@ except:
   - metropolis-enrollment-field-email
   - metropolis-enrollment-field-name
   - default-user-settings-field-locale
+- Validation policies:
+  - metropolis-unique-email
 
 #### metropolis-enrollment-user-write
 - Type: User Write Stage
