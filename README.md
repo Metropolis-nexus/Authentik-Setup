@@ -276,6 +276,7 @@ Delete all of the following:
 - initial-setup
 
 ### Stages
+- default-authentication-identification
 - default-authenticator-totp-setup
 - default-enrollment-prompt-first
 - default-enrollment-prompt-second
