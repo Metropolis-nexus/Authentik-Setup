@@ -155,9 +155,9 @@ except:
 - Type: Prompt Stage
 - Name: metropolis-user-settings
 - Fields:
-  - default-user-settings-field-email
   - default-user-settings-field-locale
   - default-user-settings-field-username
+  - metropolis-user-settings-field-email
   - metropolis-user-settings-field-name
 - Validation policies
   - default-user-settings-authorization
@@ -275,6 +275,7 @@ Delete all of the following:
 ### Prompts
 - default-enrollment-field-email
 - default-enrollment-field-name
+- default-user-settings-field-email
 - default-user-settings-field-name
 - initial-setup-field-email
 - initial-setup-field-header
