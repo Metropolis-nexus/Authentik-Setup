@@ -233,6 +233,14 @@ Delete all of the following:
 - default-enrollment-prompt-second
 - stage-default-oobe-password
 
+### Prompts
+- default-enrollment-field-email
+- default-enrollment-field-name
+- initial-setup-field-email
+- initial-setup-field-header
+- initial-setup-field-password
+- initial-setup-field-password-repeat
+
 ## Customization
 
 ### Policies
