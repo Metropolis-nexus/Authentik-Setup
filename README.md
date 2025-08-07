@@ -22,6 +22,16 @@ Enter the admin section and configure the following:
 
 ### Policies
 
+#### metropolis-enrollment-with-email
+- Type: Expression Policy
+- Name: metropolis-enrollment-with-email
+- Expression:
+```
+if request.context["prompt_data"]["email"] == "":
+   return False
+return True
+```
+
 #### metropolis-geoip
 - Type: Expression Policy
 - Name: metropolis-geoip
@@ -163,6 +173,14 @@ except:
 - User type: Internal
 - Group: metropolis-default
 
+#### metropolis-enrollment-with-email-user-write
+- Type: User Write Stage
+- Name: metropolis-enrollment-with-email-user-write
+- Always create new users
+- Create user as inactive
+- User type: Internal
+- Group: metropolis-default
+
 #### metropolis-user-settings
 - Type: Prompt Stage
 - Name: metropolis-user-settings
@@ -216,6 +234,31 @@ Stage bindings:
 Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
+#### metropolis-enrollment-with-email-flow
+- Name: Metropolis enrollment with email flow
+- Title: Enrollment with Email
+- Slug: metropolis-enrollment-with-email-flow
+- Designation: Enrollment
+- Authentication: Require being redirected from another flow
+- Denied action: MESSAGE_CONTINUE
+- Policy engine mode: any
+- Layout: Sidebar left
+
+Stage bindings:
+- 	metropolis-enrollment-with-email-user-write -> 10
+-   default-enrollment-email-verification -> 20
+-   metropolis-authenticator-webauthn-setup -> 30
+
+Stage update:
+
+- Create the following stage:
+
+##### metropolis-enrollment-with-email
+- Type: Redirect Stage
+- Mode: Flow
+- Target Flow: metropolis-enrollment-with-email-flow
+
+
 #### metropolis-enrollment-flow
 - Name: Metropolis enrollment flow
 - Title: FIDO2 token required!
@@ -230,8 +273,10 @@ Policy bindings:
 Stage bindings:
 - metropolis-enrollment-prompt-first -> 10
 - metropolis-enrollment-prompt-second -> 20
-- metropolis-enrollment-user-write -> 30
-- metropolis-authenticator-webauthn-setup -> 40
+- metropolis-enrollment-with-email -> 30
+  - metropolis-enrollment-with-email -> 0
+- metropolis-enrollment-user-write -> 40
+- metropolis-authenticator-webauthn-setup -> 50
 - default-enrollment-user-login -> 100
 
 Policy bindings:
