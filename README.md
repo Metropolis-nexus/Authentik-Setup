@@ -309,6 +309,17 @@ Policy bindings:
 Stage update:
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
 
+#### metropolis-invalidation-flow
+- Name: Logout
+- TItle: Metropolis Invalidation Flow
+- Slug: metropolis-invalidation-flow
+- Designation: Invalidation
+- Authentication: No requirement
+- Layout: Sidebar left
+
+Stage binding:
+- default-invalidation-logout -> 0
+
 #### metropolis-recovery-flow
 - Name: Default recovery flow
 - Title: Reset your password
@@ -366,7 +377,7 @@ Stage bindings:
 - Default flow background: /media/public/flow-backgrounds/chicago.jpg
 - Default flows
   - Authentication flow: metropolis-authentication-flow
-  - Invalidation flow: default-invalidation-flow
+  - Invalidation flow: metropolis-invalidation-flow
   - Recovery flow: metropolis-recovery-flow
   - User settings flow: metropolis-user-settings-flow
 - Web Certificate: auth.metropolis.nexus
@@ -404,6 +415,7 @@ Delete all of the following:
 - default-source-enrollment-login
 - default-source-enrollment-prompt
 - default-source-enrollment-write
+- default-invalidation-flow
 - default-user-settings
 - default-user-settings-write
 - stage-default-oobe-password
