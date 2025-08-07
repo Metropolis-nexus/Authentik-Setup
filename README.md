@@ -43,8 +43,17 @@ Download and import "Enrollment with email verification".
 - Label: Name (optional)
 - Type: Text: Simple Text input
 - Not Required
-- Place holder: Does NOT have to be your real name
+- Placeholder: Does not have to be your legal name
 - Order: 0
+
+#### metropolis-enrollment-field-email
+- Name: metropolis-enrollment-field-email
+- Field Key: email
+- Label: Email (optional - for recovery)
+- Type: Email: Text field with Email Type
+- Not Required
+- Placeholder: Contact support to change post sign-up
+- Order: 1
 
 #### metropolis-enrollment-checkbox-age
 - Name: metropolis-enrollment-checkbox-age
@@ -67,6 +76,7 @@ Download and import "Enrollment with email verification".
 - Field Key: name
 - Label: Name
 - Type: Text: Simple Text input
+- Placeholder: Does not have to be your legal name
 - Not Required
 - Interpret initial value as expression
 - Initial value:
@@ -84,6 +94,7 @@ except:
 - Field Key: email
 - Label: Email
 - Type: Email: Text field with Email Type
+- Placeholder: Contact support to set an email address
 - Not Required
 - Interpret initial value as expression
 - Initial value:
