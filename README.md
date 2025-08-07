@@ -43,7 +43,7 @@ Download and import "Enrollment with email verification".
 - Label: Name
 - Type: Text: Simple Text input
 - Not Required
-- Order: 2
+- Order: 0
 
 #### metropolis-enrollment-checkbox-age
 - Name: metropolis-enrollment-checkbox-age
@@ -51,7 +51,7 @@ Download and import "Enrollment with email verification".
 - Label: I am above 18 years of age.
 - Type: Checkbox
 - Required
-- Order: 401
+- Order: 400
 
 #### metropolis-enrollment-checkbox-residency
 - Name: metropolis-enrollment-checkbox-residency
@@ -59,7 +59,7 @@ Download and import "Enrollment with email verification".
 - Label: I am not a residence of Wyoming, Ohio, South Dakota, or the United Kingdom.
 - Type: Checkbox
 - Required
-- Order: 402
+- Order: 401
 
 ### Stages
 
@@ -81,6 +81,13 @@ Download and import "Enrollment with email verification".
   - default-enrollment-field-username
   - metropolis-enrollment-checkbox-age
   - metropolis-enrollment-checkbox-residency
+ 
+### metropolis-enrollment-prompt-second
+- Type: Prompt Stage
+- Name: metropolis-enrollment-prompt-second
+- Fields:
+  - metropolis-enrollment-field-name
+  - default-user-settings-field-locale
 
 #### metropolis-authentication-identification
 - Type: Identification Stage
@@ -158,7 +165,9 @@ Policy bindings:
 
 Stage bindings:
 - metropolis-enrollment-prompt-first -> 10
-- metropolis-enrollment-user-write -> 20
+- metropolis-enrollment-prompt-second -> 20
+- metropolis-enrollment-user-write -> 30
+- metropolis-authenticator-webauthn-setup -> 40
 - default-enrollment-user-login -> 100
 
 Policy bindings:
