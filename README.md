@@ -227,6 +227,12 @@ Delete all of the following:
 - default-user-settings-flow
 - initial-setup
 
+### Stages
+- default-authenticator-totp-setup
+- default-enrollment-prompt-first
+- default-enrollment-prompt-second
+- stage-default-oobe-password
+
 ## Customization
 
 ### Policies
