@@ -257,6 +257,7 @@ Delete all of the following:
 ### Prompts
 - default-enrollment-field-email
 - default-enrollment-field-name
+- default-user-settings-field-name
 - initial-setup-field-email
 - initial-setup-field-header
 - initial-setup-field-password
