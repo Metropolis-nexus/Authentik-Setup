@@ -410,9 +410,6 @@ Delete all of the following:
 ### Brands
 - authentik-default
 
-### Certificates
-- authentik Self-signed Certificate
-
 # Update akadmin
 Directory -> User -> akadmin
 - Clear out name
