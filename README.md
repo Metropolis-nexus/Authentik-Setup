@@ -201,7 +201,7 @@ except:
 
 ### Flows
 
-### metropolis-authenticator-webauthn-setup
+#### metropolis-authenticator-webauthn-setup
 - Name: metropolis-authenticator-webauthn-setup
 - Title: Setup WebAuthn
 - Slug: metropolis-authenticator-webauthn-setup
@@ -245,9 +245,9 @@ Policy bindings:
 - Layout: Sidebar left
 
 Stage bindings:
-- 	metropolis-enrollment-with-email-user-write -> 10
--   default-enrollment-email-verification -> 20
--   metropolis-authenticator-webauthn-setup -> 30
+- metropolis-enrollment-with-email-user-write -> 10
+- default-enrollment-email-verification -> 20
+- metropolis-authenticator-webauthn-setup -> 30
 
 Stage update:
 
@@ -285,6 +285,36 @@ Policy bindings:
 Stage update:
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
 
+#### metropolis-recovery-flow
+- Name: Default recovery flow
+- Title: Reset your password
+- Slug: metropolis-recovery-flow
+- Designation: Recovery
+- Authentication: No requirement (This should be "Require no authentication", but we are using No requirement temporarily due to (this bug)[https://github.com/goauthentik/authentik/issues/13714])
+- Enable compatibility mode
+- Denied action: MESSAGE_CONTINUE
+- Policy engine mode: any
+- Layout: Sidebar left
+
+Stage bindings:
+
+Policy evaluation is copied from the default flow, it's a little strange. Need to double check later.
+
+- default-recovery-identification -> 10
+  - Enable "Evaluate when flow is planned" (Keep "Evaluate when stage is run")
+  - default-recovery-skip-if-restored -> 0
+- default-recovery-email -> 20
+  - Enable "Evaluate when flow is planned" (Keep "Evaluate when stage is run")
+- Change your password -> 30
+  - Enable "Evaluate when flow is planned" (Disable "Evaluate when stage is run")
+- default-recovery-user-write -> 40
+  - Enable "Evaluate when flow is planned" (Disable "Evaluate when stage is run")
+- default-recovery-user-login -> 100
+  - Enable "Evaluate when flow is planned" (Disable "Evaluate when stage is run")
+
+Stage update:
+- Stage -> metropolis-authentication-identification -> Change recovery flow to metropolis-recovery-flow
+
 #### metropolis-user-settings-flow
 - Name: Metropolis user settings
 - Title: Update your info
@@ -313,6 +343,7 @@ Stage bindings:
 - Default flows
   - Authentication flow: metropolis-authentication-flow
   - Invalidation flow: default-invalidation-flow
+  - Recovery flow: metropolis-recovery-flow
   - User settings flow: metropolis-user-settings-flow
 - Web Certificate: auth.metropolis.nexus
 
@@ -329,7 +360,10 @@ Delete all of the following:
 ### Flows
 - default-authentication-flow
 - default-authenticator-totp-setup
+- default-source-authentication
 - default-enrollment-flow
+- default-source-enrollment
+- default-source-pre-authentication
 - default-user-settings-flow
 - initial-setup
 
@@ -341,6 +375,10 @@ Delete all of the following:
 - default-enrollment-prompt-first
 - default-enrollment-prompt-second
 - default-enrollment-user-write
+- default-source-authentication-login
+- default-source-enrollment-login
+- default-source-enrollment-prompt
+- default-source-enrollment-write
 - default-user-settings
 - default-user-settings-write
 - stage-default-oobe-password
@@ -348,6 +386,7 @@ Delete all of the following:
 ### Prompts
 - default-enrollment-field-email
 - default-enrollment-field-name
+- default-source-enrollment-field-username
 - default-user-settings-field-email
 - default-user-settings-field-name
 - initial-setup-field-email
@@ -359,6 +398,9 @@ Delete all of the following:
 
 ### Policies
 - default-authentication-flow-password-stage
+- default-source-authentication-if-sso
+- default-source-enrollment-if-sso
+- default-source-enrollment-if-username
 - default-oobe-flow-set-authentication
 - default-oobe-password-usable
 - default-oobe-prefill-user
