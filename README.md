@@ -68,8 +68,10 @@ Download and import "Enrollment with email verification".
 - Type: Prompt Stage
 - Name: metropolis-user-settings
 - Fields:
+  - default-user-settings-field-email
   - default-user-settings-field-locale
   - default-user-settings-field-name
+  - default-user-settings-field-username
 - Validation policies
   - default-user-settings-authorization
  
