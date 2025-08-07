@@ -77,6 +77,24 @@ try:
 except:
     return ''
 ```
+- Order: 201
+
+#### metropolis-user-settings-field-email
+- Name: metropolis-user-settings-field-email
+- Field Key: email
+- Label: Email
+- Type: Email: Text field with Email Type
+- Not Required
+- Interpret initial value as expression
+- Initial value:
+
+```
+try:
+    return user.name
+except:
+    return ''
+```
+- Order: 202
 
 ### Stages
 
