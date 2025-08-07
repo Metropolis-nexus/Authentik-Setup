@@ -62,6 +62,22 @@ Download and import "Enrollment with email verification".
 - Required
 - Order: 401
 
+#### metropolis-user-settings-field-name
+- Name: metropolis-user-settings-field-name
+- Field Key: name
+- Label: Name
+- Type: Text: Simple Text input
+- Not Required
+- Disable interpret initial value as expression
+- Initial value:
+
+```
+try:
+    return user.name
+except:
+    return ''
+```
+
 ### Stages
 
 #### metropolis-authentication-identification
