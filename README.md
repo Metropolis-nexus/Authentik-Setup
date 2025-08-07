@@ -364,6 +364,7 @@ Delete all of the following:
 - default-enrollment-flow
 - default-source-enrollment
 - default-source-pre-authentication
+- default-recovery-flow
 - default-user-settings-flow
 - initial-setup
 
