@@ -40,9 +40,10 @@ Download and import "Enrollment with email verification".
 #### metropolis-enrollment-field-name
 - Name: metropolis-enrollment-field-name
 - Field Key: name
-- Label: Name
+- Label: Name (optional)
 - Type: Text: Simple Text input
 - Not Required
+- Place holder: Does NOT have to be your real name
 - Order: 0
 
 #### metropolis-enrollment-checkbox-age
