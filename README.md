@@ -64,7 +64,7 @@ Download and import "Enrollment with email verification".
 
 ### Stages
 
-### metropolis-user-settings
+#### metropolis-user-settings
 - Type: Prompt Stage
 - Name: metropolis-user-settings
 - Fields:
@@ -75,7 +75,7 @@ Download and import "Enrollment with email verification".
 - Validation policies
   - default-user-settings-authorization
  
-### metropolis-enrollment-prompt-first
+#### metropolis-enrollment-prompt-first
 - Type: Prompt Stage
 - Name: metropolis-enrollment-prompt-first
 - Fields:
@@ -85,7 +85,7 @@ Download and import "Enrollment with email verification".
   - metropolis-enrollment-checkbox-age
   - metropolis-enrollment-checkbox-residency
  
-### metropolis-enrollment-prompt-second
+#### metropolis-enrollment-prompt-second
 - Type: Prompt Stage
 - Name: metropolis-enrollment-prompt-second
 - Fields:
@@ -103,7 +103,7 @@ Download and import "Enrollment with email verification".
 - Enable "Remember me on this device"
 - Enrollment flow: default-enrollment-flow
 
-### metropolis-enrollment-user-write
+#### metropolis-enrollment-user-write
 - Type: User Write Stage
 - Name: metropolis-enrollment-user-write
 - Always create new users
@@ -111,7 +111,7 @@ Download and import "Enrollment with email verification".
 - User type: Internal
 - Group: metropolis-default
 
-### metropolis-user-settings-write
+#### metropolis-user-settings-write
 - Type: User Write Stage
 - Name: metropolis-user-settings-write
 - Never create users
