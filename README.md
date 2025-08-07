@@ -151,6 +151,7 @@ except:
 - Type: Prompt Stage
 - Name: metropolis-enrollment-prompt-second
 - Fields:
+  - metropolis-enrollment-field-email
   - metropolis-enrollment-field-name
   - default-user-settings-field-locale
 
