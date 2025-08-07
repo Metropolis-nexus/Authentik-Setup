@@ -68,7 +68,7 @@ Download and import "Enrollment with email verification".
 - Label: Name
 - Type: Text: Simple Text input
 - Not Required
-- Disable interpret initial value as expression
+- Interpret initial value as expression
 - Initial value:
 
 ```
