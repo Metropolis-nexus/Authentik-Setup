@@ -74,6 +74,13 @@ Download and import "Enrollment with email verification".
   - default-user-settings-field-username
 - Validation policies
   - default-user-settings-authorization
+
+#### metropolis-user-settings-write
+- Type: User Write Stage
+- Name: metropolis-user-settings-write
+- Never create users
+- Uncheck create user as inactive
+- User type: Internal
  
 #### metropolis-enrollment-prompt-first
 - Type: Prompt Stage
@@ -92,6 +99,14 @@ Download and import "Enrollment with email verification".
   - metropolis-enrollment-field-name
   - default-user-settings-field-locale
 
+#### metropolis-enrollment-user-write
+- Type: User Write Stage
+- Name: metropolis-enrollment-user-write
+- Always create new users
+- Disable Create user as inactive
+- User type: Internal
+- Group: metropolis-default
+
 #### metropolis-authentication-identification
 - Type: Identification Stage
 - Name: metropolis-authentication-identification
@@ -103,22 +118,8 @@ Download and import "Enrollment with email verification".
 - Enable "Remember me on this device"
 - Enrollment flow: default-enrollment-flow
 
-#### metropolis-enrollment-user-write
-- Type: User Write Stage
-- Name: metropolis-enrollment-user-write
-- Always create new users
-- Disable Create user as inactive
-- User type: Internal
-- Group: metropolis-default
-
-#### metropolis-user-settings-write
-- Type: User Write Stage
-- Name: metropolis-user-settings-write
-- Never create users
-- Uncheck create user as inactive
-- User type: Internal
-
-#### WebAuthn Authenticator Setup Stage
+#### metropolis-authenticator-webauthn-setup
+- Type: WebAuthn Authenticator Setup Stage
 - Name: metropolis-authenticator-webauthn-setup
 - Authenticator type name: WebAuthn device
 - User verification: Required: User verification must occur
@@ -126,7 +127,8 @@ Download and import "Enrollment with email verification".
 - Authenticator attachment: A "roaming" authenticator
 - Configuration flow: default-authenticator-webauthn-setup
 
-#### Authenticator Validation Stage
+#### metropolis-authentication-mfa-validation
+- Type: Authenticator Validation Stage
 - Name: metropolis-authentication-mfa-validation
 - Device classes: Static Tokens, WebAuthn Authenticators
 - Not configured action: Force the user to configure an authenticator
@@ -135,25 +137,18 @@ Download and import "Enrollment with email verification".
 
 ### Flows
 
-#### metropolis-authentication-flow
-
-- Name: Welcome to Metropolis Nexus!
-- Title: Welcome to Metropolis Nexus!
-- Slug: metropolis-authentication-flow
-- Designation: Authentication
-- Authentication: No requirement
+#### metropolis-user-settings-flow
+- Name: Metropolis user settings
+- Title: Update your info
+- Slug: metropolis-user-settings-flow
+- Designation: Stage Configuration
+- Authentication: Require authentication
 - Enable compatibility mode
-- Denied action: MESSAGE_CONTINUE
 - Policy engine mode: any
-- Layout: Sidebar left
 
 Stage bindings:
-- metropolis-authentication-identification -> 10
-- metropolis-authentication-mfa-validation -> 30
-- default-authentication-login -> 100
-
-Policy bindings:
-- metropolis-geoip -> 10 -> Don't pass
+- metropolis-user-settings -> 20
+- metropolis-user-settings-write -> 100
 
 #### metropolis-enrollment-flow
 - Name: Metropolis enrollment flow
@@ -176,18 +171,26 @@ Stage bindings:
 Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
-#### metropolis-user-settings-flow
-- Name: Metropolis user settings
-- Title: Update your info
-- Slug: metropolis-user-settings-flow
-- Designation: Stage Configuration
-- Authentication: Require authentication
+#### metropolis-authentication-flow
+
+- Name: Welcome to Metropolis Nexus!
+- Title: Welcome to Metropolis Nexus!
+- Slug: metropolis-authentication-flow
+- Designation: Authentication
+- Authentication: No requirement
 - Enable compatibility mode
+- Denied action: MESSAGE_CONTINUE
 - Policy engine mode: any
+- Layout: Sidebar left
 
 Stage bindings:
-- metropolis-user-settings -> 20
-- metropolis-user-settings-write -> 100
+- metropolis-authentication-identification -> 10
+- metropolis-authentication-mfa-validation -> 30
+- default-authentication-login -> 100
+
+Policy bindings:
+- metropolis-geoip -> 10 -> Don't pass
+
 
 ### Update
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
