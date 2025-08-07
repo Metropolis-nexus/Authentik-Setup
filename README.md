@@ -233,6 +233,7 @@ Delete all of the following:
 - default-authenticator-totp-setup
 - default-enrollment-prompt-first
 - default-enrollment-prompt-second
+- default-enrollment-user-write
 - default-user-settings
 - default-user-settings-write
 - stage-default-oobe-password
