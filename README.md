@@ -297,3 +297,8 @@ Delete all of the following:
 
 ### Certificates
 - authentik Self-signed Certificate
+
+# Update akadmin
+Directory -> User -> akadmin
+- Clear out name
+- Clear out email
