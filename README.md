@@ -33,7 +33,7 @@ Enter the admin section and configure the following:
 
 https://docs.goauthentik.io/docs/add-secure-apps/flows-stages/flow/examples/flows
 
-Download and import "Enrollment with email verification".
+Download and import "Enrollment with email verification" and "Recovery with email verification".
 
 ### Prompts
 
