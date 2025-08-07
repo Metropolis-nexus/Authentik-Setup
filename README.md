@@ -64,49 +64,6 @@ Download and import "Enrollment with email verification".
 
 ### Stages
 
-#### metropolis-user-settings
-- Type: Prompt Stage
-- Name: metropolis-user-settings
-- Fields:
-  - default-user-settings-field-email
-  - default-user-settings-field-locale
-  - default-user-settings-field-name
-  - default-user-settings-field-username
-- Validation policies
-  - default-user-settings-authorization
-
-#### metropolis-user-settings-write
-- Type: User Write Stage
-- Name: metropolis-user-settings-write
-- Never create users
-- Uncheck create user as inactive
-- User type: Internal
- 
-#### metropolis-enrollment-prompt-first
-- Type: Prompt Stage
-- Name: metropolis-enrollment-prompt-first
-- Fields:
-  - default-enrollment-field-password
-  - default-enrollment-field-password-repeat
-  - default-enrollment-field-username
-  - metropolis-enrollment-checkbox-age
-  - metropolis-enrollment-checkbox-residency
- 
-#### metropolis-enrollment-prompt-second
-- Type: Prompt Stage
-- Name: metropolis-enrollment-prompt-second
-- Fields:
-  - metropolis-enrollment-field-name
-  - default-user-settings-field-locale
-
-#### metropolis-enrollment-user-write
-- Type: User Write Stage
-- Name: metropolis-enrollment-user-write
-- Always create new users
-- Disable Create user as inactive
-- User type: Internal
-- Group: metropolis-default
-
 #### metropolis-authentication-identification
 - Type: Identification Stage
 - Name: metropolis-authentication-identification
@@ -135,20 +92,70 @@ Download and import "Enrollment with email verification".
 - WebAuthn User verification: User verification must occur
 - Configuration stages: metropolis-authenticator-webauthn-setup
 
+#### metropolis-enrollment-prompt-first
+- Type: Prompt Stage
+- Name: metropolis-enrollment-prompt-first
+- Fields:
+  - default-enrollment-field-password
+  - default-enrollment-field-password-repeat
+  - default-enrollment-field-username
+  - metropolis-enrollment-checkbox-age
+  - metropolis-enrollment-checkbox-residency
+ 
+#### metropolis-enrollment-prompt-second
+- Type: Prompt Stage
+- Name: metropolis-enrollment-prompt-second
+- Fields:
+  - metropolis-enrollment-field-name
+  - default-user-settings-field-locale
+
+#### metropolis-enrollment-user-write
+- Type: User Write Stage
+- Name: metropolis-enrollment-user-write
+- Always create new users
+- Disable Create user as inactive
+- User type: Internal
+- Group: metropolis-default
+
+#### metropolis-user-settings
+- Type: Prompt Stage
+- Name: metropolis-user-settings
+- Fields:
+  - default-user-settings-field-email
+  - default-user-settings-field-locale
+  - default-user-settings-field-name
+  - default-user-settings-field-username
+- Validation policies
+  - default-user-settings-authorization
+
+#### metropolis-user-settings-write
+- Type: User Write Stage
+- Name: metropolis-user-settings-write
+- Never create users
+- Uncheck create user as inactive
+- User type: Internal
+
 ### Flows
 
-#### metropolis-user-settings-flow
-- Name: Metropolis user settings
-- Title: Update your info
-- Slug: metropolis-user-settings-flow
-- Designation: Stage Configuration
-- Authentication: Require authentication
+#### metropolis-authentication-flow
+
+- Name: Welcome to Metropolis Nexus!
+- Title: Welcome to Metropolis Nexus!
+- Slug: metropolis-authentication-flow
+- Designation: Authentication
+- Authentication: No requirement
 - Enable compatibility mode
+- Denied action: MESSAGE_CONTINUE
 - Policy engine mode: any
+- Layout: Sidebar left
 
 Stage bindings:
-- metropolis-user-settings -> 20
-- metropolis-user-settings-write -> 100
+- metropolis-authentication-identification -> 10
+- metropolis-authentication-mfa-validation -> 30
+- default-authentication-login -> 100
+
+Policy bindings:
+- metropolis-geoip -> 10 -> Don't pass
 
 #### metropolis-enrollment-flow
 - Name: Metropolis enrollment flow
@@ -171,26 +178,18 @@ Stage bindings:
 Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
-#### metropolis-authentication-flow
-
-- Name: Welcome to Metropolis Nexus!
-- Title: Welcome to Metropolis Nexus!
-- Slug: metropolis-authentication-flow
-- Designation: Authentication
-- Authentication: No requirement
+#### metropolis-user-settings-flow
+- Name: Metropolis user settings
+- Title: Update your info
+- Slug: metropolis-user-settings-flow
+- Designation: Stage Configuration
+- Authentication: Require authentication
 - Enable compatibility mode
-- Denied action: MESSAGE_CONTINUE
 - Policy engine mode: any
-- Layout: Sidebar left
 
 Stage bindings:
-- metropolis-authentication-identification -> 10
-- metropolis-authentication-mfa-validation -> 30
-- default-authentication-login -> 100
-
-Policy bindings:
-- metropolis-geoip -> 10 -> Don't pass
-
+- metropolis-user-settings -> 20
+- metropolis-user-settings-write -> 100
 
 ### Update
 - Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
