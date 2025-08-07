@@ -183,6 +183,19 @@ except:
 
 ### Flows
 
+### metropolis-authenticator-webauthn-setup
+- Name: metropolis-authenticator-webauthn-setup
+- Title: Setup WebAuthn
+- Slug: metropolis-authenticator-webauthn-setup
+- Designation: Stage Configuration
+- Authentication: Require authentication
+
+Stage bindings:
+- metropolis-authenticator-webauthn-setup -> 0
+
+Stage update:
+- Stage -> metropolis-authenticator-webauthn-setup -> Change configuration flow to metropolis-authenticator-webauthn-setup
+
 #### metropolis-authentication-flow
 
 - Name: Welcome to Metropolis Nexus!
@@ -224,6 +237,9 @@ Stage bindings:
 Policy bindings:
 - metropolis-geoip -> 10 -> Don't pass
 
+Stage update:
+- Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
+
 #### metropolis-user-settings-flow
 - Name: Metropolis user settings
 - Title: Update your info
@@ -236,9 +252,6 @@ Policy bindings:
 Stage bindings:
 - metropolis-user-settings -> 20
 - metropolis-user-settings-write -> 100
-
-### Update
-- Stage -> metropolis-authentication-identification -> Change enrollment flow to metropolis-enrollment-flow
 
 ## System
 
@@ -278,6 +291,8 @@ Delete all of the following:
 ### Stages
 - default-authentication-identification
 - default-authenticator-totp-setup
+- default-authenticator-webauthn-setup
+- default-authentication-mfa-validation
 - default-enrollment-prompt-first
 - default-enrollment-prompt-second
 - default-enrollment-user-write
