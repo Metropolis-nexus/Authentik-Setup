@@ -23,7 +23,7 @@ Enter the admin section and configure the following:
 Import from the flows directory.
 
 ### Notes:
-- metropolis-recovery-flow should "Require no authentication", but we are using No requirement temporarily due to (this bug)[https://github.com/goauthentik/authentik/issues/13714]
+- metropolis-recovery-flow should "Require no authentication", but we are using No requirement temporarily due to [this bug](https://github.com/goauthentik/authentik/issues/13714).
 - Stage binding for the recovery flow is copied from the default flow. It's a bit strange how policy evaluation is configured there. Need further investigation later.
 
 ## System
