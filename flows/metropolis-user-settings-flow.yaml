@@ -5,7 +5,7 @@ entries:
     compatibility_mode: true
     denied_action: message_continue
     designation: stage_configuration
-    layout: stacked
+    layout: sidebar_left
     name: Metropolis user settings
     policy_engine_mode: any
     title: Update your info
@@ -71,12 +71,25 @@ entries:
     label: Email
     name: metropolis-user-settings-field-email
     order: 202
-    placeholder: Contact support to set an email address
+    placeholder: Email
     type: email
   conditions: []
   identifiers:
     pk: 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
   model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    expression: "current = request.user.email\nnew = request.context[\"prompt_data\"\
+      ][\"email\"]\n\nif new == '':\n    return False\n\nif new == current:\n    return\
+      \ False\n\ncontext[\"flow_plan\"].context[\"pending_user\"] = request.user\n\
+      request.context[\"flow_plan\"].context[\"email\"] = request.context[\"prompt_data\"\
+      ][\"email\"]\n\nreturn True"
+    name: metropolis-verify-email
+  conditions: []
+  identifiers:
+    pk: 87f4fc31-6648-40de-b21c-8eb9c056c267
+  model: authentik_policies_expression.expressionpolicy
   permissions: []
   state: present
 - attrs:
@@ -116,6 +129,23 @@ entries:
   permissions: []
   state: present
 - attrs:
+    activate_user_on_success: true
+    from_address: system@authentik.local
+    host: localhost
+    port: 25
+    subject: authentik
+    template: email/account_confirmation.html
+    timeout: 10
+    token_expiry: minutes=30
+    use_global_settings: true
+  conditions: []
+  identifiers:
+    name: default-enrollment-email-verification
+    pk: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+  model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
     user_creation_mode: never_create
     user_type: internal
   conditions: []
@@ -144,6 +174,19 @@ entries:
     re_evaluate_policies: true
   conditions: []
   identifiers:
+    order: 30
+    pk: 5b07eb65-a145-45ae-989e-47ed447bd8f3
+    stage: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+    target: 503d1c2e-0eb5-4427-8152-9bed19a85838
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
     order: 100
     pk: c4f01c84-13bf-4264-82f9-a09bee2e4c5e
     stage: cb32b209-5647-4605-a68d-8e5c37cbc17f
@@ -151,8 +194,20 @@ entries:
   model: authentik_flows.flowstagebinding
   permissions: []
   state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 2e003572-5dbd-4e77-b769-9e5859ee7916
+    policy: 87f4fc31-6648-40de-b21c-8eb9c056c267
+    target: 5b07eb65-a145-45ae-989e-47ed447bd8f3
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-07 17:25:37.972050+00:00
+  name: authentik Export - 2025-08-08 16:33:25.143005+00:00
 version: 1

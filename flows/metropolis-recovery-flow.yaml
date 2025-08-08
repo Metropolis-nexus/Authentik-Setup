@@ -17,34 +17,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: password
-    label: Password
-    name: default-recovery-field-password
-    order: 0
-    placeholder: Password
-    required: true
-    type: password
-  conditions: []
-  identifiers:
-    pk: e9b91bc7-67be-4faa-a3d2-afe61fa60b5f
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: password_repeat
-    label: Password (repeat)
-    name: default-recovery-field-password-repeat
-    order: 1
-    placeholder: Password (repeat)
-    required: true
-    type: password
-  conditions: []
-  identifiers:
-    pk: 39eb3fb9-1ce1-4abf-bbce-551de4acbc51
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     expression: return bool(request.context.get('is_restored', True))
     name: default-recovery-skip-if-restored
   conditions: []
@@ -107,17 +79,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    fields:
-    - e9b91bc7-67be-4faa-a3d2-afe61fa60b5f
-    - 39eb3fb9-1ce1-4abf-bbce-551de4acbc51
-  conditions: []
-  identifiers:
-    name: Change your password
-    pk: 2fbda946-4c40-4299-8657-2ad50941585f
-  model: authentik_stages_prompt.promptstage
-  permissions: []
-  state: present
-- attrs:
     evaluate_on_plan: true
     invalid_response_action: retry
     policy_engine_mode: any
@@ -141,19 +102,6 @@ entries:
     order: 20
     pk: 0706948f-fdf0-4e0b-a1c4-789159612831
     stage: a3e53da8-f880-41d8-a356-11bb56a122cc
-    target: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
-  model: authentik_flows.flowstagebinding
-  permissions: []
-  state: present
-- attrs:
-    evaluate_on_plan: true
-    invalid_response_action: retry
-    policy_engine_mode: any
-  conditions: []
-  identifiers:
-    order: 30
-    pk: 84ca5c87-89c1-4769-9bb4-272656f77003
-    stage: 2fbda946-4c40-4299-8657-2ad50941585f
     target: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
   model: authentik_flows.flowstagebinding
   permissions: []
@@ -199,5 +147,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-07 17:24:56.615835+00:00
+  name: authentik Export - 2025-08-08 16:34:05.589360+00:00
 version: 1

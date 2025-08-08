@@ -4,7 +4,7 @@ entries:
     authentication: require_authenticated
     denied_action: message_continue
     designation: stage_configuration
-    layout: stacked
+    layout: sidebar_left
     name: metropolis-authenticator-webauthn-setup
     policy_engine_mode: any
     title: Setup WebAuthn
@@ -44,5 +44,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-07 17:25:20.709065+00:00
+  name: authentik Export - 2025-08-08 16:33:10.787991+00:00
 version: 1
