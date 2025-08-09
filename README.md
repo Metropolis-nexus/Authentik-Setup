@@ -70,42 +70,15 @@ Delete all of the following:
 - initial-setup
 
 ### Stages
-- default-authentication-identification
-- default-authenticator-totp-setup
-- default-authenticator-webauthn-setup
-- default-authentication-mfa-validation
-- default-enrollment-prompt-first
-- default-enrollment-prompt-second
-- default-enrollment-user-write
-- default-source-authentication-login
-- default-source-enrollment-login
-- default-source-enrollment-prompt
-- default-source-enrollment-write
-- default-invalidation-flow
-- default-user-settings
-- default-user-settings-write
-- stage-default-oobe-password
+All stages not used by a flow
 
 ### Prompts
-- default-enrollment-field-email
-- default-enrollment-field-name
-- default-source-enrollment-field-username
-- default-user-settings-field-email
-- default-user-settings-field-name
-- initial-setup-field-email
-- initial-setup-field-header
-- initial-setup-field-password
-- initial-setup-field-password-repeat
+ALl flows not used by a stage 
 
 ## Customization
 
 ### Policies
-- default-source-authentication-if-sso
-- default-source-enrollment-if-sso
-- default-source-enrollment-if-username
-- default-oobe-flow-set-authentication
-- default-oobe-password-usable
-- default-oobe-prefill-user
+All policies not assigned to at least 1 object
 
 ## System
 
