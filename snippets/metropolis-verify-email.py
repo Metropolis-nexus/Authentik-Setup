@@ -4,10 +4,10 @@
 current = request.user.email
 new = request.context["prompt_data"]["email"]
 
-if new == '':
+if new == current:
     return False
 
-if new == current:
+if new == '':
     return False
 
 context["flow_plan"].context["pending_user"] = request.user
