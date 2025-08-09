@@ -5,26 +5,25 @@ entries:
     denied_action: message_continue
     designation: stage_configuration
     layout: sidebar_left
-    name: metropolis-authenticator-static-setup
+    name: metropolis-authenticator-totp-setup
     policy_engine_mode: any
-    title: Setup a static OTP token
+    title: Set up TOTP
   conditions: []
   identifiers:
-    pk: 591ad033-f6cb-46ed-8c8c-5521f0ca3218
-    slug: metropolis-authenticator-static-setup
+    pk: a8e4b437-07c4-44fa-9661-b1fc5b081ff4
+    slug: metropolis-authenticator-totp-setup
   model: authentik_flows.flow
   permissions: []
   state: present
 - attrs:
-    configure_flow: 591ad033-f6cb-46ed-8c8c-5521f0ca3218
-    friendly_name: Static token
-    token_count: 1
-    token_length: 16
+    configure_flow: a8e4b437-07c4-44fa-9661-b1fc5b081ff4
+    digits: '6'
+    friendly_name: TOTP device
   conditions: []
   identifiers:
-    name: metropolis-authenticator-static-setup
-    pk: 4eccd741-2108-4ad0-9b37-49e520545a8b
-  model: authentik_stages_authenticator_static.authenticatorstaticstage
+    name: metropolis-authenticator-totp-setup
+    pk: fbbe6aea-42b7-4b23-b9b2-6ddc044c732a
+  model: authentik_stages_authenticator_totp.authenticatortotpstage
   permissions: []
   state: present
 - attrs:
@@ -34,14 +33,14 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: bb46422b-19fd-4491-bc7b-44227cb1f200
-    stage: 4eccd741-2108-4ad0-9b37-49e520545a8b
-    target: 591ad033-f6cb-46ed-8c8c-5521f0ca3218
+    pk: e5cafa7d-8c05-45d1-b198-6b5771ca79b1
+    stage: fbbe6aea-42b7-4b23-b9b2-6ddc044c732a
+    target: a8e4b437-07c4-44fa-9661-b1fc5b081ff4
   model: authentik_flows.flowstagebinding
   permissions: []
   state: present
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-09 17:25:05.449403+00:00
+  name: authentik Export - 2025-08-09 17:25:15.606642+00:00
 version: 1

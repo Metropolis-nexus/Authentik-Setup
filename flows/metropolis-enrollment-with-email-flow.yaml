@@ -5,9 +5,9 @@ entries:
     denied_action: message_continue
     designation: enrollment
     layout: sidebar_left
-    name: Metropolis enrollment with email
+    name: Metropolis Enrollment with Email
     policy_engine_mode: any
-    title: Enrollment with Email
+    title: Enrollment with email
   conditions: []
   identifiers:
     pk: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
@@ -99,5 +99,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-09 10:48:13.999455+00:00
+  name: authentik Export - 2025-08-09 17:23:29.174300+00:00
 version: 1

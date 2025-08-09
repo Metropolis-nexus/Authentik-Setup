@@ -6,7 +6,7 @@ entries:
     denied_action: message_continue
     designation: stage_configuration
     layout: sidebar_left
-    name: Metropolis user settings
+    name: Metropolis User Settings
     policy_engine_mode: any
     title: Update your info
   conditions: []
@@ -226,5 +226,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-09 10:49:23.742239+00:00
+  name: authentik Export - 2025-08-09 17:25:48.669126+00:00
 version: 1

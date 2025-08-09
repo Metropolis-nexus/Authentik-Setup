@@ -76,6 +76,23 @@ entries:
   permissions: []
   state: present
 - attrs:
+    case_insensitive_matching: true
+    enable_remember_me: true
+    enrollment_flow: cf997b2c-1614-4b5d-9555-c1a029f0144f
+    passwordless_flow: d81de7fd-d5b0-4a40-97d8-26cc12dce757
+    pretend_user_exists: true
+    recovery_flow: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+    user_fields:
+    - username
+    - email
+  conditions: []
+  identifiers:
+    name: metropolis-authentification-identification
+    pk: ae934ce5-6e84-485d-8dcd-1a62b66b9230
+  model: authentik_stages_identification.identificationstage
+  permissions: []
+  state: present
+- attrs:
     geoip_binding: no_binding
     network_binding: no_binding
     remember_me_offset: seconds=0
@@ -85,22 +102,6 @@ entries:
     name: default-authentication-login
     pk: 48fd229c-991d-4270-ba74-571ffaee45ae
   model: authentik_stages_user_login.userloginstage
-  permissions: []
-  state: present
-- attrs:
-    configuration_stages:
-    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
-    device_classes:
-    - static
-    - webauthn
-    last_auth_threshold: seconds=0
-    not_configured_action: configure
-    webauthn_user_verification: required
-  conditions: []
-  identifiers:
-    name: metropolis-authentication-mfa-validation
-    pk: 2f72067b-d309-41df-bc02-eaf04227da02
-  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
   permissions: []
   state: present
 - attrs:
@@ -117,20 +118,20 @@ entries:
   permissions: []
   state: present
 - attrs:
-    case_insensitive_matching: true
-    enable_remember_me: true
-    enrollment_flow: cf997b2c-1614-4b5d-9555-c1a029f0144f
-    passwordless_flow: d81de7fd-d5b0-4a40-97d8-26cc12dce757
-    pretend_user_exists: true
-    recovery_flow: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
-    user_fields:
-    - username
-    - email
+    configuration_stages:
+    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    device_classes:
+    - static
+    - totp
+    - webauthn
+    last_auth_threshold: seconds=0
+    not_configured_action: configure
+    webauthn_user_verification: required
   conditions: []
   identifiers:
-    name: metropolis-authentification-identification
-    pk: ae934ce5-6e84-485d-8dcd-1a62b66b9230
-  model: authentik_stages_identification.identificationstage
+    name: metropolis-authentication-mfa-validation
+    pk: 2f72067b-d309-41df-bc02-eaf04227da02
+  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
   permissions: []
   state: present
 - attrs:
@@ -249,5 +250,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-09 10:47:25.980296+00:00
+  name: authentik Export - 2025-08-09 17:22:32.206392+00:00
 version: 1

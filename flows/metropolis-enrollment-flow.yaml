@@ -6,7 +6,7 @@ entries:
     denied_action: message_continue
     designation: enrollment
     layout: sidebar_left
-    name: Metropolis enrollment flow
+    name: Metropolis Enrollment Flow
     policy_engine_mode: any
     title: FIDO2 token required!
   conditions: []
@@ -227,6 +227,17 @@ entries:
   permissions: []
   state: present
 - attrs:
+    keep_context: true
+    mode: flow
+    target_flow: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-with-email
+    pk: 5104d222-05c7-4200-83a5-62e3ded91d0c
+  model: authentik_stages_redirect.redirectstage
+  permissions: []
+  state: present
+- attrs:
     authenticator_attachment: cross-platform
     configure_flow: c588296c-d5ee-4d4f-af5c-70fc884e526f
     friendly_name: WebAuthn device
@@ -237,17 +248,6 @@ entries:
     name: metropolis-authenticator-webauthn-setup
     pk: d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
   model: authentik_stages_authenticator_webauthn.authenticatorwebauthnstage
-  permissions: []
-  state: present
-- attrs:
-    keep_context: true
-    mode: flow
-    target_flow: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
-  conditions: []
-  identifiers:
-    name: metropolis-enrollment-with-email
-    pk: 5104d222-05c7-4200-83a5-62e3ded91d0c
-  model: authentik_stages_redirect.redirectstage
   permissions: []
   state: present
 - attrs:
@@ -334,9 +334,9 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: 33d0a1fa-da10-4d05-8d48-403907ee248a
-    policy: ca2e73ce-1e6d-4db6-9de6-d8e3a9eb03c6
-    target: bedd9c50-ae0a-4e50-8092-fad14c103856
+    pk: bfb405d5-4bbe-4a34-82c0-947d8deaddf5
+    policy: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
   model: authentik_policies.policybinding
   permissions: []
   state: present
@@ -346,14 +346,14 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: bfb405d5-4bbe-4a34-82c0-947d8deaddf5
-    policy: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
-    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+    pk: 33d0a1fa-da10-4d05-8d48-403907ee248a
+    policy: ca2e73ce-1e6d-4db6-9de6-d8e3a9eb03c6
+    target: bedd9c50-ae0a-4e50-8092-fad14c103856
   model: authentik_policies.policybinding
   permissions: []
   state: present
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-09 10:48:29.940758+00:00
+  name: authentik Export - 2025-08-09 17:24:16.504731+00:00
 version: 1
