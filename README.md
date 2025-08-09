@@ -99,7 +99,6 @@ Delete all of the following:
 ## Customization
 
 ### Policies
-- default-authentication-flow-password-stage
 - default-source-authentication-if-sso
 - default-source-enrollment-if-sso
 - default-source-enrollment-if-username
