@@ -17,49 +17,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.settings.locale
-    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
-      locale\", \"\")\nexcept:\n    return ''"
-    initial_value_expression: true
-    label: Locale
-    name: default-user-settings-field-locale
-    order: 203
-    placeholder: Locale
-    required: true
-    type: ak-locale
-  conditions: []
-  identifiers:
-    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: name
-    label: Name (optional)
-    name: metropolis-enrollment-field-name
-    order: 0
-    placeholder: Does not have to be your legal name
-    type: text
-  conditions: []
-  identifiers:
-    pk: 88966df6-3bad-44f6-a864-e92021f54798
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: email
-    label: Email (optional)
-    name: metropolis-enrollment-field-email
-    order: 1
-    placeholder: Email
-    type: text
-  conditions: []
-  identifiers:
-    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: age
     label: I am above the age of 18.
     name: metropolis-enrollment-checkbox-age
@@ -128,6 +85,65 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    required: true
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: name
+    label: Name (optional)
+    name: metropolis-enrollment-field-name
+    order: 0
+    placeholder: Does not have to be your legal name
+    type: text
+  conditions: []
+  identifiers:
+    pk: 88966df6-3bad-44f6-a864-e92021f54798
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: email
+    label: Email (optional)
+    name: metropolis-enrollment-field-email
+    order: 1
+    placeholder: Email
+    type: text
+  conditions: []
+  identifiers:
+    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.passwordless
+    initial_value: return "No"
+    initial_value_expression: true
+    label: Passwordless Authentication
+    name: metropolis-enrollment-passwordless
+    order: 2
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    type: radio-button-group
+  conditions: []
+  identifiers:
+    pk: 78d0409c-151e-4b0b-9988-815a1414fd74
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
     expression: "if request.context[\"prompt_data\"][\"email\"] == \"\":\n   return\
       \ False\nreturn True"
     name: metropolis-enrollment-with-email
@@ -183,20 +199,6 @@ entries:
   state: present
 - attrs:
     fields:
-    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
-    - 88966df6-3bad-44f6-a864-e92021f54798
-    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
-    validation_policies:
-    - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
-  conditions: []
-  identifiers:
-    name: metropolis-enrollment-prompt-second
-    pk: 4f506ecb-6ef5-40cb-a232-c26700923f6a
-  model: authentik_stages_prompt.promptstage
-  permissions: []
-  state: present
-- attrs:
-    fields:
     - c745418b-19c9-4224-80bb-b4764a1661c4
     - 213c0825-53c0-44c4-b596-c83324ad2f44
     - 84b32c40-aeea-4e66-a360-83b142efeed3
@@ -206,6 +208,21 @@ entries:
   identifiers:
     name: metropolis-enrollment-prompt-first
     pk: 3a47e653-4c3d-4d8c-a956-5c6f7610dcdf
+  model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
+    - 88966df6-3bad-44f6-a864-e92021f54798
+    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+    - 78d0409c-151e-4b0b-9988-815a1414fd74
+    validation_policies:
+    - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-prompt-second
+    pk: 4f506ecb-6ef5-40cb-a232-c26700923f6a
   model: authentik_stages_prompt.promptstage
   permissions: []
   state: present
@@ -338,5 +355,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-08 16:32:12.395138+00:00
+  name: authentik Export - 2025-08-09 10:48:29.940758+00:00
 version: 1

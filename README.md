@@ -23,6 +23,7 @@ Enter the admin section and configure the following:
 Import from the flows directory.
 
 ### Notes:
+- Cloudflare Turnstile is used with metropolis-enrollment-flow. It is not included here to avoid leaking secrets.
 - metropolis-recovery-flow should "Require no authentication", but we are using No requirement temporarily due to [this bug](https://github.com/goauthentik/authentik/issues/13714).
 - Stage binding for the recovery flow is copied from the default flow. It's a bit strange how policy evaluation is configured there. Need further investigation later.
 - We are changing the default password change stage and flow instead of making our own due to [this issue](https://github.com/goauthentik/authentik/issues/6388).

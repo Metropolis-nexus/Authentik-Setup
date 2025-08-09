@@ -80,6 +80,22 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: attributes.passwordless
+    initial_value: return user.attributes.get("passwordless", "No")
+    initial_value_expression: true
+    label: Passwordless Authentication
+    name: metropolis-user-settings-passwordless
+    order: 204
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    type: radio-button-group
+  conditions: []
+  identifiers:
+    pk: 9c9e9424-12fa-410a-8a43-cfaefe5dec61
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
     expression: "current = request.user.email\nnew = request.context[\"prompt_data\"\
       ][\"email\"]\n\nif new == '':\n    return False\n\nif new == current:\n    return\
       \ False\n\ncontext[\"flow_plan\"].context[\"pending_user\"] = request.user\n\
@@ -119,6 +135,7 @@ entries:
     - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     - a4cbb135-1d28-46f4-9940-f4389888f2af
     - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
+    - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
     validation_policies:
     - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
   conditions: []
@@ -209,5 +226,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-08 16:33:25.143005+00:00
+  name: authentik Export - 2025-08-09 10:49:23.742239+00:00
 version: 1
