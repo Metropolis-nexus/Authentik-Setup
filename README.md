@@ -73,7 +73,7 @@ Delete all of the following:
 All stages not used by a flow
 
 ### Prompts
-ALl flows not used by a stage 
+All flows not used by a stage 
 
 ## Customization
 
