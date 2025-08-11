@@ -1,0 +1,47 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_authenticated
+    denied_action: message_continue
+    designation: stage_configuration
+    layout: sidebar_left
+    name: metropolis-authenticator-static-setup
+    policy_engine_mode: any
+    title: Setup a static OTP token
+  conditions: []
+  identifiers:
+    pk: 591ad033-f6cb-46ed-8c8c-5521f0ca3218
+    slug: metropolis-authenticator-static-setup
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    configure_flow: 591ad033-f6cb-46ed-8c8c-5521f0ca3218
+    friendly_name: Static token
+    token_count: 1
+    token_length: 16
+  conditions: []
+  identifiers:
+    name: metropolis-authenticator-static-setup
+    pk: 4eccd741-2108-4ad0-9b37-49e520545a8b
+  model: authentik_stages_authenticator_static.authenticatorstaticstage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: bb46422b-19fd-4491-bc7b-44227cb1f200
+    stage: 4eccd741-2108-4ad0-9b37-49e520545a8b
+    target: 591ad033-f6cb-46ed-8c8c-5521f0ca3218
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-11 07:28:54.836084+00:00
+version: 1
