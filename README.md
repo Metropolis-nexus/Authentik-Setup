@@ -59,18 +59,7 @@ Delete all of the following:
 ## Flow and Stages
 
 ### Flows
-- default-authentication-flow
-- default-provider-authorization-explicit-consent
-- default-provider-authorization-implicit-consent
-- default-source-authentication
-- default-enrollment-flow
-- default-source-enrollment
-- default-source-pre-authentication
-- default-recovery-flow
-- default-user-settings-flow
-- default-authenticator-static-setup
-- default-authenticator-totp-setup
-- initial-setup
+All default flows except default-password-change
 
 ### Stages
 All stages not used by a flow
