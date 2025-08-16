@@ -50,6 +50,7 @@ Import from the flows directory.
 ### Settings
 - Avatars: none
 - Allow users to change email
+- Event rentention: days=90
 - Disable "Require reason for impersonation"
 
 # Cleanup
