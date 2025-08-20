@@ -16,9 +16,8 @@ entries:
   permissions: []
   state: present
 - attrs:
-    authenticator_attachment: cross-platform
     configure_flow: c588296c-d5ee-4d4f-af5c-70fc884e526f
-    friendly_name: WebAuthn device
+    friendly_name: WebAuthn Device
     resident_key_requirement: discouraged
     user_verification: required
   conditions: []
@@ -44,5 +43,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-11 07:29:01.279713+00:00
+  name: authentik Export - 2025-08-20 07:38:04.613466+00:00
 version: 1
