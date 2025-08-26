@@ -1,0 +1,1 @@
+return not request.context["pending_user"].is_active

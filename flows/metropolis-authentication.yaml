@@ -1,0 +1,280 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_unauthenticated
+    compatibility_mode: true
+    denied_action: message_continue
+    designation: authentication
+    layout: sidebar_left
+    name: Welcome to Metropolis Nexus!
+    policy_engine_mode: any
+    title: Welcome to Metropolis Nexus!
+  conditions: []
+  identifiers:
+    pk: 812f9784-eb0d-4444-b551-73d3de123e66
+    slug: metropolis-authentication
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    expression: "if request.context[\"pending_user\"].attributes[\"standard_auth\"\
+      ] == \"No\" and ak_user_has_authenticator(context['pending_user'], 'webauthn'):\n\
+      \  return True\nreturn False"
+    name: metropolis-passwordless-authentication-redirect
+  conditions: []
+  identifiers:
+    pk: 6c7541c0-2920-44b6-a63d-21922b66d99f
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
+      United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
+    name: metropolis-geoip
+  conditions: []
+  identifiers:
+    pk: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: return not request.context["pending_user"].is_active
+    name: metropolis-is-inactive
+  conditions: []
+  identifiers:
+    pk: 62404968-48eb-4264-a8f6-3963096a02b8
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "if not ak_is_group_member(request.context[\"pending_user\"], name=\"\
+      metropolis-banned\"):\n  return True\nak_message(\"Account banned.\")\nreturn\
+      \ False"
+    name: metropolis-is-not-banned
+  conditions: []
+  identifiers:
+    pk: 39ca87cb-0967-4c4d-a96e-336f109abc7d
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    activate_user_on_success: true
+    from_address: system@authentik.local
+    host: localhost
+    port: 25
+    recovery_cache_timeout: minutes=5
+    recovery_max_attempts: 5
+    subject: authentik
+    template: email/account_confirmation.html
+    timeout: 10
+    token_expiry: minutes=30
+    use_global_settings: true
+  conditions: []
+  identifiers:
+    name: default-enrollment-email-verification
+    pk: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+  model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
+    case_insensitive_matching: true
+    enable_remember_me: true
+    enrollment_flow: cf997b2c-1614-4b5d-9555-c1a029f0144f
+    passwordless_flow: d81de7fd-d5b0-4a40-97d8-26cc12dce757
+    pretend_user_exists: true
+    recovery_flow: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+    user_fields:
+    - username
+    - email
+  conditions: []
+  identifiers:
+    name: metropolis-authentification-identification
+    pk: ae934ce5-6e84-485d-8dcd-1a62b66b9230
+  model: authentik_stages_identification.identificationstage
+  permissions: []
+  state: present
+- attrs:
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: seconds=0
+    session_duration: seconds=0
+  conditions: []
+  identifiers:
+    name: default-authentication-login
+    pk: 48fd229c-991d-4270-ba74-571ffaee45ae
+  model: authentik_stages_user_login.userloginstage
+  permissions: []
+  state: present
+- attrs:
+    keep_context: true
+    mode: flow
+    target_flow: 6e6186f1-b973-402a-a701-89fe71561c86
+  conditions: []
+  identifiers:
+    name: metropolis-passwordless-authentication-redirect
+    pk: ed50f827-dba8-49c8-8d95-e886439be921
+  model: authentik_stages_redirect.redirectstage
+  permissions: []
+  state: present
+- attrs:
+    allow_show_password: true
+    backends:
+    - authentik.core.auth.InbuiltBackend
+    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
+    failed_attempts_before_cancel: 5
+  conditions: []
+  identifiers:
+    name: default-authentication-password
+    pk: 46323292-891f-447b-9ade-a99fac127bd6
+  model: authentik_stages_password.passwordstage
+  permissions: []
+  state: present
+- attrs:
+    configuration_stages:
+    - 4fecd0f4-9337-4a1b-a013-569b46f12553
+    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    device_classes:
+    - totp
+    - webauthn
+    last_auth_threshold: seconds=0
+    not_configured_action: configure
+    webauthn_user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-mfa-validation
+    pk: 2f72067b-d309-41df-bc02-eaf04227da02
+  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 10
+    pk: 4017c175-13c9-4e3e-85e2-5c1cc8971fa9
+    stage: ae934ce5-6e84-485d-8dcd-1a62b66b9230
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 20
+    pk: 14b9e94b-69ad-4647-8288-02e6a3dc2f97
+    stage: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 30
+    pk: 578f73a0-feaf-4d16-bd84-e3d7f17600bd
+    stage: ed50f827-dba8-49c8-8d95-e886439be921
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 40
+    pk: cfefbff7-d6c6-499c-9c77-bc1cbe115a69
+    stage: 46323292-891f-447b-9ade-a99fac127bd6
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 50
+    pk: b774e9e7-cf82-4473-96dc-a0aa568481c3
+    stage: 2f72067b-d309-41df-bc02-eaf04227da02
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 100
+    pk: 6699ae76-677e-4563-bd58-3b2b55c08e5b
+    stage: 48fd229c-991d-4270-ba74-571ffaee45ae
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: a99be857-c42f-45be-bac9-a89d4b2025d3
+    policy: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+    target: 812f9784-eb0d-4444-b551-73d3de123e66
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 3d05163f-fac6-42b0-aac9-993269eefdce
+    policy: 6c7541c0-2920-44b6-a63d-21922b66d99f
+    target: 578f73a0-feaf-4d16-bd84-e3d7f17600bd
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: a1b2bf20-3db4-4b38-9bfe-383e5563487e
+    policy: 39ca87cb-0967-4c4d-a96e-336f109abc7d
+    target: 6699ae76-677e-4563-bd58-3b2b55c08e5b
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 19343b03-e5ca-47c3-b86e-49e7d71996e4
+    policy: 62404968-48eb-4264-a8f6-3963096a02b8
+    target: 14b9e94b-69ad-4647-8288-02e6a3dc2f97
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:57:05.159254+00:00
+version: 1

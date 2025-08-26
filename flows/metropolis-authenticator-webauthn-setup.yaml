@@ -1,0 +1,48 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_authenticated
+    denied_action: message_continue
+    designation: stage_configuration
+    layout: sidebar_left
+    name: metropolis-authenticator-webauthn-setup
+    policy_engine_mode: any
+    title: Setup WebAuthn
+  conditions: []
+  identifiers:
+    pk: c588296c-d5ee-4d4f-af5c-70fc884e526f
+    slug: metropolis-authenticator-webauthn-setup
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    configure_flow: c588296c-d5ee-4d4f-af5c-70fc884e526f
+    friendly_name: WebAuthn Device
+    max_attempts: 0
+    resident_key_requirement: discouraged
+    user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authenticator-webauthn-setup
+    pk: d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+  model: authentik_stages_authenticator_webauthn.authenticatorwebauthnstage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 52393772-9b94-499f-8ce5-923fb3eef8b3
+    stage: d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    target: c588296c-d5ee-4d4f-af5c-70fc884e526f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:58:49.217301+00:00
+version: 1

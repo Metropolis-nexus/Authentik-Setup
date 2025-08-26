@@ -1,0 +1,47 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_authenticated
+    compatibility_mode: true
+    denied_action: message_continue
+    designation: stage_configuration
+    layout: sidebar_left
+    name: metropolis-authenticator-totp-setup
+    policy_engine_mode: any
+    title: Set up TOTP
+  conditions: []
+  identifiers:
+    pk: 99fe4cbf-2897-4270-b171-42b825ba87c7
+    slug: metropolis-authenticator-totp-setup
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    configure_flow: 99fe4cbf-2897-4270-b171-42b825ba87c7
+    digits: '6'
+    friendly_name: TOTP Device
+  conditions: []
+  identifiers:
+    name: metropolis-authenticator-totp-setup
+    pk: 4fecd0f4-9337-4a1b-a013-569b46f12553
+  model: authentik_stages_authenticator_totp.authenticatortotpstage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 40c02a98-2c0a-4c2a-9496-60b002e10438
+    stage: 4fecd0f4-9337-4a1b-a013-569b46f12553
+    target: 99fe4cbf-2897-4270-b171-42b825ba87c7
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:58:43.106555+00:00
+version: 1

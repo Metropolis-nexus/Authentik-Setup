@@ -1,0 +1,433 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_unauthenticated
+    compatibility_mode: true
+    denied_action: message_continue
+    designation: enrollment
+    layout: sidebar_left
+    name: Metropolis Enrollment Flow
+    policy_engine_mode: any
+    title: Welcome to Metropolis Nexus!
+  conditions: []
+  identifiers:
+    pk: cf997b2c-1614-4b5d-9555-c1a029f0144f
+    slug: metropolis-enrollment-flow
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    field_key: password_repeat
+    label: Password (repeat)
+    name: default-enrollment-field-password-repeat
+    order: 1
+    placeholder: Password (repeat)
+    required: true
+    type: password
+  conditions: []
+  identifiers:
+    pk: 87c432b1-66d8-4b50-b1c4-445b45873694
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: residency
+    label: I am not a resident of Mississippi, Wyoming, Ohio, South Dakota, or the
+      United Kingdom.
+    name: metropolis-enrollment-checkbox-residency
+    order: 401
+    required: true
+    type: checkbox
+  conditions: []
+  identifiers:
+    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: age
+    label: I am above the age of 18.
+    name: metropolis-enrollment-checkbox-age
+    order: 400
+    required: true
+    type: checkbox
+  conditions: []
+  identifiers:
+    pk: c745418b-19c9-4224-80bb-b4764a1661c4
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: username
+    label: Username
+    name: default-enrollment-field-username
+    order: 0
+    placeholder: Username
+    required: true
+    type: username
+  conditions: []
+  identifiers:
+    pk: 84b32c40-aeea-4e66-a360-83b142efeed3
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: password
+    label: Password
+    name: default-enrollment-field-password
+    order: 0
+    placeholder: Password
+    required: true
+    type: password
+  conditions: []
+  identifiers:
+    pk: 2ee49216-5298-4158-b9a5-11d722e4cd3b
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    required: true
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: name
+    label: Name (optional)
+    name: metropolis-enrollment-field-name
+    order: 0
+    placeholder: Does not have to be your legal name
+    type: text
+  conditions: []
+  identifiers:
+    pk: 88966df6-3bad-44f6-a864-e92021f54798
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: email
+    label: Email (optional)
+    name: metropolis-enrollment-field-email
+    order: 1
+    placeholder: Email
+    sub_text: Password recovery is available if you enroll an email address.
+    type: email
+  conditions: []
+  identifiers:
+    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.standard_auth
+    initial_value: 'Yes'
+    label: Password + WebAuthn/TOTP Authentication
+    name: metropolis-enrollment-standard-auth
+    order: 2
+    required: true
+    type: hidden
+  conditions: []
+  identifiers:
+    pk: 92289318-5312-440c-96b3-ecbd9f0a520a
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.passwordless_auth
+    initial_value: 'No'
+    label: Passwordless Authentication
+    name: metropolis-enrollment-passwordless-auth
+    order: 3
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    type: dropdown
+  conditions: []
+  identifiers:
+    pk: 78d0409c-151e-4b0b-9988-815a1414fd74
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
+      United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
+    name: metropolis-geoip
+  conditions: []
+  identifiers:
+    pk: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "if request.context[\"prompt_data\"][\"email\"] == \"\":\n   return\
+      \ False\nreturn True"
+    name: metropolis-enrollment-with-email
+  conditions: []
+  identifiers:
+    pk: ca2e73ce-1e6d-4db6-9de6-d8e3a9eb03c6
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "from authentik.core.models import User\n\nemail = request.context[\"\
+      prompt_data\"][\"email\"]\nif email!=\"\" and User.objects.filter(email=email).exists():\n\
+      \  ak_message(\"Email address already in use\")\n  return False\nreturn True"
+    name: metropolis-enrollment-unique-email
+  conditions: []
+  identifiers:
+    pk: 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    amount_digits: 0
+    amount_lowercase: 0
+    amount_symbols: 0
+    amount_uppercase: 0
+    check_have_i_been_pwned: true
+    check_static_rules: true
+    check_zxcvbn: true
+    error_message: Password needs to be 12 characters or longer. You should use a
+      diceware password.
+    hibp_allowed_count: 0
+    length_min: 12
+    name: metropolis-password-policy
+    password_field: password
+    symbol_charset: '!\"#$%&''()*+,-./:;<=>?@[]^_`{|}~'
+    zxcvbn_score_threshold: 3
+  conditions: []
+  identifiers:
+    pk: f50858c8-dc43-4840-bceb-849418b2b028
+  model: authentik_policies_password.passwordpolicy
+  permissions: []
+  state: present
+- attrs:
+    create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
+    user_creation_mode: always_create
+    user_type: internal
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-user-write
+    pk: 11411c89-a9e8-4025-a49b-7fed41de749b
+  model: authentik_stages_user_write.userwritestage
+  permissions: []
+  state: present
+- attrs:
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: seconds=0
+    session_duration: seconds=0
+  conditions: []
+  identifiers:
+    name: default-enrollment-user-login
+    pk: 129e97d4-12fd-4767-b03b-f2bae94dac6e
+  model: authentik_stages_user_login.userloginstage
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - 87c432b1-66d8-4b50-b1c4-445b45873694
+    - 213c0825-53c0-44c4-b596-c83324ad2f44
+    - c745418b-19c9-4224-80bb-b4764a1661c4
+    - 84b32c40-aeea-4e66-a360-83b142efeed3
+    - 2ee49216-5298-4158-b9a5-11d722e4cd3b
+    validation_policies:
+    - f50858c8-dc43-4840-bceb-849418b2b028
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-prompt-first
+    pk: 3a47e653-4c3d-4d8c-a956-5c6f7610dcdf
+  model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
+    - 88966df6-3bad-44f6-a864-e92021f54798
+    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+    - 92289318-5312-440c-96b3-ecbd9f0a520a
+    - 78d0409c-151e-4b0b-9988-815a1414fd74
+    validation_policies:
+    - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-prompt-third
+    pk: 4f506ecb-6ef5-40cb-a232-c26700923f6a
+  model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    keep_context: true
+    mode: flow
+    target_flow: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-with-email
+    pk: 5104d222-05c7-4200-83a5-62e3ded91d0c
+  model: authentik_stages_redirect.redirectstage
+  permissions: []
+  state: present
+- attrs:
+    api_url: https://challenges.cloudflare.com/turnstile/v0/siteverify
+    error_on_invalid_score: true
+    interactive: true
+    js_url: https://challenges.cloudflare.com/turnstile/v0/api.js
+    public_key: 0x4AAAAAABqyAqrm7B1HqTPf
+    score_max_threshold: -1.0
+    score_min_threshold: 0.5
+  conditions: []
+  identifiers:
+    name: metropolis-captcha
+    pk: e56a861b-84a7-42a9-9501-4b82b069abb8
+  model: authentik_stages_captcha.captchastage
+  permissions: []
+  state: present
+- attrs:
+    configuration_stages:
+    - 4fecd0f4-9337-4a1b-a013-569b46f12553
+    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    device_classes:
+    - totp
+    - webauthn
+    last_auth_threshold: seconds=0
+    not_configured_action: configure
+    webauthn_user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-mfa-validation
+    pk: 2f72067b-d309-41df-bc02-eaf04227da02
+  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 8ef8003c-d12e-4262-9757-ba52cb770a03
+    stage: e56a861b-84a7-42a9-9501-4b82b069abb8
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 10
+    pk: 93cf7737-3f45-43f4-b4d0-8bbae14eb2a6
+    stage: 3a47e653-4c3d-4d8c-a956-5c6f7610dcdf
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 30
+    pk: ad7ea18f-259c-4d14-b98e-822e97866ade
+    stage: 4f506ecb-6ef5-40cb-a232-c26700923f6a
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 40
+    pk: bedd9c50-ae0a-4e50-8092-fad14c103856
+    stage: 5104d222-05c7-4200-83a5-62e3ded91d0c
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 50
+    pk: 1ba3eff2-a40f-4285-bdc3-701f8691126a
+    stage: 11411c89-a9e8-4025-a49b-7fed41de749b
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 60
+    pk: 5f84f1e9-f54c-493f-9d62-73a5fb3fed7b
+    stage: 2f72067b-d309-41df-bc02-eaf04227da02
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 100
+    pk: 51db1217-8558-48b5-99a2-069a638c5593
+    stage: 129e97d4-12fd-4767-b03b-f2bae94dac6e
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: bfb405d5-4bbe-4a34-82c0-947d8deaddf5
+    policy: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+    target: cf997b2c-1614-4b5d-9555-c1a029f0144f
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 33d0a1fa-da10-4d05-8d48-403907ee248a
+    policy: ca2e73ce-1e6d-4db6-9de6-d8e3a9eb03c6
+    target: bedd9c50-ae0a-4e50-8092-fad14c103856
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:57:49.722082+00:00
+version: 1

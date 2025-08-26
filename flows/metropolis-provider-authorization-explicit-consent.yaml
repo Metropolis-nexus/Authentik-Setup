@@ -1,0 +1,45 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_authenticated
+    denied_action: message_continue
+    designation: authorization
+    layout: sidebar_left
+    name: Authorize Application
+    policy_engine_mode: any
+    title: Redirecting to %(app)s
+  conditions: []
+  identifiers:
+    pk: 08667897-4c4d-421c-8fb0-394c1cdaa46a
+    slug: metropolis-provider-authorization-explicit-consent
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    consent_expire_in: weeks=4
+    mode: expiring
+  conditions: []
+  identifiers:
+    name: default-provider-authorization-consent
+    pk: a5ac2f47-e975-4c47-a0c6-e67144c4c8db
+  model: authentik_stages_consent.consentstage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 58132b28-e8bd-435c-8708-d104246e1db5
+    stage: a5ac2f47-e975-4c47-a0c6-e67144c4c8db
+    target: 08667897-4c4d-421c-8fb0-394c1cdaa46a
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:57:42.940821+00:00
+version: 1

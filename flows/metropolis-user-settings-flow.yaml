@@ -1,0 +1,282 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_authenticated
+    compatibility_mode: true
+    denied_action: message_continue
+    designation: stage_configuration
+    layout: sidebar_left
+    name: Metropolis User Settings
+    policy_engine_mode: any
+    title: Update your info
+  conditions: []
+  identifiers:
+    pk: 503d1c2e-0eb5-4427-8152-9bed19a85838
+    slug: metropolis-user-settings-flow
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    required: true
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.passwordless_auth
+    initial_value: return user.attributes.get("passwordless_auth", "No")
+    initial_value_expression: true
+    label: Passwordless Authentication
+    name: metropolis-user-settings-passwordless-auth
+    order: 205
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    sub_text: Falls back to standard authentication if you do not have a WebAuthn
+      device enrolled, even if standard authentication is disabled.
+    type: dropdown
+  conditions: []
+  identifiers:
+    pk: 9c9e9424-12fa-410a-8a43-cfaefe5dec61
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.standard_auth
+    initial_value: return user.attributes.get("standard_auth", "Yes")
+    initial_value_expression: true
+    label: Standard Authentication
+    name: metropolis-user-settings-standard-auth
+    order: 204
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    sub_text: Password + WebAuthn/TOTP. Password recovery is available if you enroll
+      an email address.
+    type: dropdown
+  conditions: []
+  identifiers:
+    pk: c285d707-f3b8-4346-894e-7b3081bd9746
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: username
+    initial_value: "try:\n    return user.username\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Username
+    name: default-user-settings-field-username
+    order: 200
+    placeholder: Username
+    required: true
+    type: username
+  conditions: []
+  identifiers:
+    pk: df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: name
+    initial_value: "try:\n    return user.name\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Name
+    name: metropolis-user-settings-field-name
+    order: 201
+    placeholder: Does not have to be your legal name
+    type: text
+  conditions: []
+  identifiers:
+    pk: a4cbb135-1d28-46f4-9940-f4389888f2af
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: email
+    initial_value: "try:\n    return user.email\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Email
+    name: metropolis-user-settings-field-email
+    order: 202
+    placeholder: Email
+    type: email
+  conditions: []
+  identifiers:
+    pk: 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    expression: "current_email = request.user.email\nnew_email = request.context[\"\
+      prompt_data\"][\"email\"]\n\nif new_email == \"\":\n    return False\n\nif new_email\
+      \ == current_email:\n    return False\n\ncontext[\"flow_plan\"].context[\"pending_user\"\
+      ] = request.user\nrequest.context[\"flow_plan\"].context[\"email\"] = request.context[\"\
+      prompt_data\"][\"email\"]\n\nreturn True"
+    name: metropolis-verify-email
+  conditions: []
+  identifiers:
+    pk: 87f4fc31-6648-40de-b21c-8eb9c056c267
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "standard = request.context[\"prompt_data\"][\"attributes\"][\"standard_auth\"\
+      ]\n\npasswordless = request.context[\"prompt_data\"][\"attributes\"][\"passwordless_auth\"\
+      ]\n\nif standard==\"Yes\" or passwordless==\"Yes\":\n  return True\n\nak_message(\"\
+      You must enable at least one authentication method.\")\nreturn False"
+    name: metropolis-validate-auth-methods
+  conditions: []
+  identifiers:
+    pk: 711e5fba-cf65-40d4-914e-920387ef376e
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "from authentik.core.models import (\n    USER_ATTRIBUTE_CHANGE_EMAIL,\n\
+      \    USER_ATTRIBUTE_CHANGE_NAME,\n    USER_ATTRIBUTE_CHANGE_USERNAME\n)\nprompt_data\
+      \ = request.context.get(\"prompt_data\")\n\nif not request.user.group_attributes(request.http_request).get(\n\
+      \    USER_ATTRIBUTE_CHANGE_EMAIL, request.http_request.tenant.default_user_change_email\n\
+      ):\n    if prompt_data.get(\"email\") != request.user.email:\n        ak_message(\"\
+      Not allowed to change email address.\")\n        return False\n\nif not request.user.group_attributes(request.http_request).get(\n\
+      \    USER_ATTRIBUTE_CHANGE_NAME, request.http_request.tenant.default_user_change_name\n\
+      ):\n    if prompt_data.get(\"name\") != request.user.name:\n        ak_message(\"\
+      Not allowed to change name.\")\n        return False\n\nif not request.user.group_attributes(request.http_request).get(\n\
+      \    USER_ATTRIBUTE_CHANGE_USERNAME, request.http_request.tenant.default_user_change_username\n\
+      ):\n    if prompt_data.get(\"username\") != request.user.username:\n       \
+      \ ak_message(\"Not allowed to change username.\")\n        return False\n\n\
+      return True"
+    name: default-user-settings-authorization
+  conditions: []
+  identifiers:
+    pk: 1552d9da-20e6-41ef-bf83-27c9bbca5abe
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    expression: "from authentik.core.models import User\n\ncurrent_email = request.user.email\n\
+      new_email = request.context[\"prompt_data\"][\"email\"]\n\nif new_email == \"\
+      \":\n    return True\n\nif new_email == current_email:\n    return True\n\n\
+      if User.objects.filter(email=new_email).exists():\n  ak_message(\"Email address\
+      \ already in use\")\n  return False\n  \nreturn True"
+    name: metropolis-settings-unique-email
+  conditions: []
+  identifiers:
+    pk: 30d0c709-f14f-45c9-9b28-4c5ec81831c0
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
+    - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
+    - c285d707-f3b8-4346-894e-7b3081bd9746
+    - df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+    - a4cbb135-1d28-46f4-9940-f4389888f2af
+    - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
+    validation_policies:
+    - 711e5fba-cf65-40d4-914e-920387ef376e
+    - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
+    - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
+  conditions: []
+  identifiers:
+    name: metropolis-user-settings
+    pk: 58358ea8-86b0-4168-9433-cac17f83196a
+  model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    activate_user_on_success: true
+    from_address: system@authentik.local
+    host: localhost
+    port: 25
+    recovery_cache_timeout: minutes=5
+    recovery_max_attempts: 5
+    subject: authentik
+    template: email/account_confirmation.html
+    timeout: 10
+    token_expiry: minutes=30
+    use_global_settings: true
+  conditions: []
+  identifiers:
+    name: default-enrollment-email-verification
+    pk: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+  model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
+    user_creation_mode: never_create
+    user_type: internal
+  conditions: []
+  identifiers:
+    name: metropolis-user-settings-write
+    pk: cb32b209-5647-4605-a68d-8e5c37cbc17f
+  model: authentik_stages_user_write.userwritestage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 20
+    pk: ad658596-d8af-4caa-887b-c1e06c336abb
+    stage: 58358ea8-86b0-4168-9433-cac17f83196a
+    target: 503d1c2e-0eb5-4427-8152-9bed19a85838
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 30
+    pk: 5b07eb65-a145-45ae-989e-47ed447bd8f3
+    stage: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+    target: 503d1c2e-0eb5-4427-8152-9bed19a85838
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 100
+    pk: c4f01c84-13bf-4264-82f9-a09bee2e4c5e
+    stage: cb32b209-5647-4605-a68d-8e5c37cbc17f
+    target: 503d1c2e-0eb5-4427-8152-9bed19a85838
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 2e003572-5dbd-4e77-b769-9e5859ee7916
+    policy: 87f4fc31-6648-40de-b21c-8eb9c056c267
+    target: 5b07eb65-a145-45ae-989e-47ed447bd8f3
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:58:55.245658+00:00
+version: 1

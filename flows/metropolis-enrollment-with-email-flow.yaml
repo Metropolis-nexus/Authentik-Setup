@@ -1,0 +1,109 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_redirect
+    denied_action: message_continue
+    designation: enrollment
+    layout: sidebar_left
+    name: Metropolis Enrollment with Email
+    policy_engine_mode: any
+    title: Enrollment with email
+  conditions: []
+  identifiers:
+    pk: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+    slug: metropolis-enrollment-with-email-flow
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    activate_user_on_success: true
+    from_address: system@authentik.local
+    host: localhost
+    port: 25
+    recovery_cache_timeout: minutes=5
+    recovery_max_attempts: 5
+    subject: authentik
+    template: email/account_confirmation.html
+    timeout: 10
+    token_expiry: minutes=30
+    use_global_settings: true
+  conditions: []
+  identifiers:
+    name: default-enrollment-email-verification
+    pk: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+  model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
+    create_users_as_inactive: true
+    create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
+    user_creation_mode: always_create
+    user_type: internal
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-with-email-user-write
+    pk: 302ab18f-5a15-4297-a835-cf45dc7b963e
+  model: authentik_stages_user_write.userwritestage
+  permissions: []
+  state: present
+- attrs:
+    configuration_stages:
+    - 4fecd0f4-9337-4a1b-a013-569b46f12553
+    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    device_classes:
+    - totp
+    - webauthn
+    last_auth_threshold: seconds=0
+    not_configured_action: configure
+    webauthn_user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-mfa-validation
+    pk: 2f72067b-d309-41df-bc02-eaf04227da02
+  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 10
+    pk: a2a60efa-877e-48f7-9d57-7b3d5be8f8e0
+    stage: 302ab18f-5a15-4297-a835-cf45dc7b963e
+    target: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 20
+    pk: 7c26a2d8-2543-4c21-a5df-246a04034dbe
+    stage: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
+    target: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 30
+    pk: 2745d7a0-c64d-4be4-8544-9175ff0a3188
+    stage: 2f72067b-d309-41df-bc02-eaf04227da02
+    target: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:57:58.502012+00:00
+version: 1

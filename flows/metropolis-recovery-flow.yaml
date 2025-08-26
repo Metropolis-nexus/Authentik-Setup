@@ -1,0 +1,204 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_unauthenticated
+    compatibility_mode: true
+    denied_action: message_continue
+    designation: recovery
+    layout: sidebar_left
+    name: Metropolis Recovery Flow
+    policy_engine_mode: any
+    title: Reset your password
+  conditions: []
+  identifiers:
+    pk: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+    slug: metropolis-recovery-flow
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    field_key: password
+    label: Password
+    name: default-recovery-field-password
+    order: 0
+    placeholder: Password
+    required: true
+    type: password
+  conditions: []
+  identifiers:
+    pk: e9b91bc7-67be-4faa-a3d2-afe61fa60b5f
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: password_repeat
+    label: Password (repeat)
+    name: default-recovery-field-password-repeat
+    order: 1
+    placeholder: Password (repeat)
+    required: true
+    type: password
+  conditions: []
+  identifiers:
+    pk: 39eb3fb9-1ce1-4abf-bbce-551de4acbc51
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    expression: return bool(request.context.get('is_restored', True))
+    name: default-recovery-skip-if-restored
+  conditions: []
+  identifiers:
+    pk: 30930d3e-14d8-44f1-bf16-e8a669afde6a
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    amount_digits: 0
+    amount_lowercase: 0
+    amount_symbols: 0
+    amount_uppercase: 0
+    check_have_i_been_pwned: true
+    check_static_rules: true
+    check_zxcvbn: true
+    error_message: Password needs to be 12 characters or longer. You should use a
+      diceware password.
+    hibp_allowed_count: 0
+    length_min: 12
+    name: metropolis-password-policy
+    password_field: password
+    symbol_charset: '!\"#$%&''()*+,-./:;<=>?@[]^_`{|}~'
+    zxcvbn_score_threshold: 3
+  conditions: []
+  identifiers:
+    pk: f50858c8-dc43-4840-bceb-849418b2b028
+  model: authentik_policies_password.passwordpolicy
+  permissions: []
+  state: present
+- attrs:
+    case_insensitive_matching: true
+    pretend_user_exists: true
+    show_matched_user: true
+    user_fields:
+    - email
+    - username
+  conditions: []
+  identifiers:
+    name: default-recovery-identification
+    pk: ff14b5cd-7be7-427c-b3f0-57d1f436dfab
+  model: authentik_stages_identification.identificationstage
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - e9b91bc7-67be-4faa-a3d2-afe61fa60b5f
+    - 39eb3fb9-1ce1-4abf-bbce-551de4acbc51
+    validation_policies:
+    - f50858c8-dc43-4840-bceb-849418b2b028
+  conditions: []
+  identifiers:
+    name: metropolis-recovery-password
+    pk: 2b56d5a2-288b-44c7-9577-e022592f9a5b
+  model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    user_creation_mode: never_create
+    user_type: external
+  conditions: []
+  identifiers:
+    name: default-recovery-user-write
+    pk: d29c8f44-f995-4948-84a6-3eae133f325a
+  model: authentik_stages_user_write.userwritestage
+  permissions: []
+  state: present
+- attrs:
+    activate_user_on_success: true
+    from_address: system@authentik.local
+    host: localhost
+    port: 25
+    recovery_cache_timeout: minutes=5
+    recovery_max_attempts: 5
+    subject: authentik
+    template: email/password_reset.html
+    timeout: 10
+    token_expiry: minutes=30
+    use_global_settings: true
+  conditions: []
+  identifiers:
+    name: default-recovery-email
+    pk: a3e53da8-f880-41d8-a356-11bb56a122cc
+  model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
+    evaluate_on_plan: true
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 10
+    pk: 54d333a7-9050-44f3-8280-42b14ef78bb9
+    stage: ff14b5cd-7be7-427c-b3f0-57d1f436dfab
+    target: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    evaluate_on_plan: true
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 20
+    pk: 0706948f-fdf0-4e0b-a1c4-789159612831
+    stage: a3e53da8-f880-41d8-a356-11bb56a122cc
+    target: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    evaluate_on_plan: true
+    invalid_response_action: retry
+    policy_engine_mode: any
+  conditions: []
+  identifiers:
+    order: 30
+    pk: 7ab1b446-6ffd-4930-959b-09048da1a4c9
+    stage: 2b56d5a2-288b-44c7-9577-e022592f9a5b
+    target: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    evaluate_on_plan: true
+    invalid_response_action: retry
+    policy_engine_mode: any
+  conditions: []
+  identifiers:
+    order: 40
+    pk: ad6e099b-ffc4-4a57-9530-8c85bc679e98
+    stage: d29c8f44-f995-4948-84a6-3eae133f325a
+    target: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    timeout: 30
+  conditions: []
+  identifiers:
+    order: 0
+    pk: 9785aafb-f67d-4847-8490-11df2592efd5
+    policy: 30930d3e-14d8-44f1-bf16-e8a669afde6a
+    target: 54d333a7-9050-44f3-8280-42b14ef78bb9
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 21:02:35.606832+00:00
+version: 1

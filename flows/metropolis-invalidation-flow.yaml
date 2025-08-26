@@ -1,0 +1,43 @@
+context: {}
+entries:
+- attrs:
+    authentication: none
+    denied_action: message_continue
+    designation: invalidation
+    layout: sidebar_left
+    name: Logout
+    policy_engine_mode: any
+    title: Metropolis Invalidation Flow
+  conditions: []
+  identifiers:
+    pk: a317ecf5-7391-4d01-a07e-a2a6d62cdb9b
+    slug: metropolis-invalidation-flow
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs: {}
+  conditions: []
+  identifiers:
+    name: default-invalidation-logout
+    pk: f01a19f5-43f3-4d7b-b9da-a459e15ef480
+  model: authentik_stages_user_logout.userlogoutstage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: ab41e79d-0811-4792-af39-153ee36de0e2
+    stage: f01a19f5-43f3-4d7b-b9da-a459e15ef480
+    target: a317ecf5-7391-4d01-a07e-a2a6d62cdb9b
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2025-08-26 20:58:14.469173+00:00
+version: 1
