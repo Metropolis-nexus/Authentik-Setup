@@ -253,7 +253,7 @@ entries:
     - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
   conditions: []
   identifiers:
-    name: metropolis-enrollment-prompt-third
+    name: metropolis-enrollment-prompt-second
     pk: 4f506ecb-6ef5-40cb-a232-c26700923f6a
   model: authentik_stages_prompt.promptstage
   permissions: []
@@ -422,5 +422,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 20:58:05.409876+00:00
+  name: authentik Export - 2025-08-26 21:21:26.311818+00:00
 version: 1
