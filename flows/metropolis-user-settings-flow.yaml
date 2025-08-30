@@ -122,7 +122,9 @@ entries:
       prompt_data\"][\"email\"]\n\nif new_email == \"\":\n    return False\n\nif new_email\
       \ == current_email:\n    return False\n\ncontext[\"flow_plan\"].context[\"pending_user\"\
       ] = request.user\nrequest.context[\"flow_plan\"].context[\"email\"] = request.context[\"\
-      prompt_data\"][\"email\"]\n\nreturn True"
+      prompt_data\"][\"email\"]\n\nak_message(\"Waiting for email verification. If\
+      \ you need the cancel the change, log out and log back into your account.\"\
+      )\n\nreturn True"
     name: metropolis-verify-email
   conditions: []
   identifiers:
@@ -278,5 +280,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 20:58:55.245658+00:00
+  name: authentik Export - 2025-08-30 23:25:50.535935+00:00
 version: 1
