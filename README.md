@@ -45,6 +45,20 @@ Import from the flows directory.
   - Recovery flow: metropolis-recovery-flow
   - User settings flow: metropolis-user-settings-flow
 - Web Certificate: auth.metropolis.nexus
+- Attributes:
+
+```
+settings:
+  theme:
+    base: dark
+    background: >
+      background: url('/media/public/flow-backgrounds/chicago.jpg');
+      filter: blur(8px) brightness(50%);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+```
 
 ### Settings
 - Avatars: none
