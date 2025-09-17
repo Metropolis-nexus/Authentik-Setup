@@ -1,4 +1,4 @@
-email=user.email
+email = user.email
 
 if email == "":
   email = user.username + "@auth.metropolis.nexus"
