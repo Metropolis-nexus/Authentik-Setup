@@ -116,21 +116,23 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: email
-    label: Email (optional)
-    name: metropolis-enrollment-field-email
-    order: 1
-    placeholder: Email
-    sub_text: Password recovery is available if you enroll an email address.
-    type: email
+    field_key: attributes.passwordless-auth
+    initial_value: 'No'
+    label: Passwordless Authentication
+    name: metropolis-enrollment-passwordless-auth
+    order: 3
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    type: dropdown
   conditions: []
   identifiers:
-    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+    pk: 78d0409c-151e-4b0b-9988-815a1414fd74
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.standard_auth
+    field_key: attributes.standard-auth
     initial_value: 'Yes'
     label: Password + WebAuthn/TOTP Authentication
     name: metropolis-enrollment-standard-auth
@@ -144,18 +146,16 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.passwordless_auth
-    initial_value: 'No'
-    label: Passwordless Authentication
-    name: metropolis-enrollment-passwordless-auth
-    order: 3
-    placeholder: return ["Yes", "No"]
-    placeholder_expression: true
-    required: true
-    type: dropdown
+    field_key: email
+    label: Email (optional)
+    name: metropolis-enrollment-field-email
+    order: 1
+    placeholder: Email
+    sub_text: Password recovery is available if you enroll an email address.
+    type: email
   conditions: []
   identifiers:
-    pk: 78d0409c-151e-4b0b-9988-815a1414fd74
+    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -256,9 +256,9 @@ entries:
     fields:
     - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     - 88966df6-3bad-44f6-a864-e92021f54798
-    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
-    - 92289318-5312-440c-96b3-ecbd9f0a520a
     - 78d0409c-151e-4b0b-9988-815a1414fd74
+    - 92289318-5312-440c-96b3-ecbd9f0a520a
+    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
     validation_policies:
     - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
   conditions: []
@@ -429,5 +429,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 21:21:16.739573+00:00
+  name: authentik Export - 2025-09-22 14:08:56.126115+00:00
 version: 1

@@ -17,7 +17,7 @@ entries:
   permissions: []
   state: present
 - attrs:
-    expression: "if request.context[\"pending_user\"].attributes[\"standard_auth\"\
+    expression: "if request.context[\"pending_user\"].attributes[\"standard-auth\"\
       ] == \"No\" and ak_user_has_authenticator(context['pending_user'], 'webauthn'):\n\
       \  return True\nreturn False"
     name: metropolis-passwordless-authentication-redirect
@@ -276,5 +276,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 20:57:05.159254+00:00
+  name: authentik Export - 2025-09-22 14:08:38.484414+00:00
 version: 1

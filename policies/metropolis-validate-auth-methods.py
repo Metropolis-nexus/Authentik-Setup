@@ -1,6 +1,6 @@
-standard = request.context["prompt_data"]["attributes"]["standard_auth"]
+standard = request.context["prompt_data"]["attributes"]["standard-auth"]
 
-passwordless = request.context["prompt_data"]["attributes"]["passwordless_auth"]
+passwordless = request.context["prompt_data"]["attributes"]["passwordless-auth"]
 
 if standard=="Yes" or passwordless=="Yes":
   return True

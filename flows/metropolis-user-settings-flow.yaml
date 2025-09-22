@@ -34,26 +34,23 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.passwordless_auth
-    initial_value: return user.attributes.get("passwordless_auth", "No")
+    field_key: username
+    initial_value: "try:\n    return user.username\nexcept:\n    return ''"
     initial_value_expression: true
-    label: Passwordless Authentication
-    name: metropolis-user-settings-passwordless-auth
-    order: 205
-    placeholder: return ["Yes", "No"]
-    placeholder_expression: true
+    label: Username
+    name: default-user-settings-field-username
+    order: 200
+    placeholder: Username
     required: true
-    sub_text: Falls back to standard authentication if you do not have a WebAuthn
-      device enrolled, even if standard authentication is disabled.
-    type: dropdown
+    type: username
   conditions: []
   identifiers:
-    pk: 9c9e9424-12fa-410a-8a43-cfaefe5dec61
+    pk: df23ba61-845c-43ca-9cb4-0bb4c6634a7a
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.standard_auth
+    field_key: attributes.standard-auth
     initial_value: return user.attributes.get("standard_auth", "Yes")
     initial_value_expression: true
     label: Standard Authentication
@@ -72,18 +69,21 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: username
-    initial_value: "try:\n    return user.username\nexcept:\n    return ''"
+    field_key: attributes.passwordless-auth
+    initial_value: return user.attributes.get("passwordless_auth", "No")
     initial_value_expression: true
-    label: Username
-    name: default-user-settings-field-username
-    order: 200
-    placeholder: Username
+    label: Passwordless Authentication
+    name: metropolis-user-settings-passwordless-auth
+    order: 205
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
     required: true
-    type: username
+    sub_text: Falls back to standard authentication if you do not have a WebAuthn
+      device enrolled, even if standard authentication is disabled.
+    type: dropdown
   conditions: []
   identifiers:
-    pk: df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+    pk: 9c9e9424-12fa-410a-8a43-cfaefe5dec61
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -133,8 +133,8 @@ entries:
   permissions: []
   state: present
 - attrs:
-    expression: "standard = request.context[\"prompt_data\"][\"attributes\"][\"standard_auth\"\
-      ]\n\npasswordless = request.context[\"prompt_data\"][\"attributes\"][\"passwordless_auth\"\
+    expression: "standard = request.context[\"prompt_data\"][\"attributes\"][\"standard-auth\"\
+      ]\n\npasswordless = request.context[\"prompt_data\"][\"attributes\"][\"passwordless-auth\"\
       ]\n\nif standard==\"Yes\" or passwordless==\"Yes\":\n  return True\n\nak_message(\"\
       You must enable at least one authentication method.\")\nreturn False"
     name: metropolis-validate-auth-methods
@@ -181,9 +181,9 @@ entries:
 - attrs:
     fields:
     - b1fc96c6-215e-42be-8eca-a0c37a71cef1
-    - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
-    - c285d707-f3b8-4346-894e-7b3081bd9746
     - df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+    - c285d707-f3b8-4346-894e-7b3081bd9746
+    - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
     - a4cbb135-1d28-46f4-9940-f4389888f2af
     - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
     validation_policies:
@@ -280,5 +280,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-30 23:25:50.535935+00:00
+  name: authentik Export - 2025-09-22 14:09:06.673278+00:00
 version: 1
