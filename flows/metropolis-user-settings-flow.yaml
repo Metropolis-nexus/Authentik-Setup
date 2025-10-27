@@ -50,44 +50,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.standard-auth
-    initial_value: return user.attributes.get("standard_auth", "Yes")
-    initial_value_expression: true
-    label: Standard Authentication
-    name: metropolis-user-settings-standard-auth
-    order: 204
-    placeholder: return ["Yes", "No"]
-    placeholder_expression: true
-    required: true
-    sub_text: Password + WebAuthn/TOTP. Password recovery is available if you enroll
-      an email address.
-    type: dropdown
-  conditions: []
-  identifiers:
-    pk: c285d707-f3b8-4346-894e-7b3081bd9746
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: attributes.passwordless-auth
-    initial_value: return user.attributes.get("passwordless_auth", "No")
-    initial_value_expression: true
-    label: Passwordless Authentication
-    name: metropolis-user-settings-passwordless-auth
-    order: 205
-    placeholder: return ["Yes", "No"]
-    placeholder_expression: true
-    required: true
-    sub_text: Falls back to standard authentication if you do not have a WebAuthn
-      device enrolled, even if standard authentication is disabled.
-    type: dropdown
-  conditions: []
-  identifiers:
-    pk: 9c9e9424-12fa-410a-8a43-cfaefe5dec61
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: name
     initial_value: "try:\n    return user.name\nexcept:\n    return ''"
     initial_value_expression: true
@@ -114,6 +76,44 @@ entries:
   conditions: []
   identifiers:
     pk: 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.passwordless-auth
+    initial_value: return user.attributes.get("passwordless-auth", "No")
+    initial_value_expression: true
+    label: Passwordless Authentication
+    name: metropolis-user-settings-passwordless-auth
+    order: 205
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    sub_text: Falls back to standard authentication if you do not have a WebAuthn
+      device enrolled, even if standard authentication is disabled.
+    type: dropdown
+  conditions: []
+  identifiers:
+    pk: 9c9e9424-12fa-410a-8a43-cfaefe5dec61
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.standard-auth
+    initial_value: return user.attributes.get("standard-auth", "Yes")
+    initial_value_expression: true
+    label: Standard Authentication
+    name: metropolis-user-settings-standard-auth
+    order: 204
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    sub_text: Password + WebAuthn/TOTP. Password recovery is available if you enroll
+      an email address.
+    type: dropdown
+  conditions: []
+  identifiers:
+    pk: c285d707-f3b8-4346-894e-7b3081bd9746
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -179,25 +179,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    fields:
-    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
-    - df23ba61-845c-43ca-9cb4-0bb4c6634a7a
-    - c285d707-f3b8-4346-894e-7b3081bd9746
-    - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
-    - a4cbb135-1d28-46f4-9940-f4389888f2af
-    - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
-    validation_policies:
-    - 711e5fba-cf65-40d4-914e-920387ef376e
-    - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
-    - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
-  conditions: []
-  identifiers:
-    name: metropolis-user-settings
-    pk: 58358ea8-86b0-4168-9433-cac17f83196a
-  model: authentik_stages_prompt.promptstage
-  permissions: []
-  state: present
-- attrs:
     activate_user_on_success: true
     from_address: system@authentik.local
     host: localhost
@@ -214,6 +195,25 @@ entries:
     name: default-enrollment-email-verification
     pk: 21ad4cb9-70af-4caa-94e1-7589541ed2eb
   model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
+    - df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+    - a4cbb135-1d28-46f4-9940-f4389888f2af
+    - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
+    - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
+    - c285d707-f3b8-4346-894e-7b3081bd9746
+    validation_policies:
+    - 711e5fba-cf65-40d4-914e-920387ef376e
+    - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
+    - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
+  conditions: []
+  identifiers:
+    name: metropolis-user-settings
+    pk: 58358ea8-86b0-4168-9433-cac17f83196a
+  model: authentik_stages_prompt.promptstage
   permissions: []
   state: present
 - attrs:
@@ -280,5 +280,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-09-22 14:09:06.673278+00:00
+  name: authentik Export - 2025-10-27 09:24:59.185537+00:00
 version: 1
