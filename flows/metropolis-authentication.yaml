@@ -17,7 +17,7 @@ entries:
   permissions: []
   state: present
 - attrs:
-    expression: "if request.context[\"pending_user\"].attributes[\"standard-auth\"\
+    expression: "if request.context[\"pending_user\"].attributes[\"standard_auth\"\
       ] == \"No\" and ak_user_has_authenticator(context['pending_user'], 'webauthn'):\n\
       \  return True\nreturn False"
     name: metropolis-passwordless-authentication-redirect
@@ -48,7 +48,7 @@ entries:
   state: present
 - attrs:
     expression: "if not ak_is_group_member(request.context[\"pending_user\"], name=\"\
-      metropolis-banned\"):\n  return True\nak_message(\"Account banned.\")\nreturn\
+      metropolis_banned\"):\n  return True\nak_message(\"Account banned.\")\nreturn\
       \ False"
     name: metropolis-is-not-banned
   conditions: []
@@ -77,6 +77,49 @@ entries:
   permissions: []
   state: present
 - attrs:
+    configuration_stages:
+    - 4fecd0f4-9337-4a1b-a013-569b46f12553
+    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    device_classes:
+    - totp
+    - webauthn
+    last_auth_threshold: seconds=0
+    not_configured_action: configure
+    webauthn_user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-mfa-validation
+    pk: 2f72067b-d309-41df-bc02-eaf04227da02
+  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
+    allow_show_password: true
+    backends:
+    - authentik.core.auth.InbuiltBackend
+    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
+    failed_attempts_before_cancel: 5
+  conditions: []
+  identifiers:
+    name: default-authentication-password
+    pk: 46323292-891f-447b-9ade-a99fac127bd6
+  model: authentik_stages_password.passwordstage
+  permissions: []
+  state: present
+- attrs:
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: seconds=0
+    session_duration: seconds=0
+  conditions: []
+  identifiers:
+    name: default-authentication-login
+    pk: 48fd229c-991d-4270-ba74-571ffaee45ae
+  model: authentik_stages_user_login.userloginstage
+  permissions: []
+  state: present
+- attrs:
     case_insensitive_matching: true
     enable_remember_me: true
     enrollment_flow: cf997b2c-1614-4b5d-9555-c1a029f0144f
@@ -94,19 +137,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    geoip_binding: no_binding
-    network_binding: no_binding
-    remember_device: days=30
-    remember_me_offset: seconds=0
-    session_duration: seconds=0
-  conditions: []
-  identifiers:
-    name: default-authentication-login
-    pk: 48fd229c-991d-4270-ba74-571ffaee45ae
-  model: authentik_stages_user_login.userloginstage
-  permissions: []
-  state: present
-- attrs:
     keep_context: true
     mode: flow
     target_flow: 6e6186f1-b973-402a-a701-89fe71561c86
@@ -115,36 +145,6 @@ entries:
     name: metropolis-passwordless-authentication-redirect
     pk: ed50f827-dba8-49c8-8d95-e886439be921
   model: authentik_stages_redirect.redirectstage
-  permissions: []
-  state: present
-- attrs:
-    allow_show_password: true
-    backends:
-    - authentik.core.auth.InbuiltBackend
-    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
-    failed_attempts_before_cancel: 5
-  conditions: []
-  identifiers:
-    name: default-authentication-password
-    pk: 46323292-891f-447b-9ade-a99fac127bd6
-  model: authentik_stages_password.passwordstage
-  permissions: []
-  state: present
-- attrs:
-    configuration_stages:
-    - 4fecd0f4-9337-4a1b-a013-569b46f12553
-    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
-    device_classes:
-    - totp
-    - webauthn
-    last_auth_threshold: seconds=0
-    not_configured_action: configure
-    webauthn_user_verification: required
-  conditions: []
-  identifiers:
-    name: metropolis-authentication-mfa-validation
-    pk: 2f72067b-d309-41df-bc02-eaf04227da02
-  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
   permissions: []
   state: present
 - attrs:
@@ -276,5 +276,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-09-22 14:08:38.484414+00:00
+  name: authentik Export - 2025-10-28 08:14:58.644375+00:00
 version: 1

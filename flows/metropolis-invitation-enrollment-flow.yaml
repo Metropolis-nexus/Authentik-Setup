@@ -17,80 +17,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.settings.locale
-    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
-      locale\", \"\")\nexcept:\n    return ''"
-    initial_value_expression: true
-    label: Locale
-    name: default-user-settings-field-locale
-    order: 203
-    placeholder: Locale
-    required: true
-    type: ak-locale
-  conditions: []
-  identifiers:
-    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: name
-    label: Name (optional)
-    name: metropolis-enrollment-field-name
-    order: 0
-    placeholder: Does not have to be your legal name
-    type: text
-  conditions: []
-  identifiers:
-    pk: 88966df6-3bad-44f6-a864-e92021f54798
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: email
-    label: Email (optional)
-    name: metropolis-enrollment-field-email
-    order: 1
-    placeholder: Email
-    sub_text: Password recovery is available if you enroll an email address.
-    type: email
-  conditions: []
-  identifiers:
-    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: attributes.standard_auth
-    initial_value: 'Yes'
-    label: Password + WebAuthn/TOTP Authentication
-    name: metropolis-enrollment-standard-auth
-    order: 2
-    required: true
-    type: hidden
-  conditions: []
-  identifiers:
-    pk: 92289318-5312-440c-96b3-ecbd9f0a520a
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: attributes.passwordless_auth
-    initial_value: 'No'
-    label: Passwordless Authentication
-    name: metropolis-enrollment-passwordless-auth
-    order: 3
-    placeholder: return ["Yes", "No"]
-    placeholder_expression: true
-    required: true
-    type: dropdown
-  conditions: []
-  identifiers:
-    pk: 78d0409c-151e-4b0b-9988-815a1414fd74
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: password_repeat
     label: Password (repeat)
     name: default-enrollment-field-password-repeat
@@ -160,6 +86,80 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    required: true
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: name
+    label: Name (optional)
+    name: metropolis-enrollment-field-name
+    order: 0
+    placeholder: Does not have to be your legal name
+    type: text
+  conditions: []
+  identifiers:
+    pk: 88966df6-3bad-44f6-a864-e92021f54798
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: email
+    label: Email (optional)
+    name: metropolis-enrollment-field-email
+    order: 1
+    placeholder: Email
+    sub_text: Password recovery is available if you enroll an email address.
+    type: email
+  conditions: []
+  identifiers:
+    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.passwordless_auth
+    initial_value: 'No'
+    label: Passwordless Authentication
+    name: metropolis-enrollment-passwordless-auth
+    order: 3
+    placeholder: return ["Yes", "No"]
+    placeholder_expression: true
+    required: true
+    type: dropdown
+  conditions: []
+  identifiers:
+    pk: 78d0409c-151e-4b0b-9988-815a1414fd74
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.standard_auth
+    initial_value: 'Yes'
+    label: Password + WebAuthn/TOTP Authentication
+    name: metropolis-enrollment-standard-auth
+    order: 2
+    required: true
+    type: hidden
+  conditions: []
+  identifiers:
+    pk: 92289318-5312-440c-96b3-ecbd9f0a520a
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
     expression: "if request.context[\"prompt_data\"][\"email\"] == \"\":\n   return\
       \ False\nreturn True"
     name: metropolis-enrollment-with-email
@@ -212,14 +212,6 @@ entries:
   model: authentik_policies_password.passwordpolicy
   permissions: []
   state: present
-- attrs: {}
-  conditions: []
-  identifiers:
-    name: metropolis-enrollment-invitation
-    pk: 492d76b6-e714-4cf2-ba78-b326dfeb311c
-  model: authentik_stages_invitation.invitationstage
-  permissions: []
-  state: present
 - attrs:
     create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
     user_creation_mode: always_create
@@ -232,30 +224,16 @@ entries:
   permissions: []
   state: present
 - attrs:
-    keep_context: true
-    mode: flow
-    target_flow: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: seconds=0
+    session_duration: seconds=0
   conditions: []
   identifiers:
-    name: metropolis-enrollment-with-email
-    pk: 5104d222-05c7-4200-83a5-62e3ded91d0c
-  model: authentik_stages_redirect.redirectstage
-  permissions: []
-  state: present
-- attrs:
-    fields:
-    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
-    - 88966df6-3bad-44f6-a864-e92021f54798
-    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
-    - 92289318-5312-440c-96b3-ecbd9f0a520a
-    - 78d0409c-151e-4b0b-9988-815a1414fd74
-    validation_policies:
-    - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
-  conditions: []
-  identifiers:
-    name: metropolis-enrollment-prompt-second
-    pk: 4f506ecb-6ef5-40cb-a232-c26700923f6a
-  model: authentik_stages_prompt.promptstage
+    name: default-enrollment-user-login
+    pk: 129e97d4-12fd-4767-b03b-f2bae94dac6e
+  model: authentik_stages_user_login.userloginstage
   permissions: []
   state: present
 - attrs:
@@ -276,19 +254,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    geoip_binding: no_binding
-    network_binding: no_binding
-    remember_device: days=30
-    remember_me_offset: seconds=0
-    session_duration: seconds=0
-  conditions: []
-  identifiers:
-    name: default-enrollment-user-login
-    pk: 129e97d4-12fd-4767-b03b-f2bae94dac6e
-  model: authentik_stages_user_login.userloginstage
-  permissions: []
-  state: present
-- attrs:
     fields:
     - 87c432b1-66d8-4b50-b1c4-445b45873694
     - 213c0825-53c0-44c4-b596-c83324ad2f44
@@ -302,6 +267,41 @@ entries:
     name: metropolis-enrollment-prompt-first
     pk: 3a47e653-4c3d-4d8c-a956-5c6f7610dcdf
   model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs: {}
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-invitation
+    pk: 492d76b6-e714-4cf2-ba78-b326dfeb311c
+  model: authentik_stages_invitation.invitationstage
+  permissions: []
+  state: present
+- attrs:
+    fields:
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
+    - 88966df6-3bad-44f6-a864-e92021f54798
+    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+    - 78d0409c-151e-4b0b-9988-815a1414fd74
+    - 92289318-5312-440c-96b3-ecbd9f0a520a
+    validation_policies:
+    - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-prompt-second
+    pk: 4f506ecb-6ef5-40cb-a232-c26700923f6a
+  model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    keep_context: true
+    mode: flow
+    target_flow: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-with-email
+    pk: 5104d222-05c7-4200-83a5-62e3ded91d0c
+  model: authentik_stages_redirect.redirectstage
   permissions: []
   state: present
 - attrs:
@@ -422,5 +422,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 21:21:26.311818+00:00
+  name: authentik Export - 2025-10-28 08:15:53.182152+00:00
 version: 1

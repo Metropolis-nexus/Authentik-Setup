@@ -80,8 +80,8 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.passwordless-auth
-    initial_value: return user.attributes.get("passwordless-auth", "No")
+    field_key: attributes.passwordless_auth
+    initial_value: return user.attributes.get("passwordless_auth", "No")
     initial_value_expression: true
     label: Passwordless Authentication
     name: metropolis-user-settings-passwordless-auth
@@ -99,8 +99,8 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.standard-auth
-    initial_value: return user.attributes.get("standard-auth", "Yes")
+    field_key: attributes.standard_auth
+    initial_value: return user.attributes.get("standard_auth", "Yes")
     initial_value_expression: true
     label: Standard Authentication
     name: metropolis-user-settings-standard-auth
@@ -133,8 +133,8 @@ entries:
   permissions: []
   state: present
 - attrs:
-    expression: "standard = request.context[\"prompt_data\"][\"attributes\"][\"standard-auth\"\
-      ]\n\npasswordless = request.context[\"prompt_data\"][\"attributes\"][\"passwordless-auth\"\
+    expression: "standard = request.context[\"prompt_data\"][\"attributes\"][\"standard_auth\"\
+      ]\n\npasswordless = request.context[\"prompt_data\"][\"attributes\"][\"passwordless_auth\"\
       ]\n\nif standard==\"Yes\" or passwordless==\"Yes\":\n  return True\n\nak_message(\"\
       You must enable at least one authentication method.\")\nreturn False"
     name: metropolis-validate-auth-methods
@@ -206,9 +206,9 @@ entries:
     - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
     - c285d707-f3b8-4346-894e-7b3081bd9746
     validation_policies:
-    - 711e5fba-cf65-40d4-914e-920387ef376e
     - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
     - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
+    - 711e5fba-cf65-40d4-914e-920387ef376e
   conditions: []
   identifiers:
     name: metropolis-user-settings
@@ -280,5 +280,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-10-27 09:24:59.185537+00:00
+  name: authentik Export - 2025-10-28 08:16:36.670246+00:00
 version: 1

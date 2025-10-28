@@ -35,18 +35,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    create_users_as_inactive: true
-    create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
-    user_creation_mode: always_create
-    user_type: internal
-  conditions: []
-  identifiers:
-    name: metropolis-enrollment-with-email-user-write
-    pk: 302ab18f-5a15-4297-a835-cf45dc7b963e
-  model: authentik_stages_user_write.userwritestage
-  permissions: []
-  state: present
-- attrs:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
@@ -61,6 +49,18 @@ entries:
     name: metropolis-authentication-mfa-validation
     pk: 2f72067b-d309-41df-bc02-eaf04227da02
   model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
+    create_users_as_inactive: true
+    create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
+    user_creation_mode: always_create
+    user_type: internal
+  conditions: []
+  identifiers:
+    name: metropolis-enrollment-with-email-user-write
+    pk: 302ab18f-5a15-4297-a835-cf45dc7b963e
+  model: authentik_stages_user_write.userwritestage
   permissions: []
   state: present
 - attrs:
@@ -105,5 +105,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 20:57:58.502012+00:00
+  name: authentik Export - 2025-10-28 08:15:46.169350+00:00
 version: 1

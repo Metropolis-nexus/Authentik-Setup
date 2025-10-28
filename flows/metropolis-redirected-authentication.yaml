@@ -18,39 +18,13 @@ entries:
   state: present
 - attrs:
     expression: "if not ak_is_group_member(request.context[\"pending_user\"], name=\"\
-      metropolis-banned\"):\n  return True\nak_message(\"Account banned.\")\nreturn\
+      metropolis_banned\"):\n  return True\nak_message(\"Account banned.\")\nreturn\
       \ False"
     name: metropolis-is-not-banned
   conditions: []
   identifiers:
     pk: 39ca87cb-0967-4c4d-a96e-336f109abc7d
   model: authentik_policies_expression.expressionpolicy
-  permissions: []
-  state: present
-- attrs:
-    geoip_binding: no_binding
-    network_binding: no_binding
-    remember_device: days=30
-    remember_me_offset: seconds=0
-    session_duration: seconds=0
-  conditions: []
-  identifiers:
-    name: default-authentication-login
-    pk: 48fd229c-991d-4270-ba74-571ffaee45ae
-  model: authentik_stages_user_login.userloginstage
-  permissions: []
-  state: present
-- attrs:
-    allow_show_password: true
-    backends:
-    - authentik.core.auth.InbuiltBackend
-    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
-    failed_attempts_before_cancel: 5
-  conditions: []
-  identifiers:
-    name: default-authentication-password
-    pk: 46323292-891f-447b-9ade-a99fac127bd6
-  model: authentik_stages_password.passwordstage
   permissions: []
   state: present
 - attrs:
@@ -68,6 +42,32 @@ entries:
     name: metropolis-authentication-mfa-validation
     pk: 2f72067b-d309-41df-bc02-eaf04227da02
   model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
+    allow_show_password: true
+    backends:
+    - authentik.core.auth.InbuiltBackend
+    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
+    failed_attempts_before_cancel: 5
+  conditions: []
+  identifiers:
+    name: default-authentication-password
+    pk: 46323292-891f-447b-9ade-a99fac127bd6
+  model: authentik_stages_password.passwordstage
+  permissions: []
+  state: present
+- attrs:
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: seconds=0
+    session_duration: seconds=0
+  conditions: []
+  identifiers:
+    name: default-authentication-login
+    pk: 48fd229c-991d-4270-ba74-571ffaee45ae
+  model: authentik_stages_user_login.userloginstage
   permissions: []
   state: present
 - attrs:
@@ -124,5 +124,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 20:57:21.618322+00:00
+  name: authentik Export - 2025-10-28 08:15:10.343672+00:00
 version: 1

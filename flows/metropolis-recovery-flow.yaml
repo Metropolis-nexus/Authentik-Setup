@@ -76,20 +76,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    case_insensitive_matching: true
-    pretend_user_exists: true
-    show_matched_user: true
-    user_fields:
-    - email
-    - username
-  conditions: []
-  identifiers:
-    name: default-recovery-identification
-    pk: ff14b5cd-7be7-427c-b3f0-57d1f436dfab
-  model: authentik_stages_identification.identificationstage
-  permissions: []
-  state: present
-- attrs:
     fields:
     - e9b91bc7-67be-4faa-a3d2-afe61fa60b5f
     - 39eb3fb9-1ce1-4abf-bbce-551de4acbc51
@@ -100,16 +86,6 @@ entries:
     name: metropolis-recovery-password
     pk: 2b56d5a2-288b-44c7-9577-e022592f9a5b
   model: authentik_stages_prompt.promptstage
-  permissions: []
-  state: present
-- attrs:
-    user_creation_mode: never_create
-    user_type: external
-  conditions: []
-  identifiers:
-    name: default-recovery-user-write
-    pk: d29c8f44-f995-4948-84a6-3eae133f325a
-  model: authentik_stages_user_write.userwritestage
   permissions: []
   state: present
 - attrs:
@@ -129,6 +105,30 @@ entries:
     name: default-recovery-email
     pk: a3e53da8-f880-41d8-a356-11bb56a122cc
   model: authentik_stages_email.emailstage
+  permissions: []
+  state: present
+- attrs:
+    user_creation_mode: never_create
+    user_type: external
+  conditions: []
+  identifiers:
+    name: default-recovery-user-write
+    pk: d29c8f44-f995-4948-84a6-3eae133f325a
+  model: authentik_stages_user_write.userwritestage
+  permissions: []
+  state: present
+- attrs:
+    case_insensitive_matching: true
+    pretend_user_exists: true
+    show_matched_user: true
+    user_fields:
+    - email
+    - username
+  conditions: []
+  identifiers:
+    name: default-recovery-identification
+    pk: ff14b5cd-7be7-427c-b3f0-57d1f436dfab
+  model: authentik_stages_identification.identificationstage
   permissions: []
   state: present
 - attrs:
@@ -200,5 +200,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-08-26 21:02:35.606832+00:00
+  name: authentik Export - 2025-10-28 08:16:14.598584+00:00
 version: 1

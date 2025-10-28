@@ -116,7 +116,21 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.passwordless-auth
+    field_key: email
+    label: Email (optional)
+    name: metropolis-enrollment-field-email
+    order: 1
+    placeholder: Email
+    sub_text: Password recovery is available if you enroll an email address.
+    type: email
+  conditions: []
+  identifiers:
+    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.passwordless_auth
     initial_value: 'No'
     label: Passwordless Authentication
     name: metropolis-enrollment-passwordless-auth
@@ -132,7 +146,7 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.standard-auth
+    field_key: attributes.standard_auth
     initial_value: 'Yes'
     label: Password + WebAuthn/TOTP Authentication
     name: metropolis-enrollment-standard-auth
@@ -142,20 +156,6 @@ entries:
   conditions: []
   identifiers:
     pk: 92289318-5312-440c-96b3-ecbd9f0a520a
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: email
-    label: Email (optional)
-    name: metropolis-enrollment-field-email
-    order: 1
-    placeholder: Email
-    sub_text: Password recovery is available if you enroll an email address.
-    type: email
-  conditions: []
-  identifiers:
-    pk: 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -237,6 +237,23 @@ entries:
   permissions: []
   state: present
 - attrs:
+    configuration_stages:
+    - 4fecd0f4-9337-4a1b-a013-569b46f12553
+    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    device_classes:
+    - totp
+    - webauthn
+    last_auth_threshold: seconds=0
+    not_configured_action: configure
+    webauthn_user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-mfa-validation
+    pk: 2f72067b-d309-41df-bc02-eaf04227da02
+  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
+  permissions: []
+  state: present
+- attrs:
     fields:
     - 87c432b1-66d8-4b50-b1c4-445b45873694
     - 213c0825-53c0-44c4-b596-c83324ad2f44
@@ -256,9 +273,9 @@ entries:
     fields:
     - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     - 88966df6-3bad-44f6-a864-e92021f54798
+    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
     - 78d0409c-151e-4b0b-9988-815a1414fd74
     - 92289318-5312-440c-96b3-ecbd9f0a520a
-    - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
     validation_policies:
     - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
   conditions: []
@@ -292,23 +309,6 @@ entries:
     name: metropolis-captcha
     pk: e56a861b-84a7-42a9-9501-4b82b069abb8
   model: authentik_stages_captcha.captchastage
-  permissions: []
-  state: present
-- attrs:
-    configuration_stages:
-    - 4fecd0f4-9337-4a1b-a013-569b46f12553
-    - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
-    device_classes:
-    - totp
-    - webauthn
-    last_auth_threshold: seconds=0
-    not_configured_action: configure
-    webauthn_user_verification: required
-  conditions: []
-  identifiers:
-    name: metropolis-authentication-mfa-validation
-    pk: 2f72067b-d309-41df-bc02-eaf04227da02
-  model: authentik_stages_authenticator_validate.authenticatorvalidatestage
   permissions: []
   state: present
 - attrs:
@@ -429,5 +429,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-09-22 14:08:56.126115+00:00
+  name: authentik Export - 2025-10-28 08:15:39.653344+00:00
 version: 1
