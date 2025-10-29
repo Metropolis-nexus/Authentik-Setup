@@ -1,3 +1,3 @@
 if request.context["prompt_data"]["email"] == "":
-   return False
+  return False
 return True

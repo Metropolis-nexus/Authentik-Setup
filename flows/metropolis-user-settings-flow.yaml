@@ -119,8 +119,8 @@ entries:
   state: present
 - attrs:
     expression: "current_email = request.user.email\nnew_email = request.context[\"\
-      prompt_data\"][\"email\"]\n\nif new_email == \"\":\n    return False\n\nif new_email\
-      \ == current_email:\n    return False\n\ncontext[\"flow_plan\"].context[\"pending_user\"\
+      prompt_data\"][\"email\"]\n\nif new_email == \"\":\n  return False\n\nif new_email\
+      \ == current_email:\n  return False\n\ncontext[\"flow_plan\"].context[\"pending_user\"\
       ] = request.user\nrequest.context[\"flow_plan\"].context[\"email\"] = request.context[\"\
       prompt_data\"][\"email\"]\n\nak_message(\"Waiting for email verification. If\
       \ you need the cancel the change, log out and log back into your account.\"\
@@ -168,9 +168,9 @@ entries:
 - attrs:
     expression: "from authentik.core.models import User\n\ncurrent_email = request.user.email\n\
       new_email = request.context[\"prompt_data\"][\"email\"]\n\nif new_email == \"\
-      \":\n    return True\n\nif new_email == current_email:\n    return True\n\n\
-      if User.objects.filter(email=new_email).exists():\n  ak_message(\"Email address\
-      \ already in use\")\n  return False\n  \nreturn True"
+      \":\n  return True\n\nif new_email == current_email:\n  return True\n\nif User.objects.filter(email=new_email).exists():\n\
+      \  ak_message(\"Email address already in use\")\n  return False\n  \nreturn\
+      \ True"
     name: metropolis-settings-unique-email
   conditions: []
   identifiers:
@@ -207,8 +207,8 @@ entries:
     - c285d707-f3b8-4346-894e-7b3081bd9746
     validation_policies:
     - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
-    - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
     - 711e5fba-cf65-40d4-914e-920387ef376e
+    - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
   conditions: []
   identifiers:
     name: metropolis-user-settings
@@ -280,5 +280,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-10-28 08:16:36.670246+00:00
+  name: authentik Export - 2025-10-29 21:26:17.944393+00:00
 version: 1
