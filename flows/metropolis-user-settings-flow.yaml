@@ -207,8 +207,8 @@ entries:
     - c285d707-f3b8-4346-894e-7b3081bd9746
     validation_policies:
     - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
-    - 711e5fba-cf65-40d4-914e-920387ef376e
     - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
+    - 711e5fba-cf65-40d4-914e-920387ef376e
   conditions: []
   identifiers:
     name: metropolis-user-settings
@@ -280,5 +280,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-10-29 21:26:17.944393+00:00
+  name: authentik Export - 2025-11-08 05:16:25.297629+00:00
 version: 1

@@ -17,6 +17,75 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: password_repeat
+    label: Password (repeat)
+    name: default-enrollment-field-password-repeat
+    order: 1
+    placeholder: Password (repeat)
+    required: true
+    type: password
+  conditions: []
+  identifiers:
+    pk: 87c432b1-66d8-4b50-b1c4-445b45873694
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: residency
+    label: I am not a resident of Mississippi, Wyoming, Ohio, South Dakota, or the
+      United Kingdom.
+    name: metropolis-enrollment-checkbox-residency
+    order: 401
+    required: true
+    type: checkbox
+  conditions: []
+  identifiers:
+    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: age
+    label: I am above the age of 18.
+    name: metropolis-enrollment-checkbox-age
+    order: 400
+    required: true
+    type: checkbox
+  conditions: []
+  identifiers:
+    pk: c745418b-19c9-4224-80bb-b4764a1661c4
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: username
+    label: Username
+    name: default-enrollment-field-username
+    order: 0
+    placeholder: Username
+    required: true
+    type: username
+  conditions: []
+  identifiers:
+    pk: 84b32c40-aeea-4e66-a360-83b142efeed3
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: password
+    label: Password
+    name: default-enrollment-field-password
+    order: 0
+    placeholder: Password
+    required: true
+    type: password
+  conditions: []
+  identifiers:
+    pk: 2ee49216-5298-4158-b9a5-11d722e4cd3b
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
     field_key: attributes.settings.locale
     initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
       locale\", \"\")\nexcept:\n    return ''"
@@ -87,75 +156,6 @@ entries:
   conditions: []
   identifiers:
     pk: 92289318-5312-440c-96b3-ecbd9f0a520a
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: password_repeat
-    label: Password (repeat)
-    name: default-enrollment-field-password-repeat
-    order: 1
-    placeholder: Password (repeat)
-    required: true
-    type: password
-  conditions: []
-  identifiers:
-    pk: 87c432b1-66d8-4b50-b1c4-445b45873694
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: residency
-    label: I am not a resident of Mississippi, Wyoming, Ohio, South Dakota, or the
-      United Kingdom.
-    name: metropolis-enrollment-checkbox-residency
-    order: 401
-    required: true
-    type: checkbox
-  conditions: []
-  identifiers:
-    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: age
-    label: I am above the age of 18.
-    name: metropolis-enrollment-checkbox-age
-    order: 400
-    required: true
-    type: checkbox
-  conditions: []
-  identifiers:
-    pk: c745418b-19c9-4224-80bb-b4764a1661c4
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: username
-    label: Username
-    name: default-enrollment-field-username
-    order: 0
-    placeholder: Username
-    required: true
-    type: username
-  conditions: []
-  identifiers:
-    pk: 84b32c40-aeea-4e66-a360-83b142efeed3
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: password
-    label: Password
-    name: default-enrollment-field-password
-    order: 0
-    placeholder: Password
-    required: true
-    type: password
-  conditions: []
-  identifiers:
-    pk: 2ee49216-5298-4158-b9a5-11d722e4cd3b
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -235,19 +235,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    geoip_binding: no_binding
-    network_binding: no_binding
-    remember_device: days=30
-    remember_me_offset: seconds=0
-    session_duration: seconds=0
-  conditions: []
-  identifiers:
-    name: default-enrollment-user-login
-    pk: 129e97d4-12fd-4767-b03b-f2bae94dac6e
-  model: authentik_stages_user_login.userloginstage
-  permissions: []
-  state: present
-- attrs:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
@@ -279,6 +266,19 @@ entries:
     name: metropolis-enrollment-prompt-first
     pk: 3a47e653-4c3d-4d8c-a956-5c6f7610dcdf
   model: authentik_stages_prompt.promptstage
+  permissions: []
+  state: present
+- attrs:
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: days=30
+    session_duration: seconds=0
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-login
+    pk: 4b789328-2779-4273-8b85-70bdb9cf28f9
+  model: authentik_stages_user_login.userloginstage
   permissions: []
   state: present
 - attrs:
@@ -409,7 +409,7 @@ entries:
   identifiers:
     order: 100
     pk: 51db1217-8558-48b5-99a2-069a638c5593
-    stage: 129e97d4-12fd-4767-b03b-f2bae94dac6e
+    stage: 4b789328-2779-4273-8b85-70bdb9cf28f9
     target: cf997b2c-1614-4b5d-9555-c1a029f0144f
   model: authentik_flows.flowstagebinding
   permissions: []
@@ -441,5 +441,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-10-29 21:24:02.786819+00:00
+  name: authentik Export - 2025-11-08 05:18:05.135073+00:00
 version: 1

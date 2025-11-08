@@ -110,12 +110,12 @@ entries:
     geoip_binding: no_binding
     network_binding: no_binding
     remember_device: days=30
-    remember_me_offset: seconds=0
+    remember_me_offset: days=30
     session_duration: seconds=0
   conditions: []
   identifiers:
-    name: default-authentication-login
-    pk: 48fd229c-991d-4270-ba74-571ffaee45ae
+    name: metropolis-authentication-login
+    pk: 4b789328-2779-4273-8b85-70bdb9cf28f9
   model: authentik_stages_user_login.userloginstage
   permissions: []
   state: present
@@ -220,7 +220,7 @@ entries:
   identifiers:
     order: 100
     pk: 6699ae76-677e-4563-bd58-3b2b55c08e5b
-    stage: 48fd229c-991d-4270-ba74-571ffaee45ae
+    stage: 4b789328-2779-4273-8b85-70bdb9cf28f9
     target: 812f9784-eb0d-4444-b551-73d3de123e66
   model: authentik_flows.flowstagebinding
   permissions: []
@@ -255,9 +255,9 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: a1b2bf20-3db4-4b38-9bfe-383e5563487e
-    policy: 39ca87cb-0967-4c4d-a96e-336f109abc7d
-    target: 6699ae76-677e-4563-bd58-3b2b55c08e5b
+    pk: 19343b03-e5ca-47c3-b86e-49e7d71996e4
+    policy: 62404968-48eb-4264-a8f6-3963096a02b8
+    target: 14b9e94b-69ad-4647-8288-02e6a3dc2f97
   model: authentik_policies.policybinding
   permissions: []
   state: present
@@ -267,14 +267,14 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: 19343b03-e5ca-47c3-b86e-49e7d71996e4
-    policy: 62404968-48eb-4264-a8f6-3963096a02b8
-    target: 14b9e94b-69ad-4647-8288-02e6a3dc2f97
+    pk: a1b2bf20-3db4-4b38-9bfe-383e5563487e
+    policy: 39ca87cb-0967-4c4d-a96e-336f109abc7d
+    target: 6699ae76-677e-4563-bd58-3b2b55c08e5b
   model: authentik_policies.policybinding
   permissions: []
   state: present
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-10-29 21:22:35.818490+00:00
+  name: authentik Export - 2025-11-08 05:14:34.725652+00:00
 version: 1

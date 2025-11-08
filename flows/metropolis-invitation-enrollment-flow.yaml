@@ -235,19 +235,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    geoip_binding: no_binding
-    network_binding: no_binding
-    remember_device: days=30
-    remember_me_offset: seconds=0
-    session_duration: seconds=0
-  conditions: []
-  identifiers:
-    name: default-enrollment-user-login
-    pk: 129e97d4-12fd-4767-b03b-f2bae94dac6e
-  model: authentik_stages_user_login.userloginstage
-  permissions: []
-  state: present
-- attrs:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
@@ -287,6 +274,19 @@ entries:
     name: metropolis-enrollment-invitation
     pk: 492d76b6-e714-4cf2-ba78-b326dfeb311c
   model: authentik_stages_invitation.invitationstage
+  permissions: []
+  state: present
+- attrs:
+    geoip_binding: no_binding
+    network_binding: no_binding
+    remember_device: days=30
+    remember_me_offset: days=30
+    session_duration: seconds=0
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-login
+    pk: 4b789328-2779-4273-8b85-70bdb9cf28f9
+  model: authentik_stages_user_login.userloginstage
   permissions: []
   state: present
 - attrs:
@@ -402,7 +402,7 @@ entries:
   identifiers:
     order: 100
     pk: e56adde7-d30a-41b7-aed0-8d9398f3db0a
-    stage: 129e97d4-12fd-4767-b03b-f2bae94dac6e
+    stage: 4b789328-2779-4273-8b85-70bdb9cf28f9
     target: 98609813-53ba-47cd-8fad-1653f44d058e
   model: authentik_flows.flowstagebinding
   permissions: []
@@ -434,5 +434,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-10-29 21:24:41.792902+00:00
+  name: authentik Export - 2025-11-08 05:15:19.478004+00:00
 version: 1
