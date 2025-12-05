@@ -4,6 +4,6 @@ if email == "":
   email = user.username + "@auth.metropolis.nexus"
 
 return {
-    "email": email,
-    "email_verified": True
+  "email": email,
+  "email_verified": True
 }
