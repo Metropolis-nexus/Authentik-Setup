@@ -191,6 +191,17 @@ entries:
   permissions: []
   state: present
 - attrs:
+    expression: "if ak_user_by(username__iexact=context['prompt_data']['username'])\
+      \ is None:\n  return True\nelse:\n  ak_message(\"Username is already taken.\"\
+      )\n  return False"
+    name: metropolis-enrollment-case-insensitive-username
+  conditions: []
+  identifiers:
+    pk: 90017643-f022-4197-84af-c0ae3b1e4ec2
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
     amount_digits: 0
     amount_lowercase: 0
     amount_symbols: 0
@@ -261,6 +272,7 @@ entries:
     validation_policies:
     - f50858c8-dc43-4840-bceb-849418b2b028
     - 9cdaa24b-14b1-4e3b-a257-c1bd958d1ac5
+    - 90017643-f022-4197-84af-c0ae3b1e4ec2
   conditions: []
   identifiers:
     name: metropolis-enrollment-prompt-first
@@ -434,5 +446,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-11-08 05:15:19.478004+00:00
+  name: authentik Export - 2025-12-06 10:48:32.010718+00:00
 version: 1
