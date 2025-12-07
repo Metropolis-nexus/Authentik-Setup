@@ -1,3 +1,5 @@
+# Scope: email
+
 email = user.email
 
 if email == "":

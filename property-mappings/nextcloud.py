@@ -1,3 +1,5 @@
+# Scope: nextcloud
+
 # Extract all groups the user is a member of
 groups = [group.name for group in user.ak_groups.all()]
 
