@@ -7,7 +7,7 @@ if request.user.name == "":
   request.user.name = request.user.username
 
 return {
-  "username": request.user.username,
+  "preferred_username": request.user.username,
   "name": request.user.name,
   "groups": groups
 }
