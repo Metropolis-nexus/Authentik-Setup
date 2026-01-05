@@ -32,8 +32,8 @@ entries:
   state: present
 - attrs:
     field_key: residency
-    label: I am not a resident of Mississippi, Wyoming, Ohio, South Dakota, or the
-      United Kingdom.
+    label: I am not a resident of Mississippi, Ohio, South Dakota, Virginia, Wyoming,
+      or the United Kingdom.
     name: metropolis-enrollment-checkbox-residency
     order: 401
     required: true
