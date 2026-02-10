@@ -42,7 +42,7 @@ Import from the flows directory.
 - Domain: auth.metropolis.nexus
 - Enable "Default": Make this the default brand
 - Title: Metropolis Nexus
-- Default flow background: /media/public/flow-backgrounds/chicago.jpg
+- Default flow background: flow-backgrounds/chicago.jpg (Upload it through SCP)
 - Default flows
   - Authentication flow: metropolis-authentication-flow
   - Invalidation flow: metropolis-invalidation-flow
@@ -56,7 +56,7 @@ settings:
   theme:
     base: dark
     background: >
-      background: url('/media/public/flow-backgrounds/chicago.jpg');
+      background: url('/data/media/public/flow-backgrounds/chicago.jpg');
       filter: blur(8px) brightness(50%);
       background-position: center;
       background-repeat: no-repeat;
