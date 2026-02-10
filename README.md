@@ -9,10 +9,6 @@ PermitRootLogin prohibit-password
 - Add NGINX's ssh key to `/root/.ssh/authorized_keys`
 - rsync TLS certificates to `/srv/authentik/authentik/certs/auth.metropolis.nexus`
 
-## Work around [bug #18546](https://github.com/goauthentik/authentik/issues/18546)
-
-As Authentik rebuild sometimes fails when Postgres rebuild does not, this may result in the server not being able to contact the worker. To work around this issue, update `/etc/systemd/system/docker-auto-update@authentik.service` and add `ExecStart=/usr/bin/docker compose down` before `ExecStart=/usr/bin/docker compose up -d`.
-
 # Authentik Setup
 
 Enter the admin section and configure the following:
