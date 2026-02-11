@@ -68,7 +68,7 @@ settings:
 
 # Cleanup
 
-Delete all of the following:
+Delete all unnecessary flow and stages except for `default-authentication-flow`. This flow is put behind NGINX http basic auth as a fallback option, in case something goes wrong with the custom authentication flows.
 
 ## Flow and Stages
 
