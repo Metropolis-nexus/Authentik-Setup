@@ -31,20 +31,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: residency
-    label: I am not a resident of Mississippi, Ohio, South Dakota, Virginia, Wyoming,
-      or the United Kingdom.
-    name: metropolis-enrollment-checkbox-residency
-    order: 401
-    required: true
-    type: checkbox
-  conditions: []
-  identifiers:
-    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: age
     label: I am above the age of 18.
     name: metropolis-enrollment-checkbox-age
@@ -82,6 +68,20 @@ entries:
   conditions: []
   identifiers:
     pk: 2ee49216-5298-4158-b9a5-11d722e4cd3b
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: residency
+    label: I am not a resident of Mississippi, Ohio, South Dakota, Virginia, Wyoming,
+      or the United Kingdom.
+    name: metropolis-enrollment-checkbox-residency
+    order: 401
+    required: true
+    type: checkbox
+  conditions: []
+  identifiers:
+    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -265,14 +265,14 @@ entries:
 - attrs:
     fields:
     - 87c432b1-66d8-4b50-b1c4-445b45873694
-    - 213c0825-53c0-44c4-b596-c83324ad2f44
     - c745418b-19c9-4224-80bb-b4764a1661c4
     - 84b32c40-aeea-4e66-a360-83b142efeed3
     - 2ee49216-5298-4158-b9a5-11d722e4cd3b
+    - 213c0825-53c0-44c4-b596-c83324ad2f44
     validation_policies:
-    - f50858c8-dc43-4840-bceb-849418b2b028
     - 9cdaa24b-14b1-4e3b-a257-c1bd958d1ac5
     - 90017643-f022-4197-84af-c0ae3b1e4ec2
+    - f50858c8-dc43-4840-bceb-849418b2b028
   conditions: []
   identifiers:
     name: metropolis-enrollment-prompt-first
@@ -453,5 +453,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-12-06 10:48:07.898861+00:00
+  name: authentik Export - 2026-02-26 04:29:14.140551+00:00
 version: 1

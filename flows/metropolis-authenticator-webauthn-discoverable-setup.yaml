@@ -1,0 +1,48 @@
+context: {}
+entries:
+- attrs:
+    authentication: require_authenticated
+    denied_action: message_continue
+    designation: stage_configuration
+    layout: sidebar_left
+    name: metropolis-authenticator-webauthn-discoverable-setup
+    policy_engine_mode: any
+    title: Setup WebAuthn (/w Discoverable Creds)
+  conditions: []
+  identifiers:
+    pk: b763677e-b41c-4aed-89bc-b61513a54d9e
+    slug: metropolis-authenticator-webauthn-discoverable-setup
+  model: authentik_flows.flow
+  permissions: []
+  state: present
+- attrs:
+    configure_flow: b763677e-b41c-4aed-89bc-b61513a54d9e
+    friendly_name: WebAuthn Device (w/ Discoverable Creds)
+    max_attempts: 0
+    resident_key_requirement: required
+    user_verification: required
+  conditions: []
+  identifiers:
+    name: metropolis-authenticator-webauthn-discoverable-setup
+    pk: 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
+  model: authentik_stages_authenticator_webauthn.authenticatorwebauthnstage
+  permissions: []
+  state: present
+- attrs:
+    invalid_response_action: retry
+    policy_engine_mode: any
+    re_evaluate_policies: true
+  conditions: []
+  identifiers:
+    order: 0
+    pk: b8630a68-4da3-47fd-95a3-6d1a58213e60
+    stage: 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
+    target: b763677e-b41c-4aed-89bc-b61513a54d9e
+  model: authentik_flows.flowstagebinding
+  permissions: []
+  state: present
+metadata:
+  labels:
+    blueprints.goauthentik.io/generated: 'true'
+  name: authentik Export - 2026-02-26 04:29:41.195505+00:00
+version: 1

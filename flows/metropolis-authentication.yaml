@@ -97,6 +97,9 @@ entries:
     allow_show_password: true
     backends:
     - authentik.core.auth.InbuiltBackend
+    - authentik.sources.kerberos.auth.KerberosBackend
+    - authentik.sources.ldap.auth.LDAPBackend
+    - authentik.core.auth.TokenBackend
     configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
     failed_attempts_before_cancel: 5
   conditions: []
@@ -276,5 +279,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-11-08 05:14:34.725652+00:00
+  name: authentik Export - 2026-02-26 04:29:27.273247+00:00
 version: 1
