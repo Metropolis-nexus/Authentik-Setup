@@ -52,7 +52,7 @@ settings:
   theme:
     base: dark
     background: >
-      background: url('/data/media/public/flow-backgrounds/chicago.jpg');
+      background: url('https://static.metropolis.nexus/authentik.jpg');
       filter: blur(8px) brightness(50%);
       background-position: center;
       background-repeat: no-repeat;
