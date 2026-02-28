@@ -2,6 +2,7 @@ context: {}
 entries:
 - attrs:
     authentication: require_unauthenticated
+    background: ''
     compatibility_mode: true
     denied_action: message_continue
     designation: recovery
@@ -18,11 +19,15 @@ entries:
   state: present
 - attrs:
     field_key: password
+    initial_value: ''
+    initial_value_expression: false
     label: Password
     name: default-recovery-field-password
     order: 0
     placeholder: Password
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: password
   conditions: []
   identifiers:
@@ -32,11 +37,15 @@ entries:
   state: present
 - attrs:
     field_key: password_repeat
+    initial_value: ''
+    initial_value_expression: false
     label: Password (repeat)
     name: default-recovery-field-password-repeat
     order: 1
     placeholder: Password (repeat)
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: password
   conditions: []
   identifiers:
@@ -45,6 +54,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: return bool(request.context.get('is_restored', True))
     name: default-recovery-skip-if-restored
   conditions: []
@@ -63,6 +73,7 @@ entries:
     check_zxcvbn: true
     error_message: Password needs to be 12 characters or longer. You should use a
       diceware password.
+    execution_logging: false
     hibp_allowed_count: 0
     length_min: 12
     name: metropolis-password-policy
@@ -100,6 +111,9 @@ entries:
     timeout: 10
     token_expiry: minutes=30
     use_global_settings: true
+    use_ssl: false
+    use_tls: false
+    username: ''
   conditions: []
   identifiers:
     name: default-recovery-email
@@ -108,7 +122,10 @@ entries:
   permissions: []
   state: present
 - attrs:
+    create_users_as_inactive: false
+    create_users_group: null
     user_creation_mode: never_create
+    user_path_template: ''
     user_type: external
   conditions: []
   identifiers:
@@ -118,12 +135,21 @@ entries:
   permissions: []
   state: present
 - attrs:
+    captcha_stage: null
     case_insensitive_matching: true
+    enable_remember_me: false
+    enrollment_flow: null
+    password_stage: null
+    passwordless_flow: null
     pretend_user_exists: true
+    recovery_flow: null
     show_matched_user: true
+    show_source_labels: false
+    sources: []
     user_fields:
     - email
     - username
+    webauthn_stage: null
   conditions: []
   identifiers:
     name: default-recovery-identification
@@ -163,6 +189,7 @@ entries:
     evaluate_on_plan: true
     invalid_response_action: retry
     policy_engine_mode: any
+    re_evaluate_policies: false
   conditions: []
   identifiers:
     order: 30
@@ -176,6 +203,7 @@ entries:
     evaluate_on_plan: true
     invalid_response_action: retry
     policy_engine_mode: any
+    re_evaluate_policies: false
   conditions: []
   identifiers:
     order: 40
@@ -187,7 +215,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -200,5 +232,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-11-08 05:16:02.876805+00:00
+  name: authentik Export - 2026-02-28 05:14:46.858238+00:00
 version: 1

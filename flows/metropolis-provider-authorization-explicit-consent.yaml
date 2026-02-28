@@ -2,6 +2,8 @@ context: {}
 entries:
 - attrs:
     authentication: require_authenticated
+    background: ''
+    compatibility_mode: false
     denied_action: message_continue
     designation: authorization
     layout: sidebar_left
@@ -26,6 +28,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -41,5 +44,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-11-08 05:15:03.370717+00:00
+  name: authentik Export - 2026-02-28 05:13:31.380447+00:00
 version: 1

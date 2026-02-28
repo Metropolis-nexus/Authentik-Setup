@@ -2,6 +2,7 @@ context: {}
 entries:
 - attrs:
     authentication: require_unauthenticated
+    background: ''
     compatibility_mode: true
     denied_action: message_continue
     designation: authentication
@@ -17,9 +18,10 @@ entries:
   permissions: []
   state: present
 - attrs:
-    expression: "if request.context[\"pending_user\"].attributes[\"standard_auth\"\
-      ] == \"No\" and ak_user_has_authenticator(context['pending_user'], 'webauthn'):\n\
-      \  return True\nreturn False"
+    execution_logging: false
+    expression: "if request.context[\"pending_user\"].attributes.get(\"standard_auth\"\
+      , \"Yes\") == \"No\" and ak_user_has_authenticator(context['pending_user'],\
+      \ 'webauthn'):\n  return True\nreturn False"
     name: metropolis-passwordless-authentication-redirect
   conditions: []
   identifiers:
@@ -28,6 +30,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
       United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
     name: metropolis-geoip
@@ -38,6 +41,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: return not request.context["pending_user"].is_active
     name: metropolis-is-inactive
   conditions: []
@@ -47,10 +51,13 @@ entries:
   permissions: []
   state: present
 - attrs:
-    expression: "if not ak_is_group_member(request.context[\"pending_user\"], name=\"\
-      metropolis_banned\"):\n  return True\nak_message(\"Account banned.\")\nreturn\
-      \ False"
-    name: metropolis-is-not-banned
+    execution_logging: false
+    expression: "if ak_is_group_member(request.context[\"pending_user\"], name=\"\
+      metropolis_banned\"):\n  ak_message(\"Account banned.\")\n  return False\nelif\
+      \ ak_is_group_member(request.context[\"pending_user\"], name=\"metropolis_reserved\"\
+      ):\n  ak_message(\"Account reserved. How did you even get this far?!\")\n  return\
+      \ False\nreturn True"
+    name: metropolis-is-not-banned-or-reserved
   conditions: []
   identifiers:
     pk: 39ca87cb-0967-4c4d-a96e-336f109abc7d
@@ -69,6 +76,9 @@ entries:
     timeout: 10
     token_expiry: minutes=30
     use_global_settings: true
+    use_ssl: false
+    use_tls: false
+    username: ''
   conditions: []
   identifiers:
     name: default-enrollment-email-verification
@@ -85,6 +95,7 @@ entries:
     - webauthn
     last_auth_threshold: seconds=0
     not_configured_action: configure
+    webauthn_allowed_device_types: []
     webauthn_user_verification: required
   conditions: []
   identifiers:
@@ -115,6 +126,7 @@ entries:
     remember_device: days=30
     remember_me_offset: days=30
     session_duration: seconds=0
+    terminate_other_sessions: false
   conditions: []
   identifiers:
     name: metropolis-authentication-login
@@ -123,15 +135,21 @@ entries:
   permissions: []
   state: present
 - attrs:
+    captcha_stage: null
     case_insensitive_matching: true
     enable_remember_me: true
     enrollment_flow: cf997b2c-1614-4b5d-9555-c1a029f0144f
+    password_stage: null
     passwordless_flow: d81de7fd-d5b0-4a40-97d8-26cc12dce757
     pretend_user_exists: true
     recovery_flow: 7fe2c5b3-5ea4-4cb6-b18c-ea409d6f1b1e
+    show_matched_user: false
+    show_source_labels: false
+    sources: []
     user_fields:
     - username
     - email
+    webauthn_stage: null
   conditions: []
   identifiers:
     name: metropolis-authentification-identification
@@ -143,6 +161,7 @@ entries:
     keep_context: true
     mode: flow
     target_flow: 6e6186f1-b973-402a-a701-89fe71561c86
+    target_static: ''
   conditions: []
   identifiers:
     name: metropolis-passwordless-authentication-redirect
@@ -151,6 +170,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -164,6 +184,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -177,6 +198,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -190,6 +212,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -203,6 +226,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -216,6 +240,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -230,7 +255,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -242,7 +271,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -254,7 +287,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -266,7 +303,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -279,5 +320,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-26 04:29:27.273247+00:00
+  name: authentik Export - 2026-02-28 05:13:06.275249+00:00
 version: 1

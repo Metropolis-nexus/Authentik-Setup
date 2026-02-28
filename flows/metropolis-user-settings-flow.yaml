@@ -2,6 +2,7 @@ context: {}
 entries:
 - attrs:
     authentication: require_authenticated
+    background: ''
     compatibility_mode: true
     denied_action: message_continue
     designation: stage_configuration
@@ -25,7 +26,9 @@ entries:
     name: default-user-settings-field-locale
     order: 203
     placeholder: Locale
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: ak-locale
   conditions: []
   identifiers:
@@ -41,7 +44,9 @@ entries:
     name: default-user-settings-field-username
     order: 200
     placeholder: Username
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: username
   conditions: []
   identifiers:
@@ -57,6 +62,9 @@ entries:
     name: metropolis-user-settings-field-name
     order: 201
     placeholder: Does not have to be your legal name
+    placeholder_expression: false
+    required: false
+    sub_text: ''
     type: text
   conditions: []
   identifiers:
@@ -72,6 +80,9 @@ entries:
     name: metropolis-user-settings-field-email
     order: 202
     placeholder: Email
+    placeholder_expression: false
+    required: false
+    sub_text: ''
     type: email
   conditions: []
   identifiers:
@@ -118,6 +129,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "current_email = request.user.email\nnew_email = request.context[\"\
       prompt_data\"][\"email\"]\n\nif new_email == \"\":\n  return False\n\nif new_email\
       \ == current_email:\n  return False\n\ncontext[\"flow_plan\"].context[\"pending_user\"\
@@ -133,6 +145,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "standard = request.context[\"prompt_data\"][\"attributes\"][\"standard_auth\"\
       ]\n\npasswordless = request.context[\"prompt_data\"][\"attributes\"][\"passwordless_auth\"\
       ]\n\nif standard==\"Yes\" or passwordless==\"Yes\":\n  return True\n\nak_message(\"\
@@ -145,6 +158,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "from authentik.core.models import (\n    USER_ATTRIBUTE_CHANGE_EMAIL,\n\
       \    USER_ATTRIBUTE_CHANGE_NAME,\n    USER_ATTRIBUTE_CHANGE_USERNAME\n)\nprompt_data\
       \ = request.context.get(\"prompt_data\")\n\nif not request.user.group_attributes(request.http_request).get(\n\
@@ -166,6 +180,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "from authentik.core.models import User\n\ncurrent_email = request.user.email\n\
       new_email = request.context[\"prompt_data\"][\"email\"]\n\nif new_email == \"\
       \":\n  return True\n\nif new_email == current_email:\n  return True\n\nif User.objects.filter(email=new_email).exists():\n\
@@ -190,6 +205,9 @@ entries:
     timeout: 10
     token_expiry: minutes=30
     use_global_settings: true
+    use_ssl: false
+    use_tls: false
+    username: ''
   conditions: []
   identifiers:
     name: default-enrollment-email-verification
@@ -217,7 +235,10 @@ entries:
   permissions: []
   state: present
 - attrs:
+    create_users_as_inactive: false
+    create_users_group: null
     user_creation_mode: never_create
+    user_path_template: ''
     user_type: internal
   conditions: []
   identifiers:
@@ -227,6 +248,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -240,6 +262,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -253,6 +276,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -267,7 +291,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -280,5 +308,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-26 04:29:55.302728+00:00
+  name: authentik Export - 2026-02-28 05:15:16.091707+00:00
 version: 1

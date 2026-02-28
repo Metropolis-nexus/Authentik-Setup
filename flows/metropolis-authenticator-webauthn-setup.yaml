@@ -2,6 +2,8 @@ context: {}
 entries:
 - attrs:
     authentication: require_authenticated
+    background: ''
+    compatibility_mode: false
     denied_action: message_continue
     designation: stage_configuration
     layout: sidebar_left
@@ -16,7 +18,9 @@ entries:
   permissions: []
   state: present
 - attrs:
+    authenticator_attachment: null
     configure_flow: c588296c-d5ee-4d4f-af5c-70fc884e526f
+    device_type_restrictions: []
     friendly_name: WebAuthn Device
     max_attempts: 0
     resident_key_requirement: discouraged
@@ -29,6 +33,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -44,5 +49,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-11-08 05:16:20.910325+00:00
+  name: authentik Export - 2026-02-28 05:15:10.264138+00:00
 version: 1

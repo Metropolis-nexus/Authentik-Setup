@@ -2,6 +2,7 @@ context: {}
 entries:
 - attrs:
     authentication: require_unauthenticated
+    background: ''
     compatibility_mode: true
     denied_action: message_continue
     designation: enrollment
@@ -25,7 +26,9 @@ entries:
     name: default-user-settings-field-locale
     order: 203
     placeholder: Locale
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: ak-locale
   conditions: []
   identifiers:
@@ -35,10 +38,15 @@ entries:
   state: present
 - attrs:
     field_key: name
+    initial_value: ''
+    initial_value_expression: false
     label: Name (optional)
     name: metropolis-enrollment-field-name
     order: 0
     placeholder: Does not have to be your legal name
+    placeholder_expression: false
+    required: false
+    sub_text: ''
     type: text
   conditions: []
   identifiers:
@@ -48,10 +56,14 @@ entries:
   state: present
 - attrs:
     field_key: email
+    initial_value: ''
+    initial_value_expression: false
     label: Email (optional)
     name: metropolis-enrollment-field-email
     order: 1
     placeholder: Email
+    placeholder_expression: false
+    required: false
     sub_text: Password recovery is available if you enroll an email address.
     type: email
   conditions: []
@@ -63,12 +75,14 @@ entries:
 - attrs:
     field_key: attributes.passwordless_auth
     initial_value: 'No'
+    initial_value_expression: false
     label: Passwordless Authentication
     name: metropolis-enrollment-passwordless-auth
     order: 3
     placeholder: return ["Yes", "No"]
     placeholder_expression: true
     required: true
+    sub_text: ''
     type: dropdown
   conditions: []
   identifiers:
@@ -79,10 +93,14 @@ entries:
 - attrs:
     field_key: attributes.standard_auth
     initial_value: 'Yes'
+    initial_value_expression: false
     label: Password + WebAuthn/TOTP Authentication
     name: metropolis-enrollment-standard-auth
     order: 2
+    placeholder: ''
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: hidden
   conditions: []
   identifiers:
@@ -92,11 +110,15 @@ entries:
   state: present
 - attrs:
     field_key: password_repeat
+    initial_value: ''
+    initial_value_expression: false
     label: Password (repeat)
     name: default-enrollment-field-password-repeat
     order: 1
     placeholder: Password (repeat)
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: password
   conditions: []
   identifiers:
@@ -105,25 +127,16 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: residency
-    label: I am not a resident of Mississippi, Wyoming, Ohio, South Dakota, or the
-      United Kingdom.
-    name: metropolis-enrollment-checkbox-residency
-    order: 401
-    required: true
-    type: checkbox
-  conditions: []
-  identifiers:
-    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: age
+    initial_value: ''
+    initial_value_expression: false
     label: I am above the age of 18.
     name: metropolis-enrollment-checkbox-age
     order: 400
+    placeholder: ''
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: checkbox
   conditions: []
   identifiers:
@@ -133,11 +146,15 @@ entries:
   state: present
 - attrs:
     field_key: username
+    initial_value: ''
+    initial_value_expression: false
     label: Username
     name: default-enrollment-field-username
     order: 0
     placeholder: Username
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: username
   conditions: []
   identifiers:
@@ -147,11 +164,15 @@ entries:
   state: present
 - attrs:
     field_key: password
+    initial_value: ''
+    initial_value_expression: false
     label: Password
     name: default-enrollment-field-password
     order: 0
     placeholder: Password
+    placeholder_expression: false
     required: true
+    sub_text: ''
     type: password
   conditions: []
   identifiers:
@@ -160,6 +181,26 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: residency
+    initial_value: ''
+    initial_value_expression: false
+    label: I am not a resident of Mississippi, Ohio, South Dakota, Tennessee, Wyoming,
+      or the United Kingdom.
+    name: metropolis-enrollment-checkbox-residency
+    order: 401
+    placeholder: ''
+    placeholder_expression: false
+    required: true
+    sub_text: ''
+    type: checkbox
+  conditions: []
+  identifiers:
+    pk: 213c0825-53c0-44c4-b596-c83324ad2f44
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
     expression: "if request.context[\"prompt_data\"][\"email\"] == \"\":\n  return\
       \ False\nreturn True"
     name: metropolis-enrollment-with-email
@@ -170,6 +211,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
       United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
     name: metropolis-geoip
@@ -180,6 +222,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "from authentik.core.models import User\n\nemail = request.context[\"\
       prompt_data\"][\"email\"]\nif email!=\"\" and User.objects.filter(email=email).exists():\n\
       \  ak_message(\"Email address already in use\")\n  return False\nreturn True"
@@ -191,6 +234,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "if ak_user_by(username__iexact=context['prompt_data']['username'])\
       \ is None:\n  return True\nelse:\n  ak_message(\"Username is already taken.\"\
       )\n  return False"
@@ -211,6 +255,7 @@ entries:
     check_zxcvbn: true
     error_message: Password needs to be 12 characters or longer. You should use a
       diceware password.
+    execution_logging: false
     hibp_allowed_count: 0
     length_min: 12
     name: metropolis-password-policy
@@ -224,6 +269,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
     expression: "import re\nif not re.match('^[0-9]+$', request.context[\"prompt_data\"\
       ][\"username\"]):\n  return True\nak_message(\"All numeric usernames are not\
       \ allowed.\")\nreturn False"
@@ -235,8 +281,10 @@ entries:
   permissions: []
   state: present
 - attrs:
+    create_users_as_inactive: false
     create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
     user_creation_mode: always_create
+    user_path_template: ''
     user_type: internal
   conditions: []
   identifiers:
@@ -254,6 +302,7 @@ entries:
     - webauthn
     last_auth_threshold: seconds=0
     not_configured_action: configure
+    webauthn_allowed_device_types: []
     webauthn_user_verification: required
   conditions: []
   identifiers:
@@ -265,14 +314,14 @@ entries:
 - attrs:
     fields:
     - 87c432b1-66d8-4b50-b1c4-445b45873694
-    - 213c0825-53c0-44c4-b596-c83324ad2f44
     - c745418b-19c9-4224-80bb-b4764a1661c4
     - 84b32c40-aeea-4e66-a360-83b142efeed3
     - 2ee49216-5298-4158-b9a5-11d722e4cd3b
+    - 213c0825-53c0-44c4-b596-c83324ad2f44
     validation_policies:
-    - f50858c8-dc43-4840-bceb-849418b2b028
     - 9cdaa24b-14b1-4e3b-a257-c1bd958d1ac5
     - 90017643-f022-4197-84af-c0ae3b1e4ec2
+    - f50858c8-dc43-4840-bceb-849418b2b028
   conditions: []
   identifiers:
     name: metropolis-enrollment-prompt-first
@@ -280,7 +329,8 @@ entries:
   model: authentik_stages_prompt.promptstage
   permissions: []
   state: present
-- attrs: {}
+- attrs:
+    continue_flow_without_invitation: false
   conditions: []
   identifiers:
     name: metropolis-enrollment-invitation
@@ -294,6 +344,7 @@ entries:
     remember_device: days=30
     remember_me_offset: days=30
     session_duration: seconds=0
+    terminate_other_sessions: false
   conditions: []
   identifiers:
     name: metropolis-authentication-login
@@ -321,6 +372,7 @@ entries:
     keep_context: true
     mode: flow
     target_flow: 8497b8b2-bbba-47a8-8c36-155e6b465cf5
+    target_static: ''
   conditions: []
   identifiers:
     name: metropolis-enrollment-with-email
@@ -329,6 +381,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -342,6 +395,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -355,6 +409,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -368,6 +423,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -381,6 +437,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -394,6 +451,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -407,6 +465,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -421,7 +480,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -433,7 +496,11 @@ entries:
   state: present
 - attrs:
     enabled: true
+    failure_result: false
+    group: null
+    negate: false
     timeout: 30
+    user: null
   conditions: []
   identifiers:
     order: 0
@@ -446,5 +513,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-12-06 10:48:32.010718+00:00
+  name: authentik Export - 2026-02-28 05:14:04.421966+00:00
 version: 1

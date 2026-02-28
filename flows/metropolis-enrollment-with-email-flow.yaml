@@ -2,6 +2,8 @@ context: {}
 entries:
 - attrs:
     authentication: require_redirect
+    background: ''
+    compatibility_mode: false
     denied_action: message_continue
     designation: enrollment
     layout: sidebar_left
@@ -27,6 +29,9 @@ entries:
     timeout: 10
     token_expiry: minutes=30
     use_global_settings: true
+    use_ssl: false
+    use_tls: false
+    username: ''
   conditions: []
   identifiers:
     name: default-enrollment-email-verification
@@ -43,6 +48,7 @@ entries:
     - webauthn
     last_auth_threshold: seconds=0
     not_configured_action: configure
+    webauthn_allowed_device_types: []
     webauthn_user_verification: required
   conditions: []
   identifiers:
@@ -55,6 +61,7 @@ entries:
     create_users_as_inactive: true
     create_users_group: fe62d202-253c-4a08-b3f9-c78b37392ca9
     user_creation_mode: always_create
+    user_path_template: ''
     user_type: internal
   conditions: []
   identifiers:
@@ -64,6 +71,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -77,6 +85,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -90,6 +99,7 @@ entries:
   permissions: []
   state: present
 - attrs:
+    evaluate_on_plan: false
     invalid_response_action: retry
     policy_engine_mode: any
     re_evaluate_policies: true
@@ -105,5 +115,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2025-11-08 05:15:14.159018+00:00
+  name: authentik Export - 2026-02-28 05:13:59.146747+00:00
 version: 1
