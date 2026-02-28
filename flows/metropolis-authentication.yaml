@@ -65,6 +65,20 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
+    expression: "flow_plan = request.context.get(\"flow_plan\")\nif not flow_plan:\n\
+      \    return True\n# if the authentication method is webauthn (passwordless),\
+      \ then we skip the authenticator\n# validation stage by returning false (true\
+      \ will execute the stage)\nreturn not (flow_plan.context.get(\"auth_method\"\
+      ) == \"auth_webauthn_pwl\")"
+    name: default-authentication-flow-authenticator-validate-stage
+  conditions: []
+  identifiers:
+    pk: 01f271ec-0053-47d7-b720-322270238134
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
     activate_user_on_success: true
     from_address: system@authentik.local
     host: localhost
@@ -90,6 +104,7 @@ entries:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    - 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
     device_classes:
     - totp
     - webauthn
@@ -149,7 +164,7 @@ entries:
     user_fields:
     - username
     - email
-    webauthn_stage: null
+    webauthn_stage: 42fabd17-c0c0-4235-9059-b8b5771c4949
   conditions: []
   identifiers:
     name: metropolis-authentification-identification
@@ -311,6 +326,22 @@ entries:
   conditions: []
   identifiers:
     order: 0
+    pk: 119396ff-60ea-4b28-b6de-4791f8f1e899
+    policy: 01f271ec-0053-47d7-b720-322270238134
+    target: b774e9e7-cf82-4473-96dc-a0aa568481c3
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    failure_result: false
+    group: null
+    negate: false
+    timeout: 30
+    user: null
+  conditions: []
+  identifiers:
+    order: 0
     pk: a1b2bf20-3db4-4b38-9bfe-383e5563487e
     policy: 39ca87cb-0967-4c4d-a96e-336f109abc7d
     target: 6699ae76-677e-4563-bd58-3b2b55c08e5b
@@ -320,5 +351,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:13:06.275249+00:00
+  name: authentik Export - 2026-02-28 07:20:33.233791+00:00
 version: 1

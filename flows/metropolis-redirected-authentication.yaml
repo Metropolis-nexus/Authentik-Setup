@@ -32,9 +32,24 @@ entries:
   permissions: []
   state: present
 - attrs:
+    execution_logging: false
+    expression: "flow_plan = request.context.get(\"flow_plan\")\nif not flow_plan:\n\
+      \    return True\n# if the authentication method is webauthn (passwordless),\
+      \ then we skip the authenticator\n# validation stage by returning false (true\
+      \ will execute the stage)\nreturn not (flow_plan.context.get(\"auth_method\"\
+      ) == \"auth_webauthn_pwl\")"
+    name: default-authentication-flow-authenticator-validate-stage
+  conditions: []
+  identifiers:
+    pk: 01f271ec-0053-47d7-b720-322270238134
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    - 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
     device_classes:
     - totp
     - webauthn
@@ -131,6 +146,22 @@ entries:
   conditions: []
   identifiers:
     order: 0
+    pk: b61db80e-d84c-409e-af43-685411d72272
+    policy: 01f271ec-0053-47d7-b720-322270238134
+    target: 1ac6ec8b-bb36-47d1-b073-9ff7e969b6b3
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    failure_result: false
+    group: null
+    negate: false
+    timeout: 30
+    user: null
+  conditions: []
+  identifiers:
+    order: 0
     pk: ad001ae6-fba9-4431-a213-9873fd5e9805
     policy: 39ca87cb-0967-4c4d-a96e-336f109abc7d
     target: b1224dd7-a96b-41a4-a00f-7dad0eb2110a
@@ -140,5 +171,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:13:18.929214+00:00
+  name: authentik Export - 2026-02-28 07:20:46.639571+00:00
 version: 1
