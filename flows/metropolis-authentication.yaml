@@ -53,14 +53,26 @@ entries:
 - attrs:
     execution_logging: false
     expression: "if ak_is_group_member(request.context[\"pending_user\"], name=\"\
-      metropolis_banned\"):\n  ak_message(\"Account banned.\")\n  return False\nelif\
-      \ ak_is_group_member(request.context[\"pending_user\"], name=\"metropolis_reserved\"\
+      metropolis_banned\"):\n  ak_message(\"Account banned.\")\n  return False\n \
+      \ \nelif ak_is_group_member(request.context[\"pending_user\"], name=\"metropolis_reserved\"\
       ):\n  ak_message(\"Account reserved. How did you even get this far?!\")\n  return\
-      \ False\nreturn True"
+      \ False\n  \nreturn True"
     name: metropolis-is-not-banned-or-reserved
   conditions: []
   identifiers:
     pk: 39ca87cb-0967-4c4d-a96e-336f109abc7d
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
+    expression: "if ak_is_group_member(request.context[\"pending_user\"], name=\"\
+      authentik Service Accounts\"):\n  ak_message(\"Service accounts cannot login\
+      \ here. How did you even get this far?!\")\n  return False\n  \nreturn True"
+    name: metropolis-is-not-service-account
+  conditions: []
+  identifiers:
+    pk: f8439fd3-688d-4288-b44e-c217f76c2ed0
   model: authentik_policies_expression.expressionpolicy
   permissions: []
   state: present
@@ -120,22 +132,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    allow_show_password: true
-    backends:
-    - authentik.core.auth.InbuiltBackend
-    - authentik.sources.kerberos.auth.KerberosBackend
-    - authentik.sources.ldap.auth.LDAPBackend
-    - authentik.core.auth.TokenBackend
-    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
-    failed_attempts_before_cancel: 5
-  conditions: []
-  identifiers:
-    name: default-authentication-password
-    pk: 46323292-891f-447b-9ade-a99fac127bd6
-  model: authentik_stages_password.passwordstage
-  permissions: []
-  state: present
-- attrs:
     geoip_binding: no_binding
     network_binding: no_binding
     remember_device: days=30
@@ -147,6 +143,19 @@ entries:
     name: metropolis-authentication-login
     pk: 4b789328-2779-4273-8b85-70bdb9cf28f9
   model: authentik_stages_user_login.userloginstage
+  permissions: []
+  state: present
+- attrs:
+    allow_show_password: true
+    backends:
+    - authentik.core.auth.InbuiltBackend
+    configure_flow: 949453e8-c583-432b-94ba-29e11fba065d
+    failed_attempts_before_cancel: 5
+  conditions: []
+  identifiers:
+    name: metropolis-authentication-password
+    pk: 84722a83-e0ae-4545-bb3a-7c9e1e2e89bc
+  model: authentik_stages_password.passwordstage
   permissions: []
   state: present
 - attrs:
@@ -235,7 +244,7 @@ entries:
   identifiers:
     order: 40
     pk: cfefbff7-d6c6-499c-9c77-bc1cbe115a69
-    stage: 46323292-891f-447b-9ade-a99fac127bd6
+    stage: 84722a83-e0ae-4545-bb3a-7c9e1e2e89bc
     target: 812f9784-eb0d-4444-b551-73d3de123e66
   model: authentik_flows.flowstagebinding
   permissions: []
@@ -257,7 +266,7 @@ entries:
 - attrs:
     evaluate_on_plan: false
     invalid_response_action: retry
-    policy_engine_mode: any
+    policy_engine_mode: all
     re_evaluate_policies: true
   conditions: []
   identifiers:
@@ -341,7 +350,23 @@ entries:
     user: null
   conditions: []
   identifiers:
-    order: 0
+    order: 20
+    pk: 91fec12c-d436-4f12-bdb1-8c0d657d2f90
+    policy: f8439fd3-688d-4288-b44e-c217f76c2ed0
+    target: 6699ae76-677e-4563-bd58-3b2b55c08e5b
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    failure_result: false
+    group: null
+    negate: false
+    timeout: 30
+    user: null
+  conditions: []
+  identifiers:
+    order: 10
     pk: a1b2bf20-3db4-4b38-9bfe-383e5563487e
     policy: 39ca87cb-0967-4c4d-a96e-336f109abc7d
     target: 6699ae76-677e-4563-bd58-3b2b55c08e5b
@@ -351,5 +376,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 07:20:33.233791+00:00
+  name: authentik Export - 2026-03-03 09:47:07.074027+00:00
 version: 1
