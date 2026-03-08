@@ -1,7 +1,7 @@
 context: {}
 entries:
 - attrs:
-    authentication: require_unauthenticated
+    authentication: require_outpost
     background: ''
     compatibility_mode: true
     denied_action: message_continue
@@ -142,5 +142,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-03-03 09:47:12.811392+00:00
+  name: authentik Export - 2026-03-08 19:37:09.391407+00:00
 version: 1
