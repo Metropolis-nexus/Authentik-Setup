@@ -129,6 +129,27 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: attributes.sshPublicKey
+    initial_value: "try:\n keys = user.attributes.get(\"sshPublicKey\", \"\")\n if\
+      \ type(keys) is str:\n   return keys\n else:\n   return \"\\n\".join(keys)\n\
+      except:\n return None"
+    initial_value_expression: true
+    label: SSH Keys
+    name: metropolis-user-settings-field-ssh-keys
+    order: 206
+    placeholder: ''
+    placeholder_expression: false
+    required: false
+    sub_text: SSH keys to access TrueNAS. You can only set this if you are a member
+      of the storage group.
+    type: text_area
+  conditions: []
+  identifiers:
+    pk: 8e55f693-6c07-48ab-bd53-29461d04b490
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
     execution_logging: false
     expression: "current_email = request.user.email\nnew_email = request.context[\"\
       prompt_data\"][\"email\"]\n\nif new_email == \"\":\n  return False\n\nif new_email\
@@ -141,6 +162,20 @@ entries:
   conditions: []
   identifiers:
     pk: 87f4fc31-6648-40de-b21c-8eb9c056c267
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
+    expression: "if ak_is_group_member(request.user, name=\"metropolis_storage\"):\n\
+      \  prompt_data = context['prompt_data']['attributes']['sshPublicKey']\n  sshKeyList\
+      \ = prompt_data.split(\"\\n\")\n  context['prompt_data']['attributes']['sshPublicKey']\
+      \ = sshKeyList\n  return True\n\nrequest.context[\"prompt_data\"][\"attributes\"\
+      ][\"sshPublicKey\"] = []\nreturn True"
+    name: metropolis-validate-ssh-keys
+  conditions: []
+  identifiers:
+    pk: 41b55563-8703-4db3-a24a-ae75a33c1a20
   model: authentik_policies_expression.expressionpolicy
   permissions: []
   state: present
@@ -223,10 +258,12 @@ entries:
     - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
     - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
     - c285d707-f3b8-4346-894e-7b3081bd9746
+    - 8e55f693-6c07-48ab-bd53-29461d04b490
     validation_policies:
     - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
     - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
     - 711e5fba-cf65-40d4-914e-920387ef376e
+    - 41b55563-8703-4db3-a24a-ae75a33c1a20
   conditions: []
   identifiers:
     name: metropolis-user-settings
@@ -308,5 +345,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:15:16.091707+00:00
+  name: authentik Export - 2026-03-19 07:02:45.060500+00:00
 version: 1
