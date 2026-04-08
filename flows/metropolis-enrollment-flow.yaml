@@ -93,8 +93,8 @@ entries:
     field_key: residency
     initial_value: ''
     initial_value_expression: false
-    label: I am not a resident of Mississippi, Ohio, South Dakota, Tennessee, Wyoming,
-      or the United Kingdom.
+    label: I am not a resident of Florida, Mississippi, Ohio, South Dakota, Tennessee,
+      Wyoming, or the United Kingdom.
     name: metropolis-enrollment-checkbox-residency
     order: 401
     placeholder: ''
@@ -201,23 +201,23 @@ entries:
   state: present
 - attrs:
     execution_logging: false
-    expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
-      United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
-    name: metropolis-geoip
-  conditions: []
-  identifiers:
-    pk: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
-  model: authentik_policies_expression.expressionpolicy
-  permissions: []
-  state: present
-- attrs:
-    execution_logging: false
     expression: "if request.context[\"prompt_data\"][\"email\"] == \"\":\n  return\
       \ False\nreturn True"
     name: metropolis-enrollment-with-email
   conditions: []
   identifiers:
     pk: ca2e73ce-1e6d-4db6-9de6-d8e3a9eb03c6
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
+    expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
+      United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
+    name: metropolis-geoip
+  conditions: []
+  identifiers:
+    pk: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
   model: authentik_policies_expression.expressionpolicy
   permissions: []
   state: present
@@ -297,6 +297,7 @@ entries:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    - 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
     device_classes:
     - totp
     - webauthn
@@ -494,7 +495,7 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: bfb405d5-4bbe-4a34-82c0-947d8deaddf5
+    pk: 12b5ce8f-6df0-4f2a-a59f-42461010576f
     policy: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
     target: cf997b2c-1614-4b5d-9555-c1a029f0144f
   model: authentik_policies.policybinding
@@ -519,5 +520,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:13:52.794183+00:00
+  name: authentik Export - 2026-04-08 22:02:57.759067+00:00
 version: 1
