@@ -93,8 +93,8 @@ entries:
     field_key: residency
     initial_value: ''
     initial_value_expression: false
-    label: I am not a resident of Florida, Mississippi, Ohio, South Dakota, Tennessee,
-      Wyoming, or the United Kingdom.
+    label: I am not a resident of Florida, Mississippi, South Dakota, Tennessee, Wyoming,
+      or the United Kingdom.
     name: metropolis-enrollment-checkbox-residency
     order: 401
     placeholder: ''
@@ -520,5 +520,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-04-08 22:02:57.759067+00:00
+  name: authentik Export - 2026-04-10 18:08:51.785106+00:00
 version: 1
