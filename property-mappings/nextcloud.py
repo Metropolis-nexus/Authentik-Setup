@@ -1,7 +1,7 @@
 # Scope: nextcloud
 
 # Extract all groups the user is a member of
-groups = [group.name for group in user.ak_groups.all()]
+groups = [group.name for group in user.groups.all()]
 
 # In Nextcloud, administrators must be members of a fixed group called "admin".
 

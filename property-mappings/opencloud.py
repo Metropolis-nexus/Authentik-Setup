@@ -12,6 +12,6 @@ if request.user.name == "":
 return {
   "name": request.user.name,
   "preferred_username": request.user.username,
-  "groups": [group.name for group in user.ak_groups.all()],
+  "groups": [group.name for group in user.groups.all()],
   "role": role
 }
