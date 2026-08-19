@@ -1,4 +1,8 @@
-if ak_is_group_member(request.context["pending_user"], name="metropolis_banned"):
+if ak_is_group_member(request.context["pending_user"], name="metropolis_disabled"):
+  ak_message("Account disabled.")
+  return False
+
+elif ak_is_group_member(request.context["pending_user"], name="metropolis_banned"):
   ak_message("Account banned.")
   return False
 
