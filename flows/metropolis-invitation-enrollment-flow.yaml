@@ -18,25 +18,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.settings.locale
-    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
-      locale\", \"\")\nexcept:\n    return ''"
-    initial_value_expression: true
-    label: Locale
-    name: default-user-settings-field-locale
-    order: 203
-    placeholder: Locale
-    placeholder_expression: false
-    required: true
-    sub_text: ''
-    type: ak-locale
-  conditions: []
-  identifiers:
-    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: name
     initial_value: ''
     initial_value_expression: false
@@ -105,6 +86,25 @@ entries:
   conditions: []
   identifiers:
     pk: 92289318-5312-440c-96b3-ecbd9f0a520a
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    placeholder_expression: false
+    required: true
+    sub_text: ''
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -184,7 +184,7 @@ entries:
     field_key: residency
     initial_value: ''
     initial_value_expression: false
-    label: I am not a resident of Mississippi, Ohio, South Dakota, Tennessee, Wyoming,
+    label: I am not a resident of Florida, Mississippi, South Dakota, Tennessee, Wyoming,
       or the United Kingdom.
     name: metropolis-enrollment-checkbox-residency
     order: 401
@@ -212,12 +212,24 @@ entries:
   state: present
 - attrs:
     execution_logging: false
-    expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
-      United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
+    expression: "try:\n  if (context[\"geoip\"][\"country\"] == \"GB\"):\n    ak_message(\"\
+      United Kingdom IP addresses are not allowed.\")\n    return False\n  return\
+      \ True\n\nexcept:\n  return True"
     name: metropolis-geoip
   conditions: []
   identifiers:
     pk: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
+    expression: "if not ' ' in request.context[\"prompt_data\"][\"username\"]:\n \
+      \ return True\nak_message(\"Username cannot have spaces.\")\nreturn False"
+    name: metropolis-block-spaces-in-username
+  conditions: []
+  identifiers:
+    pk: 67bf6df8-ea32-45bc-ab9a-9e0e8737d8f7
   model: authentik_policies_expression.expressionpolicy
   permissions: []
   state: present
@@ -297,12 +309,18 @@ entries:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    - 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
     device_classes:
     - totp
     - webauthn
+    email_otp_throttling_factor: 1.0
     last_auth_threshold: seconds=0
     not_configured_action: configure
+    sms_otp_throttling_factor: 1.0
+    static_otp_throttling_factor: 1.0
+    totp_otp_throttling_factor: 1.0
     webauthn_allowed_device_types: []
+    webauthn_hints: []
     webauthn_user_verification: required
   conditions: []
   identifiers:
@@ -322,6 +340,7 @@ entries:
     - 9cdaa24b-14b1-4e3b-a257-c1bd958d1ac5
     - 90017643-f022-4197-84af-c0ae3b1e4ec2
     - f50858c8-dc43-4840-bceb-849418b2b028
+    - 67bf6df8-ea32-45bc-ab9a-9e0e8737d8f7
   conditions: []
   identifiers:
     name: metropolis-enrollment-prompt-first
@@ -354,11 +373,11 @@ entries:
   state: present
 - attrs:
     fields:
-    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     - 88966df6-3bad-44f6-a864-e92021f54798
     - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
     - 78d0409c-151e-4b0b-9988-815a1414fd74
     - 92289318-5312-440c-96b3-ecbd9f0a520a
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     validation_policies:
     - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
   conditions: []
@@ -488,7 +507,7 @@ entries:
   conditions: []
   identifiers:
     order: 0
-    pk: 75fd29a5-7395-44e7-ad63-8155fc0c3195
+    pk: 9740b252-2008-4b51-873b-bdc2dee646b9
     policy: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
     target: 98609813-53ba-47cd-8fad-1653f44d058e
   model: authentik_policies.policybinding
@@ -513,5 +532,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:14:04.421966+00:00
+  name: authentik Export - 2026-10-11 09:53:41.607572+00:00
 version: 1

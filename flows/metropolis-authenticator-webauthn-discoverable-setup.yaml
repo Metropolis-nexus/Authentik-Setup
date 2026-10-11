@@ -22,6 +22,7 @@ entries:
     configure_flow: b763677e-b41c-4aed-89bc-b61513a54d9e
     device_type_restrictions: []
     friendly_name: WebAuthn Device (w/ Discoverable Creds)
+    hints: []
     max_attempts: 0
     resident_key_requirement: required
     user_verification: required
@@ -49,5 +50,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:15:04.991777+00:00
+  name: authentik Export - 2026-10-11 09:54:59.476948+00:00
 version: 1

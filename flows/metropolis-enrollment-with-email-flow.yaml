@@ -43,12 +43,18 @@ entries:
     configuration_stages:
     - 4fecd0f4-9337-4a1b-a013-569b46f12553
     - d2a8dbb9-cba9-4f48-9b24-ce0b4230090b
+    - 7e63dc6a-28a4-4e83-a6a3-99e3046ae46b
     device_classes:
     - totp
     - webauthn
+    email_otp_throttling_factor: 1.0
     last_auth_threshold: seconds=0
     not_configured_action: configure
+    sms_otp_throttling_factor: 1.0
+    static_otp_throttling_factor: 1.0
+    totp_otp_throttling_factor: 1.0
     webauthn_allowed_device_types: []
+    webauthn_hints: []
     webauthn_user_verification: required
   conditions: []
   identifiers:
@@ -115,5 +121,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:13:59.146747+00:00
+  name: authentik Export - 2026-10-11 09:53:33.802575+00:00
 version: 1

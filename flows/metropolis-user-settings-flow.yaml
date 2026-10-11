@@ -18,43 +18,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.settings.locale
-    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
-      locale\", \"\")\nexcept:\n    return ''"
-    initial_value_expression: true
-    label: Locale
-    name: default-user-settings-field-locale
-    order: 203
-    placeholder: Locale
-    placeholder_expression: false
-    required: true
-    sub_text: ''
-    type: ak-locale
-  conditions: []
-  identifiers:
-    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
-    field_key: username
-    initial_value: "try:\n    return user.username\nexcept:\n    return ''"
-    initial_value_expression: true
-    label: Username
-    name: default-user-settings-field-username
-    order: 200
-    placeholder: Username
-    placeholder_expression: false
-    required: true
-    sub_text: ''
-    type: username
-  conditions: []
-  identifiers:
-    pk: df23ba61-845c-43ca-9cb4-0bb4c6634a7a
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: name
     initial_value: "try:\n    return user.name\nexcept:\n    return ''"
     initial_value_expression: true
@@ -146,6 +109,43 @@ entries:
   conditions: []
   identifiers:
     pk: 8e55f693-6c07-48ab-bd53-29461d04b490
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: username
+    initial_value: "try:\n    return user.username\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Username
+    name: default-user-settings-field-username
+    order: 200
+    placeholder: Username
+    placeholder_expression: false
+    required: true
+    sub_text: ''
+    type: username
+  conditions: []
+  identifiers:
+    pk: df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    placeholder_expression: false
+    required: true
+    sub_text: ''
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
   model: authentik_stages_prompt.prompt
   permissions: []
   state: present
@@ -252,18 +252,18 @@ entries:
   state: present
 - attrs:
     fields:
-    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
-    - df23ba61-845c-43ca-9cb4-0bb4c6634a7a
     - a4cbb135-1d28-46f4-9940-f4389888f2af
     - 9cdf47c6-abbd-4156-9c72-3a86be42dcf2
     - 9c9e9424-12fa-410a-8a43-cfaefe5dec61
     - c285d707-f3b8-4346-894e-7b3081bd9746
     - 8e55f693-6c07-48ab-bd53-29461d04b490
+    - df23ba61-845c-43ca-9cb4-0bb4c6634a7a
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     validation_policies:
-    - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
     - 30d0c709-f14f-45c9-9b28-4c5ec81831c0
     - 711e5fba-cf65-40d4-914e-920387ef376e
     - 41b55563-8703-4db3-a24a-ae75a33c1a20
+    - 1552d9da-20e6-41ef-bf83-27c9bbca5abe
   conditions: []
   identifiers:
     name: metropolis-user-settings
@@ -345,5 +345,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-03-19 07:02:45.060500+00:00
+  name: authentik Export - 2026-10-11 09:55:19.305917+00:00
 version: 1

@@ -109,25 +109,6 @@ entries:
   permissions: []
   state: present
 - attrs:
-    field_key: attributes.settings.locale
-    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
-      locale\", \"\")\nexcept:\n    return ''"
-    initial_value_expression: true
-    label: Locale
-    name: default-user-settings-field-locale
-    order: 203
-    placeholder: Locale
-    placeholder_expression: false
-    required: true
-    sub_text: ''
-    type: ak-locale
-  conditions: []
-  identifiers:
-    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
-  model: authentik_stages_prompt.prompt
-  permissions: []
-  state: present
-- attrs:
     field_key: name
     initial_value: ''
     initial_value_expression: false
@@ -200,6 +181,25 @@ entries:
   permissions: []
   state: present
 - attrs:
+    field_key: attributes.settings.locale
+    initial_value: "try:\n    return user.attributes.get(\"settings\", {}).get(\"\
+      locale\", \"\")\nexcept:\n    return ''"
+    initial_value_expression: true
+    label: Locale
+    name: default-user-settings-field-locale
+    order: 203
+    placeholder: Locale
+    placeholder_expression: false
+    required: true
+    sub_text: ''
+    type: ak-locale
+  conditions: []
+  identifiers:
+    pk: b1fc96c6-215e-42be-8eca-a0c37a71cef1
+  model: authentik_stages_prompt.prompt
+  permissions: []
+  state: present
+- attrs:
     execution_logging: false
     expression: "if request.context[\"prompt_data\"][\"email\"] == \"\":\n  return\
       \ False\nreturn True"
@@ -212,12 +212,24 @@ entries:
   state: present
 - attrs:
     execution_logging: false
-    expression: "if (context[\"geoip\"][\"country\"] == \"GB\"):\n  ak_message(\"\
-      United Kingdom IP addresses are not allowed.\")\n  return False\nreturn True"
+    expression: "try:\n  if (context[\"geoip\"][\"country\"] == \"GB\"):\n    ak_message(\"\
+      United Kingdom IP addresses are not allowed.\")\n    return False\n  return\
+      \ True\n\nexcept:\n  return True"
     name: metropolis-geoip
   conditions: []
   identifiers:
     pk: d8f2c3f7-7c4a-42c3-8f8a-61e9f1b138d8
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
+    expression: "if not ' ' in request.context[\"prompt_data\"][\"username\"]:\n \
+      \ return True\nak_message(\"Username cannot have spaces.\")\nreturn False"
+    name: metropolis-block-spaces-in-username
+  conditions: []
+  identifiers:
+    pk: 67bf6df8-ea32-45bc-ab9a-9e0e8737d8f7
   model: authentik_policies_expression.expressionpolicy
   permissions: []
   state: present
@@ -301,9 +313,14 @@ entries:
     device_classes:
     - totp
     - webauthn
+    email_otp_throttling_factor: 1.0
     last_auth_threshold: seconds=0
     not_configured_action: configure
+    sms_otp_throttling_factor: 1.0
+    static_otp_throttling_factor: 1.0
+    totp_otp_throttling_factor: 1.0
     webauthn_allowed_device_types: []
+    webauthn_hints: []
     webauthn_user_verification: required
   conditions: []
   identifiers:
@@ -323,6 +340,7 @@ entries:
     - 9cdaa24b-14b1-4e3b-a257-c1bd958d1ac5
     - 90017643-f022-4197-84af-c0ae3b1e4ec2
     - f50858c8-dc43-4840-bceb-849418b2b028
+    - 67bf6df8-ea32-45bc-ab9a-9e0e8737d8f7
   conditions: []
   identifiers:
     name: metropolis-enrollment-prompt-first
@@ -346,11 +364,11 @@ entries:
   state: present
 - attrs:
     fields:
-    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     - 88966df6-3bad-44f6-a864-e92021f54798
     - 303a1fe3-1bfc-40bb-8fd2-2e3eb125999c
     - 78d0409c-151e-4b0b-9988-815a1414fd74
     - 92289318-5312-440c-96b3-ecbd9f0a520a
+    - b1fc96c6-215e-42be-8eca-a0c37a71cef1
     validation_policies:
     - 5175faa2-4bfd-4a8a-8c3c-dd765b13faf2
   conditions: []
@@ -378,6 +396,7 @@ entries:
     interactive: true
     js_url: https://challenges.cloudflare.com/turnstile/v0/api.js
     public_key: 0x4AAAAAABqyAqrm7B1HqTPf
+    request_content_type: application/x-www-form-urlencoded
     score_max_threshold: -1.0
     score_min_threshold: 0.5
   conditions: []
@@ -520,5 +539,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-04-10 18:08:51.785106+00:00
+  name: authentik Export - 2026-10-11 09:53:25.349927+00:00
 version: 1

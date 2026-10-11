@@ -22,6 +22,7 @@ entries:
     configure_flow: c588296c-d5ee-4d4f-af5c-70fc884e526f
     device_type_restrictions: []
     friendly_name: WebAuthn Device
+    hints: []
     max_attempts: 0
     resident_key_requirement: discouraged
     user_verification: required
@@ -49,5 +50,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-02-28 05:15:10.264138+00:00
+  name: authentik Export - 2026-10-11 09:55:04.946151+00:00
 version: 1

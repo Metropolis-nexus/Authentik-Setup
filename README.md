@@ -41,6 +41,7 @@ Import from the flows directory.
 - Default flow background: flow-backgrounds/chicago.jpg (Upload it through SCP)
 - Default flows
   - Authentication flow: metropolis-authentication-flow
+  - User switch flow: metropolis-user-switch
   - Invalidation flow: metropolis-invalidation-flow
   - Recovery flow: metropolis-recovery-flow
   - User settings flow: metropolis-user-settings-flow
@@ -67,12 +68,10 @@ settings:
 
 # Cleanup
 
-Delete all unnecessary flow and stages except for `default-authentication-flow`. This flow is put behind NGINX http basic auth as a fallback option, in case something goes wrong with the custom authentication flows.
-
 ## Flow and Stages
 
 ### Flows
-All default flows except default-password-change
+Delete all unnecessary flow and stages except for `default-authentication-flow` and `default-password-change`. `default-authentication-flow` is put behind NGINX http basic auth as a fallback option, in case something goes wrong with the custom authentication flows.
 
 ### Stages
 All stages not used by a flow
