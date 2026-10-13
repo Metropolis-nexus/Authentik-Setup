@@ -32,7 +32,7 @@ Import from the flows directory.
 ### Brands
 
 #### authentik-default
-- Disable "Default"
+- Delete "Default"
 
 #### metropolis.nexus
 - Domain: auth.metropolis.nexus
@@ -61,7 +61,7 @@ settings:
 ```
 
 ### Settings
-- Avatars: none
+- Avatars: initials
 - Allow users to change email
 - Event rentention: days=90
 - Disable "Require reason for impersonation"
