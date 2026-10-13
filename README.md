@@ -84,11 +84,6 @@ All flows not used by a stage
 ### Policies
 All policies not assigned to at least 1 object
 
-## System
-
-### Brands
-- authentik-default
-
 # Update akadmin
 Directory -> User -> akadmin
 - Clear out name
