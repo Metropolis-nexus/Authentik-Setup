@@ -19,6 +19,22 @@ entries:
   state: present
 - attrs:
     execution_logging: false
+    expression: 'from datetime import timedelta
+
+
+      from authentik.core.user_switching import is_user_switch_target_recent
+
+
+      return not is_user_switch_target_recent(request, timedelta(hours=72))'
+    name: metropolis-user-switch-skip-mfa
+  conditions: []
+  identifiers:
+    pk: ee244f9f-94c7-4f06-b148-1997eb404eb7
+  model: authentik_policies_expression.expressionpolicy
+  permissions: []
+  state: present
+- attrs:
+    execution_logging: false
     expression: "if ak_is_group_member(request.context[\"pending_user\"], name=\"\
       metropolis_disabled\"):\n  ak_message(\"Account disabled.\")\n  return False\n\
       \nelif ak_is_group_member(request.context[\"pending_user\"], name=\"metropolis_banned\"\
@@ -119,6 +135,22 @@ entries:
     user: null
   conditions: []
   identifiers:
+    order: 0
+    pk: 366695a1-05ce-4052-b14b-27129f5802a3
+    policy: ee244f9f-94c7-4f06-b148-1997eb404eb7
+    target: 541ddd3a-4324-44ae-ab57-f47ab17b6516
+  model: authentik_policies.policybinding
+  permissions: []
+  state: present
+- attrs:
+    enabled: true
+    failure_result: false
+    group: null
+    negate: false
+    timeout: 30
+    user: null
+  conditions: []
+  identifiers:
     order: 10
     pk: 18e634c9-2dbc-411c-87bf-0e35fc8bee4d
     policy: f8439fd3-688d-4288-b44e-c217f76c2ed0
@@ -145,5 +177,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-10-14 00:02:23.633345+00:00
+  name: authentik Export - 2026-10-14 00:26:27.359751+00:00
 version: 1
