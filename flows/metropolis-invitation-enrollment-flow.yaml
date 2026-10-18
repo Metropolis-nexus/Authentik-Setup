@@ -224,9 +224,13 @@ entries:
   state: present
 - attrs:
     execution_logging: false
-    expression: "if not ' ' in request.context[\"prompt_data\"][\"username\"]:\n \
-      \ return True\nak_message(\"Username cannot have spaces.\")\nreturn False"
-    name: metropolis-block-spaces-in-username
+    expression: "if ' ' in request.context[\"prompt_data\"][\"username\"]:\n  ak_message(\"\
+      Username cannot have spaces.\")\n  return False\nelif '@' in request.context[\"\
+      prompt_data\"][\"username\"]:\n  ak_message(\"Username cannot contain '@'.\"\
+      )\n  return False\nelif request.context[\"prompt_data\"][\"username\"].startswith(\"\
+      .\"):\n  ak_message(\"Username cannot start with a period.\")\n  return False\n\
+      return True"
+    name: metropolis-block-invalid-characters-in-username
   conditions: []
   identifiers:
     pk: 67bf6df8-ea32-45bc-ab9a-9e0e8737d8f7
@@ -532,5 +536,5 @@ entries:
 metadata:
   labels:
     blueprints.goauthentik.io/generated: 'true'
-  name: authentik Export - 2026-10-11 09:53:41.607572+00:00
+  name: authentik Export - 2026-10-18 19:14:50.483151+00:00
 version: 1
